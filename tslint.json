@@ -5,10 +5,7 @@
   ],
   "rules": {
     "import-spacing": true,
-    "semicolon": [
-      true,
-      "always"
-    ],
+    "semicolon": false,
     "no-bitwise": false,
     "import-blacklist": [
       true,
@@ -22,6 +19,7 @@
       false
     ],
     // Pending fix for shorthand property names.
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "no-console": false
   }
 }

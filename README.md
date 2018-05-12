@@ -1,6 +1,6 @@
-# nuxt-typescript
+# hidenseek
 
-> Nuxt + PWA + Typescript + Jest + Vuetify
+> Aplicação Web para busca de objetos perdidos.
 
 ## Build Setup
 

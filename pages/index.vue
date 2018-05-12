@@ -1,46 +1,99 @@
 <template>
-    <v-layout column justify-center align-center>
-        <v-flex xs12 sm8 md6>
-            <div class="text-xs-center">
-                <img src="/v.png" alt="Vuetify.js" class="mb-5"/>
-            </div>
-            <v-card>
-                <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
-                <v-card-text>
-                    <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to
-                        empower developers to create amazing applications.</p>
-                    <p>For more information on Vuetify, check out the <a href="https://vuetifyjs.com" target="_blank">documentation</a>.
-                    </p>
-                    <p>If you have questions, please join the official <a href="https://chat.vuetifyjs.com/"
-                                                                          target="_blank" title="chat">discord</a>.</p>
-                    <p>Find a bug? Report it on the github <a href="https://github.com/vuetifyjs/vuetify/issues"
-                                                              target="_blank" title="contribute">issue board</a>.</p>
-                    <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in
-                        the future.</p>
-                    <div class="text-xs-right">
-                        <em>
-                            <small>&mdash; John Leider</small>
-                        </em>
-                    </div>
-                    <hr class="my-3">
-                    <a href="https://nuxtjs.org/" target="_blank">Nuxt Documentation</a>
-                    <br>
-                    <a href="https://github.com/nuxt/nuxt.js" target="_blank">Nuxt GitHub</a>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="primary" flat nuxt to="/inspire">Continue</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-flex>
+  <v-container grid-list-xl justify-center>
+    <v-select label="Procure um item pela categoria" :items="categorys" v-model="categorySelected" autocomplete></v-select>
+    <v-layout class="my-2" row wrap>
+      <v-flex v-for="item in items" :key="item.imgSrc" xl2 lg3 md4 sm6 xs12 class="text-xs-center">
+        <img class="item-img elevation-1" :src="item.imgSrc" @click="onItemSelected">
+      </v-flex>
     </v-layout>
+    <v-dialog v-model="dialog" max-width="512" origin="top left">
+      <v-card>
+        <v-card-media height="384" :src="itemSelected.imgSrc">
+          <v-container fluid fill-height justify-end align-start>
+            <v-btn small class="close-dialog-button" flat icon @click.stop="dialog = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-container>
+        </v-card-media>
+        <v-card-title>{{ itemSelected.description }}</v-card-title>
+        <v-card-actions>
+          <v-btn outline color="primary">Reivindicar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-container>
 </template>
 
 <script lang="ts">
-    import Component from 'nuxt-class-component';
-    import Vue from 'vue';
+  import { Component, Watch, Vue } from 'vue-property-decorator';
+  import Item from '~/model/Item';
 
-    @Component
-    export default class extends Vue {
+  @Component
+  export default class extends Vue {
+
+    items: Item[] = [
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
+      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha')
+    ];
+
+    categorySelected: string | null = null;
+
+    categorys: string[] = [
+      'Celular',
+      'Guarda-chuva',
+      'Caneta',
+      'Régua',
+      'Relógio'
+    ];
+
+    dialog: boolean = false;
+
+    itemSelected: Item | undefined = new Item(NaN, '', '', '');
+
+    @Watch('categorySelected')
+    onCategorySelectedChanged(newVal: string) {
+      this.categorySelected = newVal;
     }
+
+    onItemSelected (event: any) {
+      this.itemSelected = this.items.find(item => item.imgSrc === event.target.src);
+      this.dialog = true;
+    }
+
+    mounted () {
+    }
+
+  }
 </script>
+
+<style scoped>
+  .item-img {
+    width: 256px;
+    height: 192px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .close-dialog-button {
+    margin-top: -8px;
+    margin-right: -8px;
+  }
+</style>

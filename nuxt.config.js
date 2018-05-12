@@ -3,7 +3,7 @@ module.exports = {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
   head: {
-    title: 'nuxt-typescript-starter',
+    title: `Hide 'N' Seek`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -15,24 +15,28 @@ module.exports = {
     ]
   },
   /*
-  ** Customize the progress-bar color
+  ** Customize the progress bar color
   */
-  loading: false,
+  loading: {
+    color: '#CE93D8',
+    failedColor: '#F44336',
+    height: '4px'
+  },
   /*
   ** Build configuration
   */
   plugins: [
-    '~/plugins/vuetify.ts',
-    // '~/plugins/axios',
-    '~/plugins/vue-rxjs',
+    '~/plugins/vuetify',
+    '~/plugins/axios',
+    '~/plugins/vue-rxjs'
   ],
   css: ['~/assets/styles/app.styl'],
   build: {
-    vendor: ['axios', 'vuex-class', 'nuxt-class-component']
+    vendor: ['axios', 'vuex-class', 'nuxt-class-component', 'babel-polyfill']
   },
   modules: ['~/modules/typescript', '@nuxtjs/pwa'],
   vendor: [
-    '~/plugins/vuetify.ts'
+    '~/plugins/vuetify'
   ],
   extractCSS: true
 };
