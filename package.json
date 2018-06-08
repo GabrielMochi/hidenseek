@@ -4,9 +4,9 @@
   "description": "Aplicação Web para busca de objetos perdidos.",
   "private": true,
   "dependencies": {
-    "@nuxtjs/pwa": "^2.0.6",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "express": "^4.16.3",
     "nuxt": "^1.4.0",
     "nuxt-class-component": "^1.2.0",
     "qs": "^6.5.1",
@@ -19,9 +19,9 @@
     "vuex-class": "^0.3.0"
   },
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "dev": "backpack dev",
+    "build": "nuxt build && backpack build",
+    "start": "cross-env NODE_ENV=production node build/main.js",
     "test": "jest --no-cache",
     "generate": "nuxt generate",
     "server": "npm run build; npm run start"
@@ -39,6 +39,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-vue-app": "^2.0.0",
     "backpack-core": "^0.7.0",
+    "cross-env": "^5.1.5",
     "jest": "^22.4.2",
     "jest-serializer-vue": "^0.3.0",
     "jest-vue-preprocessor": "^1.3.1",

@@ -1,6 +1,9 @@
+const packageJson = require('./package.json')
+
 module.exports = {
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    version: packageJson.version
   },
   head: {
     title: `Hide 'N' Seek`,
@@ -34,7 +37,7 @@ module.exports = {
   build: {
     vendor: ['axios', 'vuex-class', 'nuxt-class-component', 'babel-polyfill']
   },
-  modules: ['~/modules/typescript', '@nuxtjs/pwa'],
+  modules: ['~/modules/typescript'],
   vendor: [
     '~/plugins/vuetify'
   ],

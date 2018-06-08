@@ -38,15 +38,6 @@
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/meta/-/meta-2.2.1.tgz#ad7c8658ef0357cdef56856a9ff21d595102e089"
 
-"@nuxtjs/pwa@^2.0.6":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-2.0.8.tgz#0e36ea1e3a63c1531f4e9e6b1d03a9390b09f8b5"
-  dependencies:
-    "@nuxtjs/icon" "^2.1.0"
-    "@nuxtjs/manifest" "^2.1.0"
-    "@nuxtjs/meta" "^2.2.1"
-    "@nuxtjs/workbox" "^2.2.0"
-
 "@nuxtjs/workbox@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/workbox/-/workbox-2.2.0.tgz#c8f0df77afe029ded7783806b77ec950f792d3c3"
