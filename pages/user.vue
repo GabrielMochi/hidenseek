@@ -13,19 +13,20 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator';
-  import User from '~/model/User'
+  import { Vue, Component } from 'vue-property-decorator'
+  import User, { UserPermission } from '~/model/User'
 
   @Component
   export default class extends Vue {
 
     user: User = new User(
-      0,
+      1,
+      '222',
       'Gabriel Mochi Ribeiro',
-      'gmochi56@icloud.com',
-      '11973756450',
-      'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4'
-    );
+      'gmochi56@outlook.com',
+      'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+      UserPermission.TOTAL
+    )
 
   }
 </script>

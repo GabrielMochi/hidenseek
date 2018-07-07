@@ -179,10 +179,10 @@ router.use(__WEBPACK_IMPORTED_MODULE_1__user__["a" /* default */]);
 
 var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 var users = [
-    new __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* default */](0, 'Eduardo Mendes', 'dudu-7@hotmail.com', '11973756450', null),
-    new __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* default */](1, 'Gabriel Mochi Ribeiro', 'gmochi56@outlook.com', '11973756450', null),
-    new __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* default */](2, 'Matheus Moreira', 'matheusm920@htomail.com', '11973756450', null),
-    new __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* default */](3, 'Maia', 'victor.gabriel.barbosa.maia@hotmail.com', '11973756450', null)
+    new __WEBPACK_IMPORTED_MODULE_1__model_User__["b" /* default */](0, '111', 'Eduardo Mendes', 'dudu-7@hotmail.com', null, __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* UserPermission */].TOTAL),
+    new __WEBPACK_IMPORTED_MODULE_1__model_User__["b" /* default */](1, '222', 'Gabriel Mochi Ribeiro', 'gmochi56@outlook.com', 'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4', __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* UserPermission */].TOTAL),
+    new __WEBPACK_IMPORTED_MODULE_1__model_User__["b" /* default */](2, '333', 'Matheus Moreira', 'matheusm920@htomail.com', null, __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* UserPermission */].TOTAL),
+    new __WEBPACK_IMPORTED_MODULE_1__model_User__["b" /* default */](3, '444', 'Maia', 'victor.gabriel.barbosa.maia@hotmail.com', null, __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* UserPermission */].TOTAL)
 ];
 router.get('/users', function (req, res) {
     res.json(users);
@@ -209,17 +209,26 @@ router.get('/users/:id', function (req, res) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPermission; });
 var User = /** @class */ (function () {
-    function User(id, name, email, phone, thumbnailURL) {
+    function User(id, distinctId, email, name, thumbnail, permission) {
+        if (permission === void 0) { permission = UserPermission.LOW; }
         this.id = id;
-        this.name = name;
+        this.distinctId = distinctId;
         this.email = email;
-        this.phone = phone;
-        this.thumbnailURL = thumbnailURL;
+        this.name = name;
+        this.thumbnail = thumbnail;
+        this.permission = permission;
     }
     return User;
 }());
-/* harmony default export */ __webpack_exports__["a"] = (User);
+/* harmony default export */ __webpack_exports__["b"] = (User);
+var UserPermission;
+(function (UserPermission) {
+    UserPermission["LOW"] = "LOW";
+    UserPermission["HIGH"] = "HIGH";
+    UserPermission["TOTAL"] = "TOTAL";
+})(UserPermission || (UserPermission = {}));
 
 
 /***/ })

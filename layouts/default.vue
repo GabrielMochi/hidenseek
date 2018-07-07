@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app fixed class="purple-shadow">
+    <v-toolbar app fixed clipped-left class="purple-shadow">
       <v-layout align-center>
         <v-flex offset-xs1 offset-sm4 xs5 sm4 class="text-xs-left text-sm-center">
           <img class="no-select mt-1" src="~/assets/img/ghost.png" alt="ghost" width="48px">
@@ -51,6 +51,17 @@
   .text-shadow {
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
   }
+
+  .z-index-1 { z-index: 1; }
+  .z-index-2 { z-index: 2; }
+  .z-index-3 { z-index: 3; }
+  .z-index-4 { z-index: 4; }
+  .z-index-5 { z-index: 5; }
+  .z-index-6 { z-index: 6; }
+  .z-index-7 { z-index: 7; }
+  .z-index-8 { z-index: 8; }
+  .z-index-9 { z-index: 9; }
+  .z-index-10 { z-index: 10; }
 </style>
 
 

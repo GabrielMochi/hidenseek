@@ -1,19 +1,30 @@
 <template>
-  <v-container grid-list-md justify-center->
-    <v-select label="Procure um item pela categoria" :items="categorys" v-model="categorySelected" autocomplete></v-select>
-    <v-layout class="my-2" row wrap>
-      <v-flex v-for="item in items" :key="item.id" xl2 lg3 md4 sm6 xs12>
-        <v-card flat tile>
-          <v-card-media :src="item.imgSrc" height="192px" @click="onItemSelected"></v-card-media>
+  <v-container fluid grid-list-lg>
+    <v-navigation-drawer fixed clipped app class="z-index-1">
+      <v-toolbar flat class="transparent">
+        <v-icon>filter_list</v-icon>
+        <v-toolbar-title>Filtro</v-toolbar-title>
+      </v-toolbar>
+      <v-divider></v-divider>
+      <v-list>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-select></v-select>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-layout wrap>
+      <v-flex v-for="item in items" :key="item.id" xs12 sm6 md4 lg3 xl2>
+        <v-card>
+          <v-card-media contain :src="item.photoURL" height="192px" @click="onItemSelected"></v-card-media>
+          <v-card-title>{{ item.description }}</v-card-title>
         </v-card>
       </v-flex>
-      <!-- <v-flex v-for="item in items" :key="item.imgSrc" xl2 lg3 md4 sm6 xs12 class="text-xs-center">
-        <img class="item-img elevation-1" :src="item.imgSrc" @click="onItemSelected">
-      </v-flex> -->
     </v-layout>
     <v-dialog v-model="dialog" max-width="512" origin="top left">
       <v-card>
-        <v-card-media height="384" :src="itemSelected.imgSrc">
+        <v-card-media height="384" :src="itemSelected.photoURL">
           <v-container fluid fill-height justify-end align-start>
             <v-btn small class="close-dialog-button" flat icon @click.stop="dialog = false">
               <v-icon>close</v-icon>
@@ -32,31 +43,134 @@
 <script lang="ts">
   import { Component, Watch, Vue } from 'vue-property-decorator'
   import Item from '~/model/Item'
+  import User, { UserPermission } from '~/model/User'
+  import Category from '~/model/Category'
+  import Local from '~/model/Local'
 
   @Component
   export default class extends Vue {
 
     items: Item[] = [
-      new Item(1, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(2, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(3, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(4, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(5, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(6, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(7, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(8, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(9, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(10, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(11, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(12, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(13, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(14, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(15, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(16, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(17, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(18, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(19, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha'),
-      new Item(20, 'http://www.stationpresentes.com.br/loja/produtos/monoersa.jpg', 'Borracha', 'Uma borracha')
+      new Item(
+        0,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        1,
+        'Um estojo que foi perdido aaaa a a  a d da sd a sd a d a sd as d asd asd ad',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        2,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        3,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        4,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        5,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        6,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      ),
+      new Item(
+        7,
+        'Um estojo que foi perdido',
+        'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+        new User(
+          1,
+          '222',
+          'Gabriel Mochi Ribeiro',
+          'gmochi56@outlook.com',
+          'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+          UserPermission.TOTAL
+        ),
+        new Category(0, 'Borracha'),
+        new Local(0, 'Sala 304')
+      )
     ]
 
     categorySelected: string | null = null
@@ -71,7 +185,7 @@
 
     dialog: boolean = false
 
-    itemSelected: Item | undefined = new Item(NaN, '', '', '')
+    itemSelected: Item | undefined = new Item(null, null, null, null, null, null)
 
     @Watch('categorySelected')
     onCategorySelectedChanged(newVal: string) {

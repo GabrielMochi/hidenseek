@@ -1,17 +1,32 @@
 export default class User {
 
   public id: number
-  public name: string
+  public distinctId: string
   public email: string
-  public phone: string
-  public thumbnailURL: string
+  public name: string
+  public thumbnail: string
+  public permission: UserPermission
 
-  constructor (id: number, name: string, email: string, phone: string, thumbnailURL: string) {
+  constructor (
+    id: number,
+    distinctId: string,
+    email: string,
+    name: string,
+    thumbnail: string,
+    permission: UserPermission = UserPermission.LOW
+  ) {
     this.id = id
-    this.name = name
+    this.distinctId = distinctId
     this.email = email
-    this.phone = phone
-    this.thumbnailURL = thumbnailURL
+    this.name = name
+    this.thumbnail = thumbnail
+    this.permission = permission
   }
 
+}
+
+export enum UserPermission {
+  LOW = 'LOW',
+  HIGH = 'HIGH',
+  TOTAL = 'TOTAL'
 }
