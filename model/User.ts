@@ -1,6 +1,7 @@
-export default class User {
+import Identifiable from './Identifiable'
 
-  public id: number
+export default class User extends Identifiable {
+
   public distinctId: string
   public email: string
   public name: string
@@ -15,7 +16,7 @@ export default class User {
     thumbnail: string,
     permission: UserPermission = UserPermission.LOW
   ) {
-    this.id = id
+    super(id)
     this.distinctId = distinctId
     this.email = email
     this.name = name

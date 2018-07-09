@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const fetch = axios.create({
+export const fetch = axios.create({
   baseURL: process.env.baseUrl,
   headers: {
     'Access-Control-Allow-Origin': '*'
@@ -28,5 +28,3 @@ fetch.interceptors.response.use(
     return Promise.reject(err)
   }
 )
-
-export default fetch

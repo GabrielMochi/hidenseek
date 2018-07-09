@@ -1,14 +1,14 @@
 import Category from './Category'
+import Identifiable from './Identifiable'
 import Local from './Local'
 import User from './User'
 
-export default class Item {
+export default class Item extends Identifiable {
 
-  public id: number
   public description: string
   public photoURL: string
   public datetime: Date
-  public user: User
+  public admuser: User
   public category: Category
   public local: Local
 
@@ -29,11 +29,11 @@ export default class Item {
     local: Local,
     datetime: Date = new Date(Date.now())
   ) {
-    this.id = id
+    super(id)
     this.description = description
     this.photoURL = photoURL
     this.datetime = datetime
-    this.user = user
+    this.admuser = user
     this.category = category
     this.local = local
   }

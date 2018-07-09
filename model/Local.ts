@@ -1,10 +1,11 @@
-export default class Local {
+import Identifiable from './Identifiable'
 
-  public id: number
+export default class Local extends Identifiable {
+
   public description: string
 
   constructor (id: number, description: string) {
-    this.id = id
+    super(id)
     this.description = description
   }
 

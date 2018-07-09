@@ -1,10 +1,11 @@
-export default class Category {
+import Identifiable from './Identifiable'
 
-  public id: number
+export default class Category extends Identifiable {
+
   public name: string
 
   constructor (id: number, name: string) {
-    this.id = id
+    super(id)
     this.name = name
   }
 

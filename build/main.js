@@ -150,7 +150,7 @@ module.exports = {
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicação Web para busca de objetos perdidos.","private":true,"dependencies":{"axios":"^0.18.0","babel-polyfill":"^6.26.0","express":"^4.16.3","nuxt":"^1.4.0","nuxt-class-component":"^1.2.0","qs":"^6.5.1","rxjs":"^5.5.6","vue-class-component":"^6.2.0","vue-property-decorator":"^6.0.0","vue-rx":"^5.0.0","vuetify":"^1.0.4","vuex":"^3.0.1","vuex-class":"^0.3.0"},"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node build/main.js","test":"jest --no-cache","generate":"nuxt generate","server":"npm run build; npm run start"},"devDependencies":{"@reactivex/rxjs":"^5.5.6","@types/axios":"^0.14.0","@types/express":"^4.11.1","@types/jest":"^22.1.4","@types/node":"^9.4.6","@types/qs":"^6.5.1","@types/vue":"^2.0.0","babel-jest":"^22.4.1","babel-plugin-transform-class-properties":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-preset-vue-app":"^2.0.0","backpack-core":"^0.7.0","cross-env":"^5.1.5","jest":"^22.4.2","jest-serializer-vue":"^0.3.0","jest-vue-preprocessor":"^1.3.1","stylus":"^0.54.5","stylus-loader":"^3.0.2","ts-jest":"^22.4.1","ts-loader":"^3.5.0","tslint":"^5.9.1","tslint-config-standard":"^7.0.0","typescript":"~2.5.3","vue-language-server":"^0.0.30","vue-template-compiler":"^2.5.13","vue-test-utils":"^1.0.0-beta.11","wallaby-vue-compiler":"^1.0.2"}}
+module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicação Web para busca de objetos perdidos.","private":true,"dependencies":{"@types/mysql":"^2.15.5","axios":"^0.18.0","babel-polyfill":"^6.26.0","express":"^4.16.3","mysql":"^2.15.0","nuxt":"^1.4.0","nuxt-class-component":"^1.2.0","qs":"^6.5.1","rxjs":"^5.5.6","vue-class-component":"^6.2.0","vue-property-decorator":"^6.0.0","vue-rx":"^5.0.0","vuetify":"^1.0.4","vuex":"^3.0.1","vuex-class":"^0.3.0"},"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node build/main.js","test":"jest --no-cache","generate":"nuxt generate","server":"npm run build && npm run start"},"devDependencies":{"@reactivex/rxjs":"^5.5.6","@types/axios":"^0.14.0","@types/express":"^4.11.1","@types/jest":"^22.1.4","@types/node":"^9.4.6","@types/qs":"^6.5.1","@types/vue":"^2.0.0","babel-jest":"^22.4.1","babel-plugin-transform-class-properties":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-preset-vue-app":"^2.0.0","backpack-core":"^0.7.0","cross-env":"^5.1.5","jest":"^22.4.2","jest-serializer-vue":"^0.3.0","jest-vue-preprocessor":"^1.3.1","stylus":"^0.54.5","stylus-loader":"^3.0.2","ts-jest":"^22.4.1","ts-loader":"^3.5.0","tslint":"^5.9.1","tslint-config-standard":"^7.0.0","typescript":"~2.5.3","vue-language-server":"^0.0.30","vue-template-compiler":"^2.5.13","vue-test-utils":"^1.0.0-beta.11","wallaby-vue-compiler":"^1.0.2"}}
 
 /***/ }),
 /* 5 */
@@ -210,18 +210,32 @@ router.get('/users/:id', function (req, res) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPermission; });
-var User = /** @class */ (function () {
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Identifiable__ = __webpack_require__(8);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var User = /** @class */ (function (_super) {
+    __extends(User, _super);
     function User(id, distinctId, email, name, thumbnail, permission) {
         if (permission === void 0) { permission = UserPermission.LOW; }
-        this.id = id;
-        this.distinctId = distinctId;
-        this.email = email;
-        this.name = name;
-        this.thumbnail = thumbnail;
-        this.permission = permission;
+        var _this = _super.call(this, id) || this;
+        _this.distinctId = distinctId;
+        _this.email = email;
+        _this.name = name;
+        _this.thumbnail = thumbnail;
+        _this.permission = permission;
+        return _this;
     }
     return User;
-}());
+}(__WEBPACK_IMPORTED_MODULE_0__Identifiable__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["b"] = (User);
 var UserPermission;
 (function (UserPermission) {
@@ -229,6 +243,20 @@ var UserPermission;
     UserPermission["HIGH"] = "HIGH";
     UserPermission["TOTAL"] = "TOTAL";
 })(UserPermission || (UserPermission = {}));
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var Identifiable = /** @class */ (function () {
+    function Identifiable(id) {
+        this.id = id;
+    }
+    return Identifiable;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (Identifiable);
 
 
 /***/ })

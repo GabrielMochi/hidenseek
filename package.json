@@ -4,9 +4,11 @@
   "description": "Aplicação Web para busca de objetos perdidos.",
   "private": true,
   "dependencies": {
+    "@types/mysql": "^2.15.5",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "express": "^4.16.3",
+    "mysql": "^2.15.0",
     "nuxt": "^1.4.0",
     "nuxt-class-component": "^1.2.0",
     "qs": "^6.5.1",
@@ -24,7 +26,7 @@
     "start": "cross-env NODE_ENV=production node build/main.js",
     "test": "jest --no-cache",
     "generate": "nuxt generate",
-    "server": "npm run build; npm run start"
+    "server": "npm run build && npm run start"
   },
   "devDependencies": {
     "@reactivex/rxjs": "^5.5.6",

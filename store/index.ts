@@ -3,7 +3,7 @@ import Category from '~/model/Category'
 import Item from '~/model/Item'
 import Local from '~/model/Local'
 import User from '~/model/User'
-import axios from '~/plugins/axios'
+import { fetch } from '~/plugins/axios'
 
 interface State {
   categorys: Category[],
@@ -51,7 +51,7 @@ export const mutations: Mutation<State> = {
 export const actions: Action<State, State> = {
   async loadCategorys ({ commit }) {
     try {
-      const { data } = await axios.get<Category[]>('/api/category')
+      const { data } = await fetch.get<Category[]>('/api/category')
       commit('setCategorys', data)
     } catch (err) {
       console.error(err)
@@ -59,7 +59,7 @@ export const actions: Action<State, State> = {
   },
   async loadItems ({ commit }) {
     try {
-      const { data } = await axios.get<Category[]>('/api/items')
+      const { data } = await fetch.get<Category[]>('/api/items')
       commit('setItems', data)
     } catch (err) {
       console.error(err)
@@ -67,7 +67,7 @@ export const actions: Action<State, State> = {
   },
   async loadLocals ({ commit }) {
     try {
-      const { data } = await axios.get<Category[]>('/api/locals')
+      const { data } = await fetch.get<Category[]>('/api/locals')
       commit('setLocals', data)
     } catch (err) {
       console.error(err)
@@ -75,10 +75,15 @@ export const actions: Action<State, State> = {
   },
   async loadUser ({ commit }, distinctId: string) {
     try {
-      const { data } = await axios.get<Category[]>(`/api/user/${distinctId}`)
+      const { data } = await fetch.get<Category[]>(`/api/user/${distinctId}`)
       commit('setLocals', data)
     } catch (err) {
       console.error(err)
     }
+  },
+  async serverInit (context) {
+    await this.loadCategorys(context)
+    await this.loadItems(context)
+    await this.loadLocals(context)
   }
 }
