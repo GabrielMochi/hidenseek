@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import User, { UserPermission } from './../../model/User'
 
 const router: Router = Router()
@@ -17,11 +17,11 @@ const users: User[] = [
   new User(3, '444', 'Maia', 'victor.gabriel.barbosa.maia@hotmail.com', null, UserPermission.TOTAL)
 ]
 
-router.get('/users', (req: Request, res: Response): void => {
+router.get('/', (req, res): void => {
   res.json(users)
 })
 
-router.get('/users/:id', (req: Request, res: Response): void => {
+router.get('/:id', (req, res): void => {
   if (req.params.id) {
     const foundUser: User = users.find((user: User): boolean => user.id === parseInt(req.params.id, 10))
 

@@ -2,11 +2,11 @@ import Identifiable from './Identifiable'
 
 export default class Local extends Identifiable {
 
-  public description: string
+  public name: string
 
   constructor (id: number, description: string) {
     super(id)
-    this.description = description
+    this.name = description
   }
 
 }

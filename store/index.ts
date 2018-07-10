@@ -27,9 +27,9 @@ interface Action<S, R> extends ActionTree<S, R> {
 }
 
 export const state = (): State => ({
-  categorys: null,
-  items: null,
-  locals: null,
+  categorys: [],
+  items: [],
+  locals: [],
   user: null
 })
 
@@ -80,10 +80,5 @@ export const actions: Action<State, State> = {
     } catch (err) {
       console.error(err)
     }
-  },
-  async serverInit (context) {
-    await this.loadCategorys(context)
-    await this.loadItems(context)
-    await this.loadLocals(context)
   }
 }

@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from "vue-property-decorator";
+  import { Vue, Component } from 'vue-property-decorator'
 
   @Component
   export default class extends Vue {
@@ -62,6 +62,14 @@
   .z-index-8 { z-index: 8; }
   .z-index-9 { z-index: 9; }
   .z-index-10 { z-index: 10; }
+
+  .fill-width {
+    width: 100% !important;
+  }
+
+  .full-width {
+    width: 100vh !important;
+  }
 </style>
 
 

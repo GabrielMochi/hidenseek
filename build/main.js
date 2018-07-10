@@ -150,7 +150,7 @@ module.exports = {
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicação Web para busca de objetos perdidos.","private":true,"dependencies":{"@types/mysql":"^2.15.5","axios":"^0.18.0","babel-polyfill":"^6.26.0","express":"^4.16.3","mysql":"^2.15.0","nuxt":"^1.4.0","nuxt-class-component":"^1.2.0","qs":"^6.5.1","rxjs":"^5.5.6","vue-class-component":"^6.2.0","vue-property-decorator":"^6.0.0","vue-rx":"^5.0.0","vuetify":"^1.0.4","vuex":"^3.0.1","vuex-class":"^0.3.0"},"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node build/main.js","test":"jest --no-cache","generate":"nuxt generate","server":"npm run build && npm run start"},"devDependencies":{"@reactivex/rxjs":"^5.5.6","@types/axios":"^0.14.0","@types/express":"^4.11.1","@types/jest":"^22.1.4","@types/node":"^9.4.6","@types/qs":"^6.5.1","@types/vue":"^2.0.0","babel-jest":"^22.4.1","babel-plugin-transform-class-properties":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-preset-vue-app":"^2.0.0","backpack-core":"^0.7.0","cross-env":"^5.1.5","jest":"^22.4.2","jest-serializer-vue":"^0.3.0","jest-vue-preprocessor":"^1.3.1","stylus":"^0.54.5","stylus-loader":"^3.0.2","ts-jest":"^22.4.1","ts-loader":"^3.5.0","tslint":"^5.9.1","tslint-config-standard":"^7.0.0","typescript":"~2.5.3","vue-language-server":"^0.0.30","vue-template-compiler":"^2.5.13","vue-test-utils":"^1.0.0-beta.11","wallaby-vue-compiler":"^1.0.2"}}
+module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicação Web para busca de objetos perdidos.","private":true,"dependencies":{"@types/mysql":"^2.15.5","axios":"^0.18.0","babel-polyfill":"^6.26.0","express":"^4.16.3","http-status-codes":"^1.3.0","mysql":"^2.15.0","nuxt":"^1.4.0","nuxt-class-component":"^1.2.0","qs":"^6.5.1","rxjs":"^5.5.6","vue-class-component":"^6.2.0","vue-property-decorator":"^6.0.0","vue-rx":"^5.0.0","vuetify":"^1.0.4","vuex":"^3.0.1","vuex-class":"^0.3.0"},"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node build/main.js","test":"jest --no-cache","generate":"nuxt generate","server":"npm run build && npm run start"},"devDependencies":{"@reactivex/rxjs":"^5.5.6","@types/axios":"^0.14.0","@types/express":"^4.11.1","@types/jest":"^22.1.4","@types/node":"^9.4.6","@types/qs":"^6.5.1","@types/vue":"^2.0.0","babel-jest":"^22.4.1","babel-plugin-transform-class-properties":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-preset-vue-app":"^2.0.0","backpack-core":"^0.7.0","cross-env":"^5.1.5","jest":"^22.4.2","jest-serializer-vue":"^0.3.0","jest-vue-preprocessor":"^1.3.1","stylus":"^0.54.5","stylus-loader":"^3.0.2","ts-jest":"^22.4.1","ts-loader":"^3.5.0","tslint":"^5.9.1","tslint-config-standard":"^7.0.0","typescript":"~2.5.3","vue-language-server":"^0.0.30","vue-template-compiler":"^2.5.13","vue-test-utils":"^1.0.0-beta.11","wallaby-vue-compiler":"^1.0.2"}}
 
 /***/ }),
 /* 5 */
@@ -159,11 +159,17 @@ module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicaçã
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__category__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__local__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user__ = __webpack_require__(12);
+
+
 
 
 var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-router.use(__WEBPACK_IMPORTED_MODULE_1__user__["a" /* default */]);
+router.use('/user', __WEBPACK_IMPORTED_MODULE_3__user__["a" /* default */]);
+router.use('/category', __WEBPACK_IMPORTED_MODULE_1__category__["a" /* default */]);
+router.use('/local', __WEBPACK_IMPORTED_MODULE_2__local__["a" /* default */]);
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 
@@ -174,7 +180,122 @@ router.use(__WEBPACK_IMPORTED_MODULE_1__user__["a" /* default */]);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_User__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__repository_CategoryRepository__ = __webpack_require__(8);
+
+
+
+var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+var categoryRepository = new __WEBPACK_IMPORTED_MODULE_2__repository_CategoryRepository__["a" /* default */]();
+router.get('/', function (req, res) {
+    categoryRepository.getAll(function (err, results) {
+        if (err) {
+            console.error(err);
+            res.status(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__["INTERNAL_SERVER_ERROR"]));
+        }
+        else {
+            res.json(results);
+        }
+    });
+});
+/* harmony default export */ __webpack_exports__["a"] = (router);
+
+
+/***/ }),
+/* 7 */,
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SimpleRepository__ = __webpack_require__(11);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var CategoryRepository = /** @class */ (function (_super) {
+    __extends(CategoryRepository, _super);
+    function CategoryRepository() {
+        return _super.call(this, __WEBPACK_IMPORTED_MODULE_0____["a" /* default */], 'category') || this;
+    }
+    return CategoryRepository;
+}(__WEBPACK_IMPORTED_MODULE_1__SimpleRepository__["a" /* default */]));
+/* harmony default export */ __webpack_exports__["a"] = (CategoryRepository);
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mysql__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mysql___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mysql__);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_mysql__["createPool"])({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: '',
+    database: 'hidenseek',
+    timezone: '+3:00'
+}));
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("mysql");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var SimpleRepository = /** @class */ (function () {
+    function SimpleRepository(pool, tableName, relativeIdName) {
+        if (relativeIdName === void 0) { relativeIdName = 'id'; }
+        this.pool = pool;
+        this.tableName = tableName;
+        this.relativeIdName = relativeIdName;
+    }
+    SimpleRepository.prototype.get = function (id, callback) {
+        this.pool.query("SELECT * FROM " + this.tableName + " WHERE " + this.relativeIdName + " = " + id);
+    };
+    SimpleRepository.prototype.getAll = function (callback) {
+        this.pool.query("SELECT * FROM " + this.tableName, callback);
+    };
+    SimpleRepository.prototype.insert = function (element, callback) {
+        this.pool.query("INSERT INTO " + this.tableName + " SET ?", element, callback);
+    };
+    SimpleRepository.prototype.update = function (element, callback) {
+        this.pool.query("UPDATE " + this.tableName + " SET ? WHERE " + this.relativeIdName + " = " + element.id, element, callback);
+    };
+    SimpleRepository.prototype.delete = function (id, callback) {
+        this.pool.query("DELETE FROM " + this.tableName + " WHERE " + this.relativeIdName + " = " + id);
+    };
+    return SimpleRepository;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (SimpleRepository);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_User__ = __webpack_require__(13);
 
 
 var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
@@ -184,10 +305,10 @@ var users = [
     new __WEBPACK_IMPORTED_MODULE_1__model_User__["b" /* default */](2, '333', 'Matheus Moreira', 'matheusm920@htomail.com', null, __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* UserPermission */].TOTAL),
     new __WEBPACK_IMPORTED_MODULE_1__model_User__["b" /* default */](3, '444', 'Maia', 'victor.gabriel.barbosa.maia@hotmail.com', null, __WEBPACK_IMPORTED_MODULE_1__model_User__["a" /* UserPermission */].TOTAL)
 ];
-router.get('/users', function (req, res) {
+router.get('/', function (req, res) {
     res.json(users);
 });
-router.get('/users/:id', function (req, res) {
+router.get('/:id', function (req, res) {
     if (req.params.id) {
         var foundUser = users.find(function (user) { return user.id === parseInt(req.params.id, 10); });
         if (foundUser) {
@@ -205,12 +326,12 @@ router.get('/users/:id', function (req, res) {
 
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPermission; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Identifiable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Identifiable__ = __webpack_require__(14);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -246,7 +367,7 @@ var UserPermission;
 
 
 /***/ }),
-/* 8 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -257,6 +378,147 @@ var Identifiable = /** @class */ (function () {
     return Identifiable;
 }());
 /* harmony default export */ __webpack_exports__["a"] = (Identifiable);
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+/**
+ * Constants enumerating the HTTP status codes.
+ *
+ * All status codes defined in RFC1945 (HTTP/1.0, RFC2616 (HTTP/1.1),
+ * RFC2518 (WebDAV), RFC6585 (Additional HTTP Status Codes), and
+ * RFC7538 (Permanent Redirect) are supported.
+ *
+ * Based on the org.apache.commons.httpclient.HttpStatus Java API.
+ *
+ * Ported by Bryce Neal.
+ */
+
+var statusCodes = {};
+
+statusCodes[exports.ACCEPTED = 202] = "Accepted";
+statusCodes[exports.BAD_GATEWAY = 502] = "Bad Gateway";
+statusCodes[exports.BAD_REQUEST = 400] = "Bad Request";
+statusCodes[exports.CONFLICT = 409] = "Conflict";
+statusCodes[exports.CONTINUE = 100] = "Continue";
+statusCodes[exports.CREATED = 201] = "Created";
+statusCodes[exports.EXPECTATION_FAILED = 417] = "Expectation Failed";
+statusCodes[exports.FAILED_DEPENDENCY  = 424] = "Failed Dependency";
+statusCodes[exports.FORBIDDEN = 403] = "Forbidden";
+statusCodes[exports.GATEWAY_TIMEOUT = 504] = "Gateway Timeout";
+statusCodes[exports.GONE = 410] = "Gone";
+statusCodes[exports.HTTP_VERSION_NOT_SUPPORTED = 505] = "HTTP Version Not Supported";
+statusCodes[exports.IM_A_TEAPOT = 418] = "I'm a teapot";
+statusCodes[exports.INSUFFICIENT_SPACE_ON_RESOURCE = 419] = "Insufficient Space on Resource";
+statusCodes[exports.INSUFFICIENT_STORAGE = 507] = "Insufficient Storage";
+statusCodes[exports.INTERNAL_SERVER_ERROR = 500] = "Server Error";
+statusCodes[exports.LENGTH_REQUIRED = 411] = "Length Required";
+statusCodes[exports.LOCKED = 423] = "Locked";
+statusCodes[exports.METHOD_FAILURE = 420] = "Method Failure";
+statusCodes[exports.METHOD_NOT_ALLOWED = 405] = "Method Not Allowed";
+statusCodes[exports.MOVED_PERMANENTLY = 301] = "Moved Permanently";
+statusCodes[exports.MOVED_TEMPORARILY = 302] = "Moved Temporarily";
+statusCodes[exports.MULTI_STATUS = 207] = "Multi-Status";
+statusCodes[exports.MULTIPLE_CHOICES = 300] = "Multiple Choices";
+statusCodes[exports.NETWORK_AUTHENTICATION_REQUIRED = 511] = "Network Authentication Required";
+statusCodes[exports.NO_CONTENT = 204] = "No Content";
+statusCodes[exports.NON_AUTHORITATIVE_INFORMATION = 203] = "Non Authoritative Information";
+statusCodes[exports.NOT_ACCEPTABLE = 406] = "Not Acceptable";
+statusCodes[exports.NOT_FOUND = 404] = "Not Found";
+statusCodes[exports.NOT_IMPLEMENTED = 501] = "Not Implemented";
+statusCodes[exports.NOT_MODIFIED = 304] = "Not Modified";
+statusCodes[exports.OK = 200] = "OK";
+statusCodes[exports.PARTIAL_CONTENT = 206] = "Partial Content";
+statusCodes[exports.PAYMENT_REQUIRED = 402] = "Payment Required";
+statusCodes[exports.PERMANENT_REDIRECT = 308] = "Permanent Redirect";
+statusCodes[exports.PRECONDITION_FAILED = 412] = "Precondition Failed";
+statusCodes[exports.PRECONDITION_REQUIRED = 428] = "Precondition Required";
+statusCodes[exports.PROCESSING = 102] = "Processing";
+statusCodes[exports.PROXY_AUTHENTICATION_REQUIRED = 407] = "Proxy Authentication Required";
+statusCodes[exports.REQUEST_HEADER_FIELDS_TOO_LARGE = 431] = "Request Header Fields Too Large";
+statusCodes[exports.REQUEST_TIMEOUT = 408] = "Request Timeout";
+statusCodes[exports.REQUEST_TOO_LONG = 413] = "Request Entity Too Large";
+statusCodes[exports.REQUEST_URI_TOO_LONG = 414] = "Request-URI Too Long";
+statusCodes[exports.REQUESTED_RANGE_NOT_SATISFIABLE = 416] = "Requested Range Not Satisfiable";
+statusCodes[exports.RESET_CONTENT = 205] = "Reset Content";
+statusCodes[exports.SEE_OTHER = 303] = "See Other";
+statusCodes[exports.SERVICE_UNAVAILABLE = 503] = "Service Unavailable";
+statusCodes[exports.SWITCHING_PROTOCOLS = 101] = "Switching Protocols";
+statusCodes[exports.TEMPORARY_REDIRECT = 307] = "Temporary Redirect";
+statusCodes[exports.TOO_MANY_REQUESTS = 429] = "Too Many Requests";
+statusCodes[exports.UNAUTHORIZED = 401] = "Unauthorized";
+statusCodes[exports.UNPROCESSABLE_ENTITY = 422] = "Unprocessable Entity";
+statusCodes[exports.UNSUPPORTED_MEDIA_TYPE = 415] = "Unsupported Media Type";
+statusCodes[exports.USE_PROXY = 305] = "Use Proxy";
+
+exports.getStatusText = function(statusCode) {
+  if (statusCodes.hasOwnProperty(statusCode)) {
+    return statusCodes[statusCode];
+  } else {
+    throw new Error("Status code does not exist: " + statusCode);
+  }
+};
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__repository_LocalRepository__ = __webpack_require__(18);
+
+
+
+var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+var localRepository = new __WEBPACK_IMPORTED_MODULE_2__repository_LocalRepository__["a" /* default */]();
+router.get('/', function (req, res) {
+    localRepository.getAll(function (err, results) {
+        if (err) {
+            console.error(err);
+            res.status(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1__node_modules_http_status_codes__["INTERNAL_SERVER_ERROR"]));
+        }
+        else {
+            res.json(results);
+        }
+    });
+});
+/* harmony default export */ __webpack_exports__["a"] = (router);
+
+
+/***/ }),
+/* 17 */,
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SimpleRepository__ = __webpack_require__(11);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var LocalRepository = /** @class */ (function (_super) {
+    __extends(LocalRepository, _super);
+    function LocalRepository() {
+        return _super.call(this, __WEBPACK_IMPORTED_MODULE_0____["a" /* default */], 'local') || this;
+    }
+    return LocalRepository;
+}(__WEBPACK_IMPORTED_MODULE_1__SimpleRepository__["a" /* default */]));
+/* harmony default export */ __webpack_exports__["a"] = (LocalRepository);
 
 
 /***/ })

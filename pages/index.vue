@@ -5,14 +5,14 @@
         <v-icon>filter_list</v-icon>
         <v-toolbar-title>Filtro</v-toolbar-title>
       </v-toolbar>
-      <v-divider></v-divider>
-      <v-list>
-        <v-list-tile>
-          <v-list-tile-content>
-            <v-select></v-select>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+      <v-container>
+        <v-autocomplete v-model="selectedCategory" :items="categorysNames" color="primary" label="Categorias" prepend-icon="category" hide-no-data clearable></v-autocomplete>
+        <v-autocomplete v-model="selectedLocal" :items="localsNames" color="primary" label="Locais" prepend-icon="map" hide-no-data clearable></v-autocomplete>
+        <v-menu v-model="dateMenu" :close-on-content-click="false" :nudge-right="40" lazy transition="scale-transition" offset-y class="fill-width">
+          <v-text-field slot="activator" v-model="selectedDate" label="Data de perda" prepend-icon="event" clearable readonly></v-text-field>
+          <v-date-picker v-model="selectedDate" locale="pt-br" :max="new Date().toISOString().substr(0, 10)" min="2018-01-01"></v-date-picker>
+        </v-menu>
+      </v-container>
     </v-navigation-drawer>
     <v-layout wrap>
       <v-flex v-for="item in items" :key="item.id" xs12 sm6 md4 lg3 xl2>
@@ -22,16 +22,16 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="dialog" max-width="512" origin="top left">
+    <v-dialog v-if="selectedItem" v-model="dialog" max-width="512" origin="top left">
       <v-card>
-        <v-card-media height="384" :src="itemSelected.photoURL">
+        <v-card-media height="384" :src="selectedItem.photoURL">
           <v-container fluid fill-height justify-end align-start>
             <v-btn small class="close-dialog-button" flat icon @click.stop="dialog = false">
               <v-icon>close</v-icon>
             </v-btn>
           </v-container>
         </v-card-media>
-        <v-card-title>{{ itemSelected.description }}</v-card-title>
+        <v-card-title>{{ selectedItem.description }}</v-card-title>
         <v-card-actions>
           <v-btn outline color="primary">Reivindicar</v-btn>
         </v-card-actions>
@@ -42,6 +42,7 @@
 
 <script lang="ts">
   import { Component, Watch, Vue } from 'vue-property-decorator'
+  import { Action, State } from 'vuex-class'
   import Item from '~/model/Item'
   import User, { UserPermission } from '~/model/User'
   import Category from '~/model/Category'
@@ -50,6 +51,7 @@
   @Component
   export default class extends Vue {
 
+    // data
     items: Item[] = [
       new Item(
         0,
@@ -173,27 +175,52 @@
       )
     ]
 
-    categorySelected: string | null = null
-
-    categorys: string[] = [
-      'Celular',
-      'Guarda-chuva',
-      'Caneta',
-      'Régua',
-      'Relógio'
-    ]
-
+    selectedCategory: string = null
+    selectedLocal: string = null
+    selectedDate: string = null
     dialog: boolean = false
+    selectedItem: Item = null
+    dateMenu: any = null
 
-    itemSelected: Item | undefined = new Item(null, null, null, null, null, null)
+    @State('categorys') categorys: Category[]
+    @State('locals') locals: Local[]
 
-    @Watch('categorySelected')
-    onCategorySelectedChanged(newVal: string) {
-      this.categorySelected = newVal
+    // computed
+    get categorysNames (): string[] {
+      return this.categorys.map(category => category.name)
     }
 
+    get localsNames (): string[] {
+      return this.locals.map(local => local.name)
+    }
+
+    // watch
+    @Watch('selectedCategory')
+    onSelectedCategoryChange (newVal: string) {
+      alert(newVal)
+    }
+
+    @Watch('selectedLocal')
+    onSelectedLocalChange (newVal: string) {
+      alert(newVal)
+    }
+
+    @Watch('selectedDate')
+    onSelectedDate (newVal: string) {
+      alert(newVal)
+    }
+
+    // methods
     onItemSelected (event: any) {
       console.log(event)
+    }
+
+    @Action('loadCategorys') loadCategorys: Function
+
+    // hooks
+    async created () {
+      await this.loadCategorys()
+      this.$vuetify.theme.primary = '#ba68c8'
     }
 
   }
