@@ -5,6 +5,9 @@ module.exports = {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     version: packageJson.version
   },
+  router: {
+    middleware: 'checkAuth'
+  },
   head: {
     title: `Hide 'N' Seek`,
     meta: [
@@ -35,7 +38,10 @@ module.exports = {
   ],
   css: ['~/assets/styles/app.styl'],
   build: {
-    vendor: ['axios', 'vuex-class', 'nuxt-class-component', 'babel-polyfill']
+    vendor: ['axios', 'vuex-class', 'nuxt-class-component', 'babel-polyfill'],
+    babel: {
+      plugins: ['transform-decorators-legacy', 'transform-class-properties']
+    }
   },
   modules: ['~/modules/typescript'],
   vendor: [

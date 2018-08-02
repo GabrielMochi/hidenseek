@@ -1,3 +1,4 @@
+import Credential from 'model/Credential'
 import { ActionContext, ActionTree, MutationTree } from 'vuex'
 import Category from '~/model/Category'
 import Item from '~/model/Item'
@@ -23,7 +24,8 @@ interface Action<S, R> extends ActionTree<S, R> {
   loadCategorys (context: ActionContext<S, R>): void,
   loadItems (context: ActionContext<S, R>): void,
   loadLocals (context: ActionContext<S, R>): void,
-  loadUser (context: ActionContext<S, R>, distinctId: string): void
+  login (context: ActionContext<S, R>, credential: Credential): void,
+  nuxtServerInit (context: ActionContext<S, R>, params: any): void
 }
 
 export const state = (): State => ({
@@ -73,12 +75,20 @@ export const actions: Action<State, State> = {
       console.error(err)
     }
   },
-  async loadUser ({ commit }, distinctId: string) {
+  async login ({ commit }, credential) {
     try {
-      const { data } = await fetch.get<Category[]>(`/api/user/${distinctId}`)
-      commit('setLocals', data)
+      const { data } = await fetch.post<User>('/api/login', credential)
+      commit('setUser', data)
     } catch (err) {
       console.error(err)
+      throw new Error('Bad credentials')
+    }
+  },
+  nuxtServerInit ({ commit }, { req }) {
+    if (req.session) {
+      if (req.session.user) {
+        commit('setUser', req.session.user)
+      }
     }
   }
 }

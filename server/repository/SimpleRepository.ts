@@ -14,7 +14,7 @@ export default abstract class SimpleRepository<T extends Identifiable> {
   }
 
   public get (id: string | number, callback: queryCallback): void {
-    this.pool.query(`SELECT * FROM ${this.tableName} WHERE ${this.relativeIdName} = ${id}`)
+    this.pool.query(`SELECT * FROM ${this.tableName} WHERE ${this.relativeIdName} = ?`, id, callback)
   }
 
   public getAll (callback: queryCallback): void {
@@ -26,11 +26,15 @@ export default abstract class SimpleRepository<T extends Identifiable> {
   }
 
   public update (element: T, callback: queryCallback): void {
-    this.pool.query(`UPDATE ${this.tableName} SET ? WHERE ${this.relativeIdName} = ${element.id}`, element, callback)
+    this.pool.query(
+      `UPDATE ${this.tableName} SET ? WHERE ${this.relativeIdName} = ?`,
+      [ element, element.id ],
+      callback
+    )
   }
 
   public delete (id: number | string, callback: queryCallback): void {
-    this.pool.query(`DELETE FROM ${this.tableName} WHERE ${this.relativeIdName} = ${id}`)
+    this.pool.query(`DELETE FROM ${this.tableName} WHERE ${this.relativeIdName} = ?`, id, callback)
   }
 
 }

@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { getStatusText, INTERNAL_SERVER_ERROR } from '../../node_modules/http-status-codes'
-import Category from './../../model/Category'
-import CategoryRepository from './../repository/CategoryRepository'
+import { getStatusText, INTERNAL_SERVER_ERROR } from 'http-status-codes'
+import Category from 'model/Category'
+import CategoryRepository from '../repository/CategoryRepository'
 
 const router: Router = Router()
 const categoryRepository: CategoryRepository = new CategoryRepository()

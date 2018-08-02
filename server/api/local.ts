@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { getStatusText, INTERNAL_SERVER_ERROR } from '../../node_modules/http-status-codes'
-import Local from './../../model/Local'
-import LocalRepository from './../repository/LocalRepository'
+import { getStatusText, INTERNAL_SERVER_ERROR } from 'http-status-codes'
+import Local from 'model/Local'
+import LocalRepository from '../repository/LocalRepository'
 
 const router = Router()
 const localRepository = new LocalRepository()

@@ -1,7 +1,6 @@
 // dependencies
 import express, { Application } from 'express'
 import { Builder, Nuxt } from 'nuxt'
-import path from 'path'
 
 // config
 import * as config from './../nuxt.config'
@@ -16,11 +15,9 @@ const app: Application = express()
 const port: number = parseInt(process.env.PORT, 10) || 3000
 
 app.set('port', port)
-
 app.use('/api', api)
 
 if (config.dev) {
-  console.log('dev!!')
   new Builder(nuxt).build()
 }
 

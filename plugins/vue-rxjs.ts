@@ -1,5 +1,5 @@
-import Rx from 'rxjs/Rx';
-import Vue from 'vue';
-import VueRx from 'vue-rx';
+import Rx from 'rxjs'
+import Vue from 'vue'
+import VueRx from 'vue-rx'
 
-Vue.use(VueRx, Rx);
+Vue.use(VueRx, Rx)
