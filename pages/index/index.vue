@@ -1,6 +1,5 @@
 <template>
   <v-container fluid grid-list-xl>
-    {{ isClipped }}
     <v-navigation-drawer fixed :clipped="isClipped" app class="z-index-10">
       <v-toolbar flat class="transparent">
         <v-icon>filter_list</v-icon>
@@ -27,8 +26,10 @@
     <v-layout wrap>
       <v-flex v-for="item in items" :key="item.id" xs12 sm6 md4 lg3 xl2>
         <v-card class="item-card">
-          <v-card-media contain :src="item.photoURL" height="192px" @click.native="onItemSelected(item.id)"></v-card-media>
-          <v-expansion-panel>
+          <v-card-media :src="item.photoURL" style="height: 192px;" contain @click.native="onItemSelected(item.id)" @mouseover="addBlurImage($event, true)" @mouseout="removeBlurImage($event, true)">
+            <v-btn @mouseover="addBlurImage($event, false)" @mouseout="removeBlurImage($event, false)"  block flat class="z-index-10 image-button" style="height: 100%" color="primary" @click.native="onItemSelected(item.id)">Reivindicar</v-btn>
+           </v-card-media>
+          <v-expansion-panel> 
             <v-expansion-panel-content>
               <div slot="header" class="subheading">{{ item.description }}</div>
               <v-list>
@@ -81,206 +82,244 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
-import { Action, State } from 'vuex-class'
-import Category from '~/model/Category'
-import Item from '~/model/Item'
-import Local from '~/model/Local'
-import User, { UserPermission } from '~/model/User'
+import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { Action, State } from "vuex-class";
+import Category from "~/model/Category";
+import Item from "~/model/Item";
+import Local from "~/model/Local";
+import User, { UserPermission } from "~/model/User";
 
 @Component
 export default class extends Vue {
-
   private items: Item[] = [
     new Item(
       0,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       1,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       2,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       3,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       4,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       5,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       6,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     ),
     new Item(
       7,
-      'Um estojo azul de zíper prata.',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      "Um estojo azul de zíper prata.",
+      "http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg",
       new User(
         1,
-        '222',
-        'Gabriel Mochi Ribeiro',
-        'gmochi56@outlook.com',
-        'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
+        "222",
+        "Gabriel Mochi Ribeiro",
+        "gmochi56@outlook.com",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
         UserPermission.TOTAL
       ),
-      new Category(0, 'Borracha'),
-      new Local(0, 'Sala 304')
+      new Category(0, "Borracha"),
+      new Local(0, "Sala 304")
     )
-  ]
+  ];
 
-  private selectedCategory: string = null
-  private selectedLocal: string = null
-  private selectedDate: string = null
-  private dialog = false
-  private selectedItem: Item = new Item(null, null, null, null, null, null)
-  private dateMenu: any = null
+  private selectedCategory: string = null;
+  private selectedLocal: string = null;
+  private selectedDate: string = null;
+  private dialog = false;
+  private selectedItem: Item = new Item(null, null, null, null, null, null);
+  private dateMenu: any = null;
+  private windowWidth: Number = null;
+  private activeButton: boolean = false
 
-  @State('categorys') private categorys: Category[]
-  @State('locals') private locals: Local[]
+  @State("categorys") private categorys: Category[];
+  @State("locals") private locals: Local[];
 
-  @Action('loadCategorys') private loadCategorys: () => void
+  @Action("loadCategorys") private loadCategorys: () => void;
 
-  private get categorysNames (): string[] {
-    return this.categorys.map((category) => category.name)
+  private get categorysNames(): string[] {
+    return this.categorys.map(category => category.name);
   }
 
-  private get localsNames (): string[] {
-    return this.locals.map((local) => local.name)
+  private get localsNames(): string[] {
+    return this.locals.map(local => local.name);
   }
 
-  private get isClipped (): boolean {
-    return window.innerWidth >= 1264
+  private get isClipped(): boolean {
+    return this.windowWidth >= 1264;
   }
 
-  @Watch('selectedCategory')
-  private onSelectedCategoryChange (newVal: string) {
-    alert(newVal)
+  private addBlurImage(event: any, element: boolean) {
+    if(element){
+      let card: any = event.target.parentNode;
+      card.classList.add("blur-image");
+      this.activeButton = true;
+    }else{
+      let card: any = event.target.parentNode.parentNode;
+      event.target.childNodes[0].style.height = "100%";
+      card.classList.add("blur-image");
+      console.log('to no button');
+      
+      console.log(card.classList + ' matheus');
+    }
   }
 
-  @Watch('selectedLocal')
-  private onSelectedLocalChange (newVal: string) {
-    alert(newVal)
+  private removeBlurImage(event: any, element: boolean) {
+    if(element){
+      let card: any = event.target.parentNode;
+      card.classList.remove("blur-image");
+      this.activeButton = false;
+    }else{
+      let card: any = event.target.parentNode.parentNode;
+      card.classList.remove("blur-image");
+    }
   }
 
-  @Watch('selectedDate')
-  private onSelectedDate (newVal: string) {
-    alert(newVal)
+  @Watch("selectedCategory")
+  private onSelectedCategoryChange(newVal: string) {
+    alert(newVal);
   }
 
-  private onItemSelected (id: number) {
-    this.selectedItem = this.items.find((item: Item) => item.id === id)
-    this.dialog = true
+  @Watch("selectedLocal")
+  private onSelectedLocalChange(newVal: string) {
+    alert(newVal);
   }
 
-  private async created () {
-    console.log(this.$vuetify)
-    await this.loadCategorys()
-    this.$vuetify.theme.primary = '#90caf9'
-    this.$vuetify.theme.secondary = '#5d99c6'
-    this.$vuetify.theme.accent = '#c3fdff'
+  @Watch("selectedDate")
+  private onSelectedDate(newVal: string) {
+    alert(newVal);
   }
 
+  private onItemSelected(id: number) {
+    this.selectedItem = this.items.find((item: Item) => item.id === id);
+    this.dialog = true;
+  }
+
+  private async created() {
+    console.log(this.$vuetify);
+    await this.loadCategorys();
+    this.$vuetify.theme.primary = "#90caf9";
+    this.$vuetify.theme.secondary = "#5d99c6";
+    this.$vuetify.theme.accent = "#c3fdff";
+    this.windowWidth = window.innerWidth;
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+    };
+  }
 }
 </script>
 
 <style scoped>
-  .item-card {
-    cursor: pointer;
-  }
+.item-card {
+  cursor: pointer;
+}
 
-  .item-img {
-    width: 256px;
-    height: 192px;
-  }
+.item-img {
+  width: 256px;
+  height: 192px;
+}
 
-  .close-dialog-button {
-    margin-top: -16px;
-    margin-right: -16px;
-  }
+.close-dialog-button {
+  margin-top: -16px;
+  margin-right: -16px;
+}
+
+.blur-image {
+  filter: blur(5px);
+}
+
+.image-button {
+  z-index: 20;
+}
 </style>
