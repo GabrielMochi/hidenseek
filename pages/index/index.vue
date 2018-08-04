@@ -25,13 +25,17 @@
     </v-navigation-drawer>
     <v-layout wrap>
       <v-flex v-for="item in items" :key="item.id" xs12 sm6 md4 lg3 xl2>
+        <!-- Card -->
         <v-card class="item-card">
-          <v-card-media :src="item.photoURL" style="height: 192px;" contain @click.native="onItemSelected(item.id)" @mouseover="addBlurImage($event, true)" @mouseout="removeBlurImage($event, true)">
-            <v-btn @mouseover="addBlurImage($event, false)" @mouseout="removeBlurImage($event, false)"  block flat class="z-index-10 image-button" style="height: 100%" color="primary" @click.native="onItemSelected(item.id)">Reivindicar</v-btn>
-           </v-card-media>
-          <v-expansion-panel> 
-            <v-expansion-panel-content>
-              <div slot="header" class="subheading">{{ item.description }}</div>
+            <v-card-media class="container-overlay" contain @click.native="onItemSelected(item.id)" @>
+              <img class="card-image" :src="item.photoURL" alt="">
+              <div class="overlay">
+                <v-btn flat block class="text" color="secondary">Reivindicar</v-btn>
+              </div>
+            </v-card-media>
+        <v-expansion-panel> 
+          <v-expansion-panel-content>
+            <div slot="header" class="subheading">{{ item.description }}</div>
               <v-list>
                 <v-list-tile>
                   <v-list-tile-action>
@@ -51,7 +55,7 @@
                   </v-list-tile-action>
                   <v-list-tile-title>{{ item.datetime.toISOString() }}</v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile>
+                <v-list-tile v-show="isMobile">
                   <v-list-tile-content class="text-xs-center">
                     <v-btn block outline color="secondary" @click.native="onItemSelected(item.id)">Reivindicar</v-btn>
                   </v-list-tile-content>
@@ -221,7 +225,6 @@ export default class extends Vue {
   private selectedItem: Item = new Item(null, null, null, null, null, null);
   private dateMenu: any = null;
   private windowWidth: Number = null;
-  private activeButton: boolean = false
 
   @State("categorys") private categorys: Category[];
   @State("locals") private locals: Local[];
@@ -237,33 +240,11 @@ export default class extends Vue {
   }
 
   private get isClipped(): boolean {
-    return this.windowWidth >= 1264;
+    return this.windowWidth > 1366;
   }
 
-  private addBlurImage(event: any, element: boolean) {
-    if(element){
-      let card: any = event.target.parentNode;
-      card.classList.add("blur-image");
-      this.activeButton = true;
-    }else{
-      let card: any = event.target.parentNode.parentNode;
-      event.target.childNodes[0].style.height = "100%";
-      card.classList.add("blur-image");
-      console.log('to no button');
-      
-      console.log(card.classList + ' matheus');
-    }
-  }
-
-  private removeBlurImage(event: any, element: boolean) {
-    if(element){
-      let card: any = event.target.parentNode;
-      card.classList.remove("blur-image");
-      this.activeButton = false;
-    }else{
-      let card: any = event.target.parentNode.parentNode;
-      card.classList.remove("blur-image");
-    }
+  private get isMobile(): boolean{
+    return this.windowWidth <= 1366;
   }
 
   @Watch("selectedCategory")
@@ -315,11 +296,52 @@ export default class extends Vue {
   margin-right: -16px;
 }
 
-.blur-image {
+.blurImage {
   filter: blur(5px);
 }
 
-.image-button {
-  z-index: 20;
+.container-overlay {
+  position: relative;
+}
+
+.card-image {
+  height: 192px;
+}
+
+@media screen and (min-width: 1367px) {
+  .overlay {
+    position: absolute;
+    transition: opacity 0.5s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .container-overlay:hover .card-image {
+    filter: blur(5px);
+  }
+
+  .container-overlay:hover .overlay {
+    opacity: 1;
+  }
+
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+  }
 }
 </style>
