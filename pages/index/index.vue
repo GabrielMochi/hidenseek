@@ -30,7 +30,7 @@
             <v-card-media class="container-overlay" contain @click.native="onItemSelected(item.id)" @>
               <img class="card-image" :src="item.photoURL" alt="">
               <div class="overlay">
-                <v-btn flat block class="text" color="secondary">Reivindicar</v-btn>
+                <v-btn flat block class="text" to="retrieve" color="primary ">Reivindicar</v-btn>
               </div>
             </v-card-media>
         <v-expansion-panel> 
@@ -66,7 +66,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="dialog" max-width="512" origin="top left">
+    <!-- <v-dialog v-model="dialog" max-width="512" origin="top left">
       <v-card>
         <v-card-media height="384" contain :src="selectedItem.photoURL">
           <v-container fluid fill-height justify-end align-start>
@@ -81,7 +81,7 @@
           <v-btn color="primary" flat>Reivindicar</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-container>
 </template>
 
@@ -273,10 +273,11 @@ export default class extends Vue {
     this.$vuetify.theme.primary = "#90caf9";
     this.$vuetify.theme.secondary = "#5d99c6";
     this.$vuetify.theme.accent = "#c3fdff";
+    this.$vuetify.theme.borderInputColor = "#ffffff";
     this.windowWidth = window.innerWidth;
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
-    };
+    }; 
   }
 }
 </script>

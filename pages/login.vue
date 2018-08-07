@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height justify-center class="login-background">
-    <v-card width="400" color="purple accent-4" dark>
+    <v-card width="400" color="purple white">
       <v-container>
         <v-form class="text-xs-center">
           <v-text-field label="Usuário" color="white" required></v-text-field>
