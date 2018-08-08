@@ -274,6 +274,7 @@ export default class extends Vue {
     this.$vuetify.theme.secondary = "#5d99c6";
     this.$vuetify.theme.accent = "#c3fdff";
     this.$vuetify.theme.borderInputColor = "#ffffff";
+    this.$vuetify.theme.backgroundLogin = "#919ea5";
     this.windowWidth = window.innerWidth;
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
