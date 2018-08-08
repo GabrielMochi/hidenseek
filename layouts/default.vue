@@ -23,6 +23,12 @@
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
   }
 
+  .forgot-password{
+    color: #c1cfd6!important;
+    padding: 0 !important;
+    height: auto !important;
+  }
+
   .z-index-1 { z-index: 1; }
   .z-index-2 { z-index: 2; }
   .z-index-3 { z-index: 3; }
@@ -40,5 +46,9 @@
 
   .full-width {
     width: 100vh !important;
+  }
+
+  .no-padding{
+    padding: 0;
   }
 </style>
