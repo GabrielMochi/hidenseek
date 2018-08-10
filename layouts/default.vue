@@ -7,6 +7,18 @@
 </template>
 
 <style>
+  .text-decoration-none a{
+    text-decoration: none;
+  }
+
+  .position-absolute{
+    position: absolute;
+  }
+
+  .position-relative{
+    position: relative;
+  }
+
   .no-select {
     user-select: none;
     -moz-user-select: none;

@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import selectedItem from "./index.vue";
 
 @Component
 export default class extends Vue {}
