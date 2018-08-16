@@ -140,23 +140,19 @@ export default class extends Vue {
 
   $route: Route;
   private selectedItem: Item = new Item(null, null, null, null, null, null);
+  
 
   private validate({ params }: any) {
-    if (
-      /^\d+$/.test(params.id) &&
+      return (/^\d+$/.test(params.id) &&
       Number(params.id) < 8 &&
-      Number(params.id) >= 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+      Number(params.id) >= 0)
   }
 
   private async created() {
+    console.log(this.items.length);
     this.selectedItem = await this.items.find(
       (item: Item) => item.id == this.$route.params.id
-    );
+    );  
   }
 }
 </script>

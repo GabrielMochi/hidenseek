@@ -9,6 +9,9 @@
       <v-container fluid>
         <v-layout wrap>
           <v-flex xs12>
+            <v-text-field v-model="descriptionText" color="primary" label="Descrição" prepend-icon="description" hide-no-data clearable></v-text-field>
+          </v-flex>
+          <v-flex xs12>
         <v-autocomplete v-model="selectedCategory" :items="categorysNames" color="primary" label="Categorias" prepend-icon="category" hide-no-data clearable></v-autocomplete>
           </v-flex>
           <v-flex xs12>
@@ -202,6 +205,7 @@ export default class extends Vue {
     )
   ];
 
+  private descriptionText: string = null;
   private selectedCategory: string = null;
   private selectedLocal: string = null;
   private selectedDate: string = null;
@@ -242,6 +246,8 @@ export default class extends Vue {
 
   private onItemSelected(id: number) {
     this.selectedItem = this.items.find((item: Item) => item.id === id);
+    console.log(this.selectedItem.id);
+    
   }
 
   private async created() {
