@@ -12,7 +12,7 @@
                         <v-checkbox class="white-label" label="Eu concordo com os termos de uso" color="white" required></v-checkbox>
                         <v-card-actions class="no-padding">          
                             <v-layout justify-space-between>
-                                <v-btn flat color="white" light to="/login/register">Já sou registrado</v-btn>
+                                <v-btn flat color="white" light to="/login">Já sou registrado</v-btn>
                                 <v-btn color="white" light>Confirmar</v-btn>
                             </v-layout>
                         </v-card-actions>

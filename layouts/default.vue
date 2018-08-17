@@ -63,4 +63,10 @@
   .no-padding{
     padding: 0;
   }
+
+  @media screen and (min-width: 1367px) {
+    .side-nav {
+      z-index: 1;
+    }
+  }
 </style>

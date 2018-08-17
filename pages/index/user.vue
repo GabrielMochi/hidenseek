@@ -1,35 +1,201 @@
 <template>
   <v-container grid-list-xl>
-    <v-layout align-center class="my-3">
-      <v-avatar size="64" class="mx-3">
-        <img :src="user.thumbnail" :alt="user.name">
-      </v-avatar>
-      <h1>{{ user.name }}</h1>
-    </v-layout>
-    <v-container class="px-5">
-      <h1>Bom dia!</h1>
+    <v-navigation-drawer fixed clipped="false" app class="side-nav">
+      <v-container fluid>
+        <v-layout wrap>
+          <v-flex xs12 text-xs-center>
+            <v-avatar size="128" class="mx-3">
+              <img :src="user.thumbnail" :alt="user.name">
+            </v-avatar>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <div class="headline font-weight-medium ellipsis">{{user.name}}</div>
+          </v-flex>
+          <v-flex xs6>
+            <div class="subheading font-weight-medium">Identificador: </div>
+          </v-flex>
+          <v-flex xs6 text-xs-right> 
+            <div  class="subheading ellipsis">{{user.distinctId}}</div>
+          </v-flex> 
+          <v-flex xs3 block>
+            <div class="subheading font-weight-medium">Email: </div>
+          </v-flex>
+          <v-flex xs9 fluid text-xs-right> 
+            <div class="subheading ellipsis">{{user.email}}</div>
+          </v-flex> 
+          <v-flex xs12 text-xs-center>
+            <v-btn>Editar Perfil</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-navigation-drawer>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex xs12 row>
+              <v-card>
+                <v-layout>
+                <v-flex justify-center align-center xs3>
+                  <div class="title filter-by">Filtrar por:</div>
+                </v-flex>
+                <v-flex xs9>
+                  <v-radio-group v-model="radios" row :mandatory="false">
+                    <v-radio label="Aprovado" value="radio-1"></v-radio>
+                    <v-radio label="Reprovado" value="radio-2"></v-radio>
+                    <v-radio label="Andamento" value="radio-2"></v-radio>
+                  </v-radio-group>
+                </v-flex>
+                </v-layout>
+              </v-card> 
+            </v-flex>
+          <v-flex xs12>
+            <v-card>
+              <v-card-title><span class="headline">Histórico Pessoal</span>
+              <v-spacer></v-spacer>
+              <v-text-field v-model="search" append-icon="search" label="Buscar"
+              single-line hide-details></v-text-field>
+              </v-card-title>
+              <v-data-table :headers="headers"
+              :items="tableItems" :search="search">
+                <template slot="items" slot-scope="props">
+                  <td class="text-xs-center">{{props.item.date}}</td>
+                  <td class="text-xs-center">{{props.item.idItem}}</td>
+                  <td class="text-xs-center">{{props.item.title}}</td>
+                  <td class="text-xs-center">{{props.item.category}}</td>
+                  <td class="text-xs-center">{{props.item.local}}</td>
+                  <td class="text-xs-center"><v-icon :color="changeIconColor(props.item.status)">{{props.item.status}}</v-icon></td>
+                </template>
+                <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                  Sua busca por "{{search}}" não encontrou resultados.
+                </v-alert>
+              </v-data-table>
+            </v-card>
+          </v-flex>
+          </v-layout>
+        </v-container>
     </v-container>
-  </v-container>
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator'
-  import User, { UserPermission } from '~/model/User'
+import { Vue, Component } from "vue-property-decorator";
+import User, { UserPermission } from "~/model/User";
 
-  @Component
-  export default class extends Vue {
+@Component
+export default class extends Vue {
+  user: User = new User(
+    1,
+    "222",
+    "gmochi56@outlook.com",
+    "Gabriel Mochi Ribeiro",
+    "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
+    UserPermission.TOTAL
+  );
 
-    user: User = new User(
-      1,
-      '222',
-      'Gabriel Mochi Ribeiro',
-      'gmochi56@outlook.com',
-      'https://avatars3.githubusercontent.com/u/20032634?s=460&v=4',
-      UserPermission.TOTAL
-    )
+  private search: string = "";
+  private headers: any[] = [
+    {
+      text: "Data",
+      align: "left",
+      value: "date"
+    },
+    {
+      text: "Código do Item",
+      align: "center",
+      value: "idItem"
+    },
+    {
+      text: "Título",
+      align: "center",
+      value: "title"
+    },
+    {
+      text: "Categoria",
+      align: "center",
+      value: "category"
+    },
+    {
+      text: "Local",
+      align: "center",
+      value: "local"
+    },
+    {
+      text: "Status",
+      align: "center",
+      value: "status"
+    }
+  ];
+  private tableItems: any[] = [
+    {
+      value: false,
+      date: "23/06/2018",
+      idItem: "01",
+      title: "Celular Rosa",
+      category: "Eletrônico",
+      local: "Sala 2",
+      status: "hourglass_empty"
+    },
+    {
+      value: false,
+      date: "24/06/2018",
+      idItem: "02",
+      title: "Mochila Azul",
+      category: "Escolares",
+      local: "Bloco A",
+      status: "clear"
+    },
+    {
+      value: false,
+      date: "24/06/2018",
+      idItem: "03",
+      title: "Teclado Verde",
+      category: "Eletrônico, Computador",
+      local: "Bloco C",
+      status: "check"
+    },
+    {
+      value: false,
+      date: "23/06/2018",
+      idItem: "01",
+      title: "Celular Rosa",
+      category: "Eletrônico",
+      local: "Sala 2",
+      status: "hourglass_empty"
+    },
+    {
+      value: false,
+      date: "24/06/2018",
+      idItem: "02",
+      title: "Mochila Azul",
+      category: "Escolares",
+      local: "Bloco A",
+      status: "clear"
+    },
+    {
+      value: false,
+      date: "24/06/2018",
+      idItem: "03",
+      title: "Teclado Verde",
+      category: "Eletrônico, Computador",
+      local: "Bloco C",
+      status: "check"
+    }
+  ];
 
+  private changeIconColor(status: any): string {
+    if (status === "check") return "green";
+    else if (status === "clear") return "red";
+    return "yellow accent-4";
   }
+}
 </script>
 
-<style>
+<style scoped>
+
+.filter-by{
+  padding: 20px;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
