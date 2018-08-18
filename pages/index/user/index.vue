@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-xl>
-    <v-navigation-drawer fixed clipped="false" app class="side-nav">
+    <v-navigation-drawer fixed clipped="false" app class="z-index-1">
       <v-container fluid>
         <v-layout wrap>
           <v-flex xs12 text-xs-center>
@@ -24,7 +24,7 @@
             <div class="subheading ellipsis">{{user.email}}</div>
           </v-flex> 
           <v-flex xs12 text-xs-center>
-            <v-btn>Editar Perfil</v-btn>
+            <v-btn to="/user/edit">Editar Perfil</v-btn>
           </v-flex>
         </v-layout>
       </v-container>

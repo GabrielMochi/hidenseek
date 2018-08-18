@@ -313,7 +313,7 @@ export default class extends Vue {
   height: 192px;
 }
 
-@media screen and (min-width: 1367px) {
+@media screen and (min-width: 1024px) {
   .side-nav {
     z-index: 1;
   }
