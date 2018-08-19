@@ -9,8 +9,7 @@ import { Component, Vue, Watch } from "nuxt-property-decorator";
 
 @Component
 export default class extends Vue {
-  private async created() {
-    console.log(this.$vuetify);
+  private created () {
     this.$vuetify.theme.backgroundLogin = "#919ea5";
   }
 }
