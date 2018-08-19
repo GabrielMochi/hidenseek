@@ -64,7 +64,11 @@
     padding: 0;
   }
 
-  @media screen and (min-width: 1367px) {
+    .side-nav {
+      z-index: 6;
+    }
+
+  @media screen and (min-width: 1264px) {
     .side-nav {
       z-index: 1;
     }

@@ -250,8 +250,12 @@ export default class extends Vue {
     
   }
 
+  responseItems(width: Number){
+    this.isMobile = width < 1025
+    this.isClipped = width > 1263
+  }
+
   private async created() {
-    console.log(this.$vuetify);
     await this.loadCategorys();
     this.$vuetify.theme.primary = "#90caf9";
     this.$vuetify.theme.secondary = "#5d99c6";
@@ -259,22 +263,10 @@ export default class extends Vue {
     this.$vuetify.theme.borderInputColor = "#ffffff";
     this.$vuetify.theme.backgroundLogin = "#919ea5";
     this.windowWidth = window.innerWidth;
-    if (this.windowWidth > 1366) {
-      this.isMobile = false;
-      this.isClipped = true;
-    } else {
-      this.isMobile = true;
-      this.isClipped = false;
-    }
+    this.responseItems(this.windowWidth)
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
-      if (this.windowWidth > 1366) {
-        this.isMobile = false;
-        this.isClipped = true;
-      } else {
-        this.isMobile = true;
-        this.isClipped = false;
-      }
+      this.responseItems(this.windowWidth)
     };
   }
 }
@@ -311,14 +303,16 @@ export default class extends Vue {
 
 .card-image {
   height: 192px;
+  width: 100%;
+}
+
+.overlay {
+  display: none;
 }
 
 @media screen and (min-width: 1024px) {
-  .side-nav {
-    z-index: 1;
-  }
-
   .overlay {
+    display: block;
     position: absolute;
     transition: opacity 0.5s ease;
     top: 50%;

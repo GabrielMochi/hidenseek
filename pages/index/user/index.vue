@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-xl>
-    <v-navigation-drawer fixed clipped="false" app class="z-index-1">
+    <v-navigation-drawer fixed clipped="false" app class="side-nav">
       <v-container fluid>
         <v-layout wrap>
           <v-flex xs12 text-xs-center>
@@ -33,17 +33,19 @@
           <v-layout row wrap>
             <v-flex xs12 row>
               <v-card>
-                <v-layout>
-                <v-flex justify-center align-center xs3>
-                  <div class="title filter-by">Filtrar por:</div>
-                </v-flex>
-                <v-flex xs9>
-                  <v-radio-group v-model="radios" row :mandatory="false">
-                    <v-radio label="Aprovado" value="radio-1"></v-radio>
-                    <v-radio label="Reprovado" value="radio-2"></v-radio>
-                    <v-radio label="Andamento" value="radio-2"></v-radio>
-                  </v-radio-group>
-                </v-flex>
+                <v-layout align-center>
+                  <v-flex>
+                    <v-card-text class="title">Filtar por:</v-card-text>
+                  </v-flex>
+                  <v-flex>
+                    <v-radio-group hide-details v-model="radios" row :mandatory="false">
+                      <v-layout pa-3 justify-space-around align-content-center>
+                        <v-radio label="Aprovado" color="success" value="radio-1"></v-radio>
+                        <v-radio label="Reprovado" color="error" value="radio-2"></v-radio>
+                        <v-radio label="Andamento" color="warning" value="radio-3"></v-radio>
+                      </v-layout>
+                    </v-radio-group>
+                  </v-flex>
                 </v-layout>
               </v-card> 
             </v-flex>
@@ -190,8 +192,8 @@ export default class extends Vue {
 
 <style scoped>
 
-.filter-by{
-  padding: 20px;
+.v-input--selection-controls{
+  padding-top: 0 !important;
 }
 
 .ellipsis {
