@@ -47,6 +47,11 @@ export default class extends Vue {
     title:'Funcionários',
     icon:'group',
     location: '/admin/employees'
+  }, 
+  {
+    title: 'Itens',
+    icon: 'category',
+    location: '/admin/employees' //Insira o path aqui Mochi
   }]
 }
 

@@ -25,7 +25,7 @@
                 </v-flex>
 
                 <v-flex xs11 md5>
-                    <v-text-field v-model="user.distinctId" color="primary" label="Identificador" clearable hide-no-data></v-text-field> 
+                    <v-text-field v-model="user.distinctId" color="primary" label="Identificador" disabled hide-no-data></v-text-field> 
                 </v-flex>
 
                 <v-flex xs11 md5>
