@@ -19,6 +19,6 @@
         </v-flex>
       </v-layout>
     </v-toolbar>
-    <nuxt-child />
+    <nuxt-child/>
   </v-container>
 </template>

@@ -7,6 +7,18 @@
 </template>
 
 <style>
+  .text-decoration-none a{
+    text-decoration: none;
+  }
+
+  .position-absolute{
+    position: absolute;
+  }
+
+  .position-relative{
+    position: relative;
+  }
+
   .no-select {
     user-select: none;
     -moz-user-select: none;
@@ -21,6 +33,12 @@
 
   .text-shadow {
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+  }
+
+  .forgot-password{
+    color: #c1cfd6!important;
+    padding: 0 !important;
+    height: auto !important;
   }
 
   .z-index-1 { z-index: 1; }
@@ -40,5 +58,19 @@
 
   .full-width {
     width: 100vh !important;
+  }
+
+  .no-padding{
+    padding: 0;
+  }
+
+    .side-nav {
+      z-index: 6;
+    }
+
+  @media screen and (min-width: 1264px) {
+    .side-nav {
+      z-index: 1;
+    }
   }
 </style>
