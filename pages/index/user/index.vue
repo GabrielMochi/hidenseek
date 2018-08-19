@@ -57,7 +57,7 @@
               single-line hide-details></v-text-field>
               </v-card-title>
               <v-data-table :headers="headers"
-              :items="tableItems" :search="search">
+              :items="tableItems" :search="search" rows-per-page-text="Linhas por página">
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-center">{{props.item.date}}</td>
                   <td class="text-xs-center">{{props.item.idItem}}</td>
@@ -69,6 +69,9 @@
                 <v-alert slot="no-results" :value="true" color="error" icon="warning">
                   Sua busca por "{{search}}" não encontrou resultados.
                 </v-alert>
+                <template slot="pageText" slot-scope="props">
+                  Linha {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
+                </template>
               </v-data-table>
             </v-card>
           </v-flex>
