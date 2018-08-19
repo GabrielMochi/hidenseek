@@ -6,6 +6,21 @@
   </v-app>
 </template>
 
+<script lang="ts">
+  import Vue from 'vue'
+
+  export default Vue.extend({
+    created () {
+      this.$vuetify.theme.primary = "#90caf9";
+      this.$vuetify.theme.secondary = "#5d99c6";
+      this.$vuetify.theme.accent = "#c3fdff";
+      this.$vuetify.theme.borderInputColor = "#ffffff";
+    }
+  })
+</script>
+
+
+
 <style>
   .text-decoration-none a{
     text-decoration: none;
