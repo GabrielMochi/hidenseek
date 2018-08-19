@@ -140,7 +140,7 @@ export default class extends Vue {
 
   $route: Route;
   private selectedItem: Item = new Item(null, null, null, null, null, null);
-  
+
 
   private validate({ params }: any) {
       return (/^\d+$/.test(params.id) &&
@@ -152,7 +152,7 @@ export default class extends Vue {
     console.log(this.items.length);
     this.selectedItem = await this.items.find(
       (item: Item) => item.id == this.$route.params.id
-    );  
+    );
   }
 }
 </script>
