@@ -259,7 +259,7 @@ export default class extends Vue {
     this.$vuetify.theme.borderInputColor = "#ffffff";
     this.$vuetify.theme.backgroundLogin = "#919ea5";
     this.windowWidth = window.innerWidth;
-    if (this.windowWidth > 1366) {
+    if (this.windowWidth > 1024) {
       this.isMobile = false;
       this.isClipped = true;
     } else {
@@ -268,7 +268,7 @@ export default class extends Vue {
     }
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
-      if (this.windowWidth > 1366) {
+      if (this.windowWidth > 1024) {
         this.isMobile = false;
         this.isClipped = true;
       } else {
