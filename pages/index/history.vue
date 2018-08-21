@@ -1,7 +1,6 @@
 <template>
-  <v-container grid-list-xl>
-        <v-container>
-          <v-layout row wrap>
+  <v-card>
+      <v-layout row wrap>
             <v-flex xs12 row>
               <v-card>
                 <v-layout align-center>
@@ -30,7 +29,7 @@
               <v-data-table :headers="headers"
               :items="tableItems" :search="search" rows-per-page-text="Linhas por página">
                 <template slot="items" slot-scope="props">
-                    <tr @dblclick="editItem(props.item)">
+                    <tr @dblclick="editItem(props.item)" class="cursor-pointer">
                         <td class="text-xs-center">{{props.item.date}}</td>
                         <td class="text-xs-center">{{props.item.idSeeker}}</td>
                         <td class="text-xs-left">{{props.item.seeker}}</td>
@@ -50,6 +49,10 @@
                                         <v-flex xs12 sm6 md4>
                                             <div class="headline">Justificativa</div>
                                             <v-text-field v-model="justifica" disabled textarea></v-text-field>
+                                        </v-flex>
+                                        <v-flex xs12 sm6 md4>
+                                            <div class="headline">Detalhes</div>
+                                            <v-text-field v-model="detalhe" disabled textarea></v-text-field>
                                         </v-flex>
                                         <v-flex xs12 sm6 md4>
                                             <v-radio-group v-model="value" column>
@@ -79,8 +82,7 @@
             </v-card>
           </v-flex>
           </v-layout>
-        </v-container>
-    </v-container>
+    </v-card>
 </template>
 
 <script lang="ts">
@@ -179,7 +181,8 @@ export default class extends Vue {
       status: "check"
     }
   ];
-  private justifica: string = "O item possui um barbante na ponta";
+  private justifica: string = "O item possui um barbante na ponta.";
+  private detalhe: string = "O item foi encontrado com um barbante preto na ponta, além de algumas etiquetas."
   private dialog: boolean = false;
   private editedIndex: number = -1;
   private editedItem: any = {

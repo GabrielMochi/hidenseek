@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+ <!-- <no-ssr>-->
     <v-container fluid grid-list-xl>
       <v-navigation-drawer fixed :clipped="isClipped" app class="side-nav">
         <v-toolbar flat class="transparent">
@@ -71,7 +71,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </no-ssr>
+  <!--</no-ssr>-->
 </template>
 
 <script lang="ts">
@@ -253,11 +253,11 @@ export default class extends Vue {
 
   private async created() {
     await this.loadCategorys();
-    // this.$vuetify.theme.primary = "#90caf9";
-    // this.$vuetify.theme.secondary = "#5d99c6";
-    // this.$vuetify.theme.accent = "#c3fdff";
-    // this.$vuetify.theme.borderInputColor = "#ffffff";
-    // this.$vuetify.theme.backgroundLogin = "#919ea5";
+    this.$vuetify.theme.primary = "#90caf9";
+    this.$vuetify.theme.secondary = "#5d99c6";
+    this.$vuetify.theme.accent = "#c3fdff";
+    this.$vuetify.theme.borderInputColor = "#ffffff";
+    this.$vuetify.theme.backgroundLogin = "#919ea5";
     this.windowWidth = window.innerWidth;
     this.responseItems(this.windowWidth);
     window.onresize = () => {
