@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid fill-height justify-center>
+    <v-card>
         <v-layout>
             <div class="content-no-padding fill-width">
         <v-toolbar flat color="white">
@@ -47,7 +47,6 @@
       :headers="headers"
       :items="users"
       :search="search"
-      class="elevation-1"
       rows-per-page-text="Linhas por página"
 
     >
@@ -58,13 +57,14 @@
         <td class="justify-center layout px-0">
           <v-icon
             small
-            class="mr-2"
+            class="mr-2 cursor-pointer"
             @click="editItem(props.item)"
           >
             edit
           </v-icon>
           <v-icon
             small
+            class="cursor-pointer"
             @click="deleteItem(props.item)"
           >
             delete
@@ -80,7 +80,7 @@
     </v-data-table>
     </div>
     </v-layout>
-    </v-container>
+    </v-card>
 </template>
 
 <script lang="ts">

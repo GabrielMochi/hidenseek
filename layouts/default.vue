@@ -64,9 +64,13 @@
     padding: 0;
   }
 
-    .side-nav {
-      z-index: 6;
-    }
+  .side-nav {
+    z-index: 6;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
 
   @media screen and (min-width: 1264px) {
     .side-nav {
