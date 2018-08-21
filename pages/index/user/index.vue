@@ -86,6 +86,10 @@ import User, { UserPermission } from "~/model/User";
 
 @Component
 export default class extends Vue {
+  private teste(){
+    confirm('teste')
+  }
+
   user: User = new User(
     1,
     "222",

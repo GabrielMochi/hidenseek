@@ -21,7 +21,7 @@
 
           <v-card-text>
             <v-container grid-list-md>
-              <v-layout wrap>
+              <v-layout wrap column>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.name" label="Nome"></v-text-field>
                 </v-flex>
