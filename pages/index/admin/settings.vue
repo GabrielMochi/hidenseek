@@ -23,38 +23,24 @@
                                 </v-flex>                              
                             </v-layout>
                         </v-flex>
+
+                            <!-- Locais -->
+
                             <v-layout mt-4 row wrap justify-center>
                                 <v-flex xs8>
                                         <div class="v-toolbar__content-no-padding">
                                         <v-toolbar flat color="white">
                                             <v-toolbar-title>Locais</v-toolbar-title>
                                             <v-spacer></v-spacer>
-                                            <v-dialog v-model="dialog" max-width="500px">
-                                            <v-btn slot="activator" color="secondary" dark class="mb-2">Novo Item</v-btn>
-                                            <v-card>
-                                                <v-card-title>
-                                                <span class="headline">{{ formTitle }}</span>
-                                                </v-card-title>
-                                    
-                                                <v-card-text>
-                                                <v-container grid-list-md>
-                                                    <v-layout wrap>
-                                                    <v-flex xs12 sm6 md4>
-                                                        <v-text-field v-model="editedItem.localName" label="Local"></v-text-field>
-                                                    </v-flex>
-                                                    </v-layout>
-                                                </v-container>
-                                                </v-card-text>
-                                    
-                                                <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn color="blue darken-1" flat @click.native="close">Cancelar</v-btn>
-                                                <v-btn color="blue darken-1" flat @click.native="save">Salvar</v-btn>
-                                                </v-card-actions>
-                                            </v-card>
-                                            </v-dialog>
+                                            <v-text-field
+                                                v-model="searchLocal"
+                                                append-icon="search"
+                                                label="Pesquisar"
+                                                single-line
+                                                hide-details
+                                            ></v-text-field>
                                         </v-toolbar>
-                                        <v-data-table :headers="headers" :items="locals" hide-actions class="elevation-1">
+                                        <v-data-table :search="searchLocal" :headers="headersLocals" :items="locals" hide-actions class="elevation-1">
                                             <template slot="items" slot-scope="props">
                                             <td>{{ props.item.localName }}</td>
                                             <td class="text-xs-right"></td>
@@ -62,29 +48,121 @@
                                                 <v-icon
                                                 small
                                                 class="mr-2"
-                                                @click="editItem(props.item)"
+                                                @click="editItemLocals(props.item)"
                                                 >
                                                 edit
                                                 </v-icon>
                                                 <v-icon
                                                 small
-                                                @click="deleteItem(props.item)"
+                                                @click="deleteItemLocals(props.item)"
                                                 >
                                                 delete
                                                 </v-icon>
                                             </td>
                                             </template>
                                             <template slot="no-data">
-                                            <v-btn color="primary" @click="initialize">Reset</v-btn>
+                                                <div class="title">Não há locais registrados</div>
                                             </template>
                                         </v-data-table>
+                                            <v-layout pt-2 justify-end>
+                                                <v-dialog v-model="dialogLocals" max-width="500px">
+                                                    <v-btn slot="activator" color="secondary" dark class="mb-2">Novo Local</v-btn>  
+                                                    <v-card>
+                                                        <v-card-title>
+                                                        <span class="headline">{{ formTitleLocals }}</span>
+                                                        </v-card-title>
+                                            
+                                                        <v-card-text>
+                                                        <v-container grid-list-md>
+                                                            <v-layout wrap>
+                                                            <v-flex xs12 sm6 md4>
+                                                                <v-text-field v-model="editedItemLocals.localName" label="Local"></v-text-field>
+                                                            </v-flex>
+                                                            </v-layout>
+                                                        </v-container>
+                                                        </v-card-text>
+                                            
+                                                        <v-card-actions>
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn color="blue darken-1" flat @click.native="closeLocals">Cancelar</v-btn>
+                                                        <v-btn color="blue darken-1" flat @click.native="saveLocals">Salvar</v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>                                                
+                                            </v-layout>
                                         </div>
                                 </v-flex>
-                                <v-flex xs8 pr-5>
-                                    <v-layout row wrap justify-center>
-                                    </v-layout>
+                            </v-layout>
+
+                            <!-- Categorias -->
+
+                            <v-layout mt-4 row wrap justify-center>
+                                <v-flex xs8>
+                                        <div class="v-toolbar__content-no-padding">
+                                        <v-toolbar flat color="white">
+                                            <v-toolbar-title>Categorias</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-text-field
+                                                    v-model="searchCategory"
+                                                    append-icon="search"
+                                                    label="Pesquisar"
+                                                    single-line
+                                                    hide-details
+                                            ></v-text-field>                                            
+                                        </v-toolbar>
+                                        <v-data-table :search="searchCategory" :headers="headersCategorys" :items="categorys" hide-actions class="elevation-1">
+                                            <template slot="items" slot-scope="props">
+                                            <td>{{ props.item.categoryName}}</td>
+                                            <td class="text-xs-right"></td>
+                                            <td class="justify-center layout px-0">
+                                                <v-icon
+                                                small
+                                                class="mr-2"
+                                                @click="editItemCategorys(props.item)"
+                                                >
+                                                edit
+                                                </v-icon>
+                                                <v-icon
+                                                small
+                                                @click="deleteItemCategorys(props.item)"
+                                                >
+                                                delete
+                                                </v-icon>
+                                            </td>
+                                            </template>
+                                            <template slot="no-data">
+                                                <div class="title">Não há categorias registradas</div>
+                                            </template>
+                                        </v-data-table>
+                                        <v-layout pt-2 justify-end>   
+                                            <v-dialog v-model="dialogCategorys" max-width="500px">
+                                                <v-btn slot="activator" color="secondary" dark class="mb-2">Nova Categoria</v-btn>  
+                                                <v-card>
+                                                    <v-card-title>
+                                                    <span class="headline">{{ formTitleCategorys }}</span>
+                                                    </v-card-title>
+                                        
+                                                    <v-card-text>
+                                                    <v-container grid-list-md>
+                                                        <v-layout wrap>
+                                                        <v-flex xs12 sm6 md4>
+                                                            <v-text-field v-model="editedItemCategorys.categoryName" label="Categoria"></v-text-field>
+                                                        </v-flex>
+                                                        </v-layout>
+                                                    </v-container>
+                                                    </v-card-text>
+                                        
+                                                    <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="blue darken-1" flat @click.native="closeCategorys">Cancelar</v-btn>
+                                                    <v-btn color="blue darken-1" flat @click.native="saveCategorys">Salvar</v-btn>
+                                                    </v-card-actions>
+                                                </v-card>
+                                            </v-dialog>
+                                        </v-layout>
+                                        </div>
                                 </v-flex>
-                            </v-layout>   
+                            </v-layout>         
                     </v-layout>                    
                 </v-card-actions>
             </v-container>
@@ -100,8 +178,11 @@ import { setTimeout } from "timers";
 @Component
 export default class extends Vue {
 
-    private dialog: boolean = false
-    private headers: any[] = [
+    private searchLocal: string = ''
+    private searchCategory: string = ''
+    private dialogLocals: boolean = false
+    private dialogCategorys: boolean = false
+    private headersLocals: any[] = [
         {
             text: 'Locais',
             align: 'left',
@@ -118,31 +199,66 @@ export default class extends Vue {
             sortable: false
         }
     ]
+    private headersCategorys: any[] = [
+        {
+            text: 'Categorias',
+            align: 'left',
+            value: 'categoryName'
+        },
+        {
+            text: '',
+            sortable: false
+        },
+        {
+            text: 'Ações',
+            value: 'categoryName',
+            align: 'center',
+            sortable: false
+        }
+    ]
     private locals: any[] = []
-    private editedIndex: number = -1
-    private editedItem: any = {
+    private categorys: any[] = []
+    private editedIndexLocals: number = -1
+    private editedIndexCategorys: number = -1
+    private editedItemLocals: any = {
         localName: ''
     }
-    private defaultItem: any = {
+    private defaultItemLocals: any = {
         localName: ''
     }
-
-    private get formTitle () {
-      return this.editedIndex === -1 ? 'Novo Item' : 'Editar Item'
+        private editedItemCategorys: any = {
+        categoryName: ''
+    }
+    private defaultItemCategorys: any = {
+        categoryName: ''
     }
 
-    @Watch("dialog")
-    private onDialogChange (val : any){
-        val || this.close()
+    private get formTitleLocals () {
+      return this.editedIndexLocals === -1 ? 'Novo Local' : 'Editar Local'
+    }
+
+    private get formTitleCategorys () {
+      return this.editedIndexCategorys === -1 ? 'Nova Categoria' : 'Editar Categoria'
+    }
+
+    @Watch("dialogLocals")
+    private onDialogLocalsChange (val : any){
+        val || this.closeLocals()
+    }
+
+    @Watch("dialogCategorys")
+    private onDialogCategoryChange (val : any){
+        val || this.closeCategorys()
     }
 
     private created(){
-        this.initialize()
-        console.log('Bom Dia');
+        this.initializeLocals()
+        this.initializeCategorys()
+        console.log(this.categorys);
         
     }
 
-    private initialize() {
+    private initializeLocals() {
         this.locals = [
             {
                 localName: 'Bloca A'
@@ -156,33 +272,76 @@ export default class extends Vue {
         ]
     }
 
-    private editItem(item : any){
-        this.editedIndex = this.locals.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
+    private initializeCategorys() {
+        this.categorys = [
+            {
+                categoryName: 'Identidades'
+            }, 
+            {
+                categoryName: 'Lápis'
+            }, 
+            {
+                categoryName: 'Roupas'
+            }
+        ]
     }
 
-    private deleteItem(item : any) {
+    private editItemLocals(item : any){
+        this.editedIndexLocals = this.locals.indexOf(item)
+        this.editedItemLocals = Object.assign({}, item)
+        this.dialogLocals = true
+    }
+
+    private editItemCategorys(item : any){
+        this.editedIndexCategorys = this.categorys.indexOf(item)
+        this.editedItemCategorys = Object.assign({}, item)
+        this.dialogCategorys = true
+    }
+
+    private deleteItemLocals(item : any) {
         const index : any = this.locals.indexOf(item)
         confirm('Você tem certeza que deseja deletar este item?') && this.locals.splice(index, 1)
     }
 
-    private close() {
-        this.dialog = false
+    private deleteItemCategorys(item : any) {
+        const index : any = this.categorys.indexOf(item)
+        confirm('Você tem certeza que deseja deletar este item?') && this.categorys.splice(index, 1)
+    }
+
+    private closeLocals() {
+        this.dialogLocals = false
         setTimeout(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
+            this.editedItemLocals = Object.assign({}, this.defaultItemLocals)
+            this.editedIndexLocals = -1
         }, 300)
     }
 
-    private save() {
-    if (this.editedIndex > -1) {
-        Object.assign(this.locals[this.editedIndex], this.editedItem)
-      } else {
-        this.locals.push(this.editedItem)
-      }
-      this.close()
+    private closeCategorys() {
+        this.dialogCategorys = false
+        setTimeout(() => {
+            this.editedItemCategorys = Object.assign({}, this.defaultItemCategorys)
+            this.editedIndexCategorys = -1
+        }, 300)
     }
+
+    private saveLocals() {
+    if (this.editedIndexLocals > -1) {
+        Object.assign(this.locals[this.editedIndexLocals], this.editedItemLocals)
+      } else {
+        this.locals.push(this.editedItemLocals)
+      }
+      this.closeLocals()
+    }
+
+    private saveCategorys() {
+    if (this.editedIndexCategorys > -1) {
+        Object.assign(this.categorys[this.editedIndexCategorys], this.editedItemCategorys)
+      } else {
+        this.categorys.push(this.editedItemCategorys)
+      }
+      this.closeCategorys()
+    }
+    
 }
 </script>
 
