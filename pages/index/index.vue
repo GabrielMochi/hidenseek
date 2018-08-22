@@ -13,33 +13,32 @@
               <v-text-field v-model="descriptionText" color="primary" label="Descrição" prepend-icon="description" hide-no-data clearable></v-text-field>
             </v-flex>
             <v-flex xs12>
-          <v-autocomplete v-model="selectedCategory" :items="categorysNames" color="primary" label="Categorias" prepend-icon="category" hide-no-data clearable></v-autocomplete>
+              <v-autocomplete v-model="selectedCategory" :items="categorysNames" color="primary" label="Categorias" prepend-icon="category" hide-no-data clearable></v-autocomplete>
             </v-flex>
             <v-flex xs12>
-          <v-autocomplete v-model="selectedLocal" :items="localsNames" color="primary" label="Locais" prepend-icon="place" hide-no-data clearable></v-autocomplete>
+              <v-autocomplete v-model="selectedLocal" :items="localsNames" color="primary" label="Locais" prepend-icon="place" hide-no-data clearable></v-autocomplete>
             </v-flex>
             <v-flex xs12>
-          <v-menu v-model="dateMenu" :close-on-content-click="false" :nudge-right="40" lazy transition="scale-transition" offset-y class="fill-width">
-            <v-text-field slot="activator" v-model="selectedDate" label="Data de perda" prepend-icon="event" clearable readonly></v-text-field>
-            <v-date-picker v-model="selectedDate" locale="pt-br" :max="new Date().toISOString().substr(0, 10)" min="2018-01-01"></v-date-picker>
-          </v-menu>
+              <v-menu v-model="dateMenu" :close-on-content-click="false" :nudge-right="40" lazy transition="scale-transition" offset-y class="fill-width">
+                <v-text-field slot="activator" v-model="selectedDate" label="Data de perda" prepend-icon="event" clearable readonly></v-text-field>
+                <v-date-picker v-model="selectedDate" locale="pt-br" :max="new Date().toISOString().substr(0, 10)" min="2018-01-01"></v-date-picker>
+              </v-menu>
             </v-flex>
           </v-layout>
         </v-container>
       </v-navigation-drawer>
       <v-layout wrap>
         <v-flex v-for="item in items" :key="item.id" xs12 sm6 md4 lg3 xl2>
-          <!-- Card -->
           <v-card class="item-card">
-              <v-card-media class="container-overlay" contain @click.native="$router.push(`retrieve/${item.id}`)">
-                <img class="card-image" :src="item.photoURL" alt="">
-                <div class="overlay">
-                  <v-btn block flat color="white" class="text blur-button">Reivindicar</v-btn>
-                </div>
-              </v-card-media>
-          <v-expansion-panel>
-            <v-expansion-panel-content>
-              <div slot="header" class="subheading">{{ item.description }}</div>
+            <v-card-media class="container-overlay" contain @click.native="$router.push(`retrieve/${item.id}`)">
+              <img class="card-image" :src="item.photoURL" alt="">
+              <div class="overlay">
+                <v-btn block flat color="white" class="text blur-button">Reivindicar</v-btn>
+              </div>
+            </v-card-media>
+            <v-expansion-panel>
+              <v-expansion-panel-content>
+                <div slot="header" class="subheading">{{ item.description }}</div>
                 <v-list>
                   <v-list-tile>
                     <v-list-tile-action>
@@ -253,11 +252,6 @@ export default class extends Vue {
 
   private async created() {
     await this.loadCategorys();
-    // this.$vuetify.theme.primary = "#90caf9";
-    // this.$vuetify.theme.secondary = "#5d99c6";
-    // this.$vuetify.theme.accent = "#c3fdff";
-    // this.$vuetify.theme.borderInputColor = "#ffffff";
-    // this.$vuetify.theme.backgroundLogin = "#919ea5";
     this.windowWidth = window.innerWidth;
     this.responseItems(this.windowWidth);
     window.onresize = () => {

@@ -14,15 +14,15 @@
           <v-flex xs6>
             <div class="subheading font-weight-medium">Identificador: </div>
           </v-flex>
-          <v-flex xs6 text-xs-right> 
+          <v-flex xs6 text-xs-right>
             <div  class="subheading ellipsis">{{user.distinctId}}</div>
-          </v-flex> 
+          </v-flex>
           <v-flex xs3 block>
             <div class="subheading font-weight-medium">Email: </div>
           </v-flex>
-          <v-flex xs9 fluid text-xs-right> 
+          <v-flex xs9 fluid text-xs-right>
             <div class="subheading ellipsis">{{user.email}}</div>
-          </v-flex> 
+          </v-flex>
           <v-flex xs12 text-xs-center>
             <v-btn to="/user/edit">Editar Perfil</v-btn>
           </v-flex>
@@ -47,7 +47,7 @@
                     </v-radio-group>
                   </v-flex>
                 </v-layout>
-              </v-card> 
+              </v-card>
             </v-flex>
           <v-flex xs12>
             <v-card>

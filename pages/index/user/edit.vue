@@ -20,24 +20,24 @@
                     <v-text-field v-model="user.name" color="primary" label="Nome" clearable hide-no-data></v-text-field>
                 </v-flex>
 
-                <v-flex xs11 md5> 
+                <v-flex xs11 md5>
                     <v-text-field v-model="user.email" color="primary" label="Email" clearable hide-no-data></v-text-field>
                 </v-flex>
 
                 <v-flex xs11 md5>
-                    <v-text-field v-model="user.distinctId" color="primary" label="Identificador" disabled hide-no-data></v-text-field> 
+                    <v-text-field v-model="user.distinctId" color="primary" label="Identificador" disabled hide-no-data></v-text-field>
                 </v-flex>
 
                 <v-flex xs11 md5>
-                    <v-text-field v-model="oldPassword" type="password" color="primary" label="Senha Antiga" clearable hide-no-data></v-text-field> 
+                    <v-text-field v-model="oldPassword" type="password" color="primary" label="Senha Antiga" clearable hide-no-data></v-text-field>
                 </v-flex>
 
                 <v-flex xs11 md5>
-                    <v-text-field v-model="newPassword" type="password" color="primary" label="Nova Senha" clearable hide-no-data></v-text-field> 
+                    <v-text-field v-model="newPassword" type="password" color="primary" label="Nova Senha" clearable hide-no-data></v-text-field>
                 </v-flex>
 
                 <v-flex xs11 md5>
-                    <v-text-field v-model="confirmPassword" type="password" color="primary" label="Confirmar Senha" clearable hide-no-data></v-text-field> 
+                    <v-text-field v-model="confirmPassword" type="password" color="primary" label="Confirmar Senha" clearable hide-no-data></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 text-xs-center>

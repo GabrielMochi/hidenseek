@@ -6,6 +6,24 @@
   </v-app>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class extends Vue {
+
+  created () {
+    this.$vuetify.theme.primary = "#90caf9";
+    this.$vuetify.theme.secondary = "#5d99c6";
+    this.$vuetify.theme.accent = "#c3fdff";
+    this.$vuetify.theme.borderInputColor = "#ffffff";
+    this.$vuetify.theme.backgroundLogin = "#919ea5";
+  }
+
+}
+</script>
+
+
 <style>
   .text-decoration-none a{
     text-decoration: none;
@@ -70,6 +88,10 @@
 
   .cursor-pointer {
     cursor: pointer;
+  }
+
+  .xg-icon-size {
+    font-size: 192px;
   }
 
   @media screen and (min-width: 1264px) {
