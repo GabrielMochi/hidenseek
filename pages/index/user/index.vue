@@ -24,7 +24,7 @@
             <div class="subheading ellipsis">{{user.email}}</div>
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <v-btn to="/user/edit">Editar Perfil</v-btn>
+            <v-btn color="primary" to="/user/edit">Editar Perfil</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -86,6 +86,10 @@ import User, { UserPermission } from "~/model/User";
 
 @Component
 export default class extends Vue {
+  private teste(){
+    confirm('teste')
+  }
+
   user: User = new User(
     1,
     "222",

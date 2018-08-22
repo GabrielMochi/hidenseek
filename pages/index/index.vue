@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+ <!-- <no-ssr>-->
     <v-container fluid grid-list-xl>
       <v-navigation-drawer fixed :clipped="isClipped" app class="side-nav">
         <v-toolbar flat class="transparent">
@@ -70,7 +70,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </no-ssr>
+  <!--</no-ssr>-->
 </template>
 
 <script lang="ts">
