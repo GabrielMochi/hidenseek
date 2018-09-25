@@ -1,6 +1,7 @@
 // dependencies
 import express, { Application } from 'express'
 import { Builder, Nuxt } from 'nuxt'
+import './repository'
 
 // config
 import * as config from './../nuxt.config'

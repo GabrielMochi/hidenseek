@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,87 +73,33 @@ module.exports = require("express");
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("http-status-codes");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mysql__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mysql___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mysql__);
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_mysql__["createPool"])({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: '',
-    database: 'hidenseek',
-    timezone: '+3:00'
-}));
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var SimpleRepository = /** @class */ (function () {
-    function SimpleRepository(pool, tableName, relativeIdName) {
-        if (relativeIdName === void 0) { relativeIdName = 'id'; }
-        this.pool = pool;
-        this.tableName = tableName;
-        this.relativeIdName = relativeIdName;
-    }
-    SimpleRepository.prototype.get = function (id, callback) {
-        this.pool.query("SELECT * FROM " + this.tableName + " WHERE " + this.relativeIdName + " = ?", id, callback);
-    };
-    SimpleRepository.prototype.getAll = function (callback) {
-        this.pool.query("SELECT * FROM " + this.tableName, callback);
-    };
-    SimpleRepository.prototype.insert = function (element, callback) {
-        this.pool.query("INSERT INTO " + this.tableName + " SET ?", element, callback);
-    };
-    SimpleRepository.prototype.update = function (element, callback) {
-        this.pool.query("UPDATE " + this.tableName + " SET ? WHERE " + this.relativeIdName + " = ?", [element, element.id], callback);
-    };
-    SimpleRepository.prototype.delete = function (id, callback) {
-        this.pool.query("DELETE FROM " + this.tableName + " WHERE " + this.relativeIdName + " = ?", id, callback);
-    };
-    return SimpleRepository;
-}());
-/* harmony default export */ __webpack_exports__["a"] = (SimpleRepository);
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nuxt_config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nuxt_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__nuxt_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__repository__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nuxt_config__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nuxt_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__nuxt_config__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api__ = __webpack_require__(6);
 // dependencies
+
 
 
 // config
 
 // routes
 
-__WEBPACK_IMPORTED_MODULE_2__nuxt_config__["dev"] = "development" !== 'production';
-var nuxt = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Nuxt"](__WEBPACK_IMPORTED_MODULE_2__nuxt_config__);
+__WEBPACK_IMPORTED_MODULE_3__nuxt_config__["dev"] = "development" !== 'production';
+var nuxt = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Nuxt"](__WEBPACK_IMPORTED_MODULE_3__nuxt_config__);
 var app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
 var port = parseInt(process.env.PORT, 10) || 3000;
 app.set('port', port);
-app.use('/api', __WEBPACK_IMPORTED_MODULE_3__api__["a" /* default */]);
-if (__WEBPACK_IMPORTED_MODULE_2__nuxt_config__["dev"]) {
+app.use('/api', __WEBPACK_IMPORTED_MODULE_4__api__["a" /* default */]);
+if (__WEBPACK_IMPORTED_MODULE_3__nuxt_config__["dev"]) {
     new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Builder"](nuxt).build();
 }
 app.use(nuxt.render);
@@ -163,16 +109,22 @@ app.listen(port, function () {
 
 
 /***/ }),
-/* 5 */
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var packageJson = __webpack_require__(7);
+var packageJson = __webpack_require__(5);
 
 module.exports = {
   env: {
@@ -208,29 +160,25 @@ module.exports = {
 };
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicação Web para busca de objetos perdidos.","private":true,"dependencies":{"@types/express-session":"^1.15.10","@types/mysql":"^2.15.5","axios":"^0.18.0","babel-polyfill":"^6.26.0","body-parser":"^1.18.3","express":"^4.16.3","express-session":"^1.15.6","http-status-codes":"^1.3.0","mysql":"^2.15.0","nuxt":"^1.4.0","nuxt-class-component":"^1.2.0","nuxt-property-decorator":"^1.2.0","qs":"^6.5.1","rxjs":"^5.5.6","vue-class-component":"^6.2.0","vue-property-decorator":"^6.0.0","vue-rx":"^5.0.0","vuetify":"^1.0.4","vuex":"^3.0.1","vuex-class":"^0.3.0"},"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node build/main.js","test":"jest --no-cache","generate":"nuxt generate","server":"npm run build && npm run start"},"devDependencies":{"@reactivex/rxjs":"^5.5.6","@types/axios":"^0.14.0","@types/express":"^4.11.1","@types/jest":"^22.1.4","@types/node":"^9.4.6","@types/qs":"^6.5.1","@types/vue":"^2.0.0","babel-jest":"^22.4.1","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-decorators-legacy":"^1.3.5","babel-preset-stage-2":"^6.24.1","babel-preset-vue-app":"^2.0.0","backpack-core":"^0.7.0","cross-env":"^5.1.5","jest":"^22.4.2","jest-serializer-vue":"^0.3.0","jest-vue-preprocessor":"^1.3.1","stylus":"^0.54.5","stylus-loader":"^3.0.2","ts-jest":"^22.4.1","ts-loader":"^3.5.0","tslint":"^5.9.1","tslint-config-standard":"^7.0.0","typescript":"~2.5.3","vue-language-server":"^0.0.30","vue-template-compiler":"^2.5.13","vue-test-utils":"^1.0.0-beta.11","wallaby-vue-compiler":"^1.0.2"}}
+module.exports = {"name":"hidenseek","version":"1.0.4","description":"Aplicação Web para busca de objetos perdidos.","private":true,"dependencies":{"@types/express-session":"^1.15.10","@types/mongoose":"^5.2.7","@types/mysql":"^2.15.5","axios":"^0.18.0","babel-polyfill":"^6.26.0","body-parser":"^1.18.3","express":"^4.16.3","express-session":"^1.15.6","http-status-codes":"^1.3.0","mongoose":"^5.2.10","mysql":"^2.15.0","nuxt":"^1.4.0","nuxt-class-component":"^1.2.0","nuxt-property-decorator":"^1.2.0","qs":"^6.5.1","rxjs":"^5.5.6","vue-class-component":"^6.2.0","vue-property-decorator":"^6.0.0","vue-rx":"^5.0.0","vuetify":"^1.0.4","vuex":"^3.0.1","vuex-class":"^0.3.0"},"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node build/main.js","test":"jest --no-cache","generate":"nuxt generate","server":"npm run build && npm run start"},"devDependencies":{"@reactivex/rxjs":"^5.5.6","@types/axios":"^0.14.0","@types/express":"^4.11.1","@types/jest":"^22.1.4","@types/node":"^9.4.6","@types/qs":"^6.5.1","@types/vue":"^2.0.0","babel-jest":"^22.4.1","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-decorators-legacy":"^1.3.5","babel-preset-stage-2":"^6.24.1","babel-preset-vue-app":"^2.0.0","backpack-core":"^0.7.0","cross-env":"^5.1.5","jest":"^22.4.2","jest-serializer-vue":"^0.3.0","jest-vue-preprocessor":"^1.3.1","stylus":"^0.54.5","stylus-loader":"^3.0.2","ts-jest":"^22.4.1","ts-loader":"^3.5.0","tslint":"^5.9.1","tslint-config-standard":"^7.0.0","typescript":"~2.5.3","vue-language-server":"^0.0.30","vue-template-compiler":"^2.5.13","vue-test-utils":"^1.0.0-beta.11","wallaby-vue-compiler":"^1.0.2"}}
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_body_parser__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_body_parser__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_body_parser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_express_session__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_express_session__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_express_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_express_session__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__category__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__local__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__logout__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__user__ = __webpack_require__(18);
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__logout__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user__ = __webpack_require__(12);
 
 
 
@@ -245,156 +193,32 @@ router.use(__WEBPACK_IMPORTED_MODULE_2_express_session___default()({
     saveUninitialized: false,
     cookie: { maxAge: 60000 }
 }));
-router.use('/user', __WEBPACK_IMPORTED_MODULE_7__user__["a" /* default */]);
-router.use('/category', __WEBPACK_IMPORTED_MODULE_3__category__["a" /* default */]);
-router.use('/local', __WEBPACK_IMPORTED_MODULE_4__local__["a" /* default */]);
-router.use('/login', __WEBPACK_IMPORTED_MODULE_5__login__["a" /* default */]);
-router.use('/logout', __WEBPACK_IMPORTED_MODULE_6__logout__["a" /* default */]);
+router.use('/user', __WEBPACK_IMPORTED_MODULE_5__user__["a" /* default */]);
+router.use('/login', __WEBPACK_IMPORTED_MODULE_3__login__["a" /* default */]);
+router.use('/logout', __WEBPACK_IMPORTED_MODULE_4__logout__["a" /* default */]);
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__repository_CategoryRepository__ = __webpack_require__(12);
-
-
-
-var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-var categoryRepository = new __WEBPACK_IMPORTED_MODULE_2__repository_CategoryRepository__["a" /* default */]();
-router.get('/', function (req, res) {
-    categoryRepository.getAll(function (err, results) {
-        if (err) {
-            console.error(err);
-            res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
-        }
-        else {
-            res.json(results);
-        }
-    });
-});
-/* harmony default export */ __webpack_exports__["a"] = (router);
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SimpleRepository__ = __webpack_require__(3);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-var CategoryRepository = /** @class */ (function (_super) {
-    __extends(CategoryRepository, _super);
-    function CategoryRepository() {
-        return _super.call(this, __WEBPACK_IMPORTED_MODULE_0____["a" /* default */], 'category') || this;
-    }
-    return CategoryRepository;
-}(__WEBPACK_IMPORTED_MODULE_1__SimpleRepository__["a" /* default */]));
-/* harmony default export */ __webpack_exports__["a"] = (CategoryRepository);
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("mysql");
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__repository_LocalRepository__ = __webpack_require__(15);
-
-
-
-var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-var localRepository = new __WEBPACK_IMPORTED_MODULE_2__repository_LocalRepository__["a" /* default */]();
-router.get('/', function (req, res) {
-    localRepository.getAll(function (err, results) {
-        if (err) {
-            console.error(err);
-            res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
-        }
-        else {
-            res.json(results);
-        }
-    });
-});
-/* harmony default export */ __webpack_exports__["a"] = (router);
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SimpleRepository__ = __webpack_require__(3);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-var LocalRepository = /** @class */ (function (_super) {
-    __extends(LocalRepository, _super);
-    function LocalRepository() {
-        return _super.call(this, __WEBPACK_IMPORTED_MODULE_0____["a" /* default */], 'local') || this;
-    }
-    return LocalRepository;
-}(__WEBPACK_IMPORTED_MODULE_1__SimpleRepository__["a" /* default */]));
-/* harmony default export */ __webpack_exports__["a"] = (LocalRepository);
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_http_status_codes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__);
 
 
@@ -411,7 +235,13 @@ router.post('/', function (req, res) {
 
 
 /***/ }),
-/* 17 */
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("http-status-codes");
+
+/***/ }),
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -427,13 +257,13 @@ router.post('/', function (req, res) {
 
 
 /***/ }),
-/* 18 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_User__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_User__ = __webpack_require__(13);
 
 
 var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
@@ -464,12 +294,12 @@ router.get('/:id', function (req, res) {
 
 
 /***/ }),
-/* 19 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPermission; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Identifiable__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Identifiable__ = __webpack_require__(14);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -505,7 +335,7 @@ var UserPermission;
 
 
 /***/ }),
-/* 20 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -516,6 +346,26 @@ var Identifiable = /** @class */ (function () {
     return Identifiable;
 }());
 /* harmony default export */ __webpack_exports__["a"] = (Identifiable);
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
+
+var connection = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.createConnection('mongodb://localhost:27017/hidenseek', {
+    useNewUrlParser: true
+});
+connection.on('open', function () {
+    console.log('MongoDB Connected!');
+});
+connection.on('error', function (error) {
+    console.error(error);
+});
+/* unused harmony default export */ var _unused_webpack_default_export = (connection);
 
 
 /***/ })

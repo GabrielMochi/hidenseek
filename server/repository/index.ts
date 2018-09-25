@@ -1,10 +1,16 @@
-import { createPool } from 'mysql'
+import mongoose from 'mongoose'
 
-export default createPool({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: '',
-  database: 'hidenseek',
-  timezone: '+3:00'
+const connection = mongoose.createConnection(
+  'mongodb://localhost:27017/hidenseek',
+  { useNewUrlParser: true }
+)
+
+connection.on('open', () => {
+  console.log('MongoDB Connected!')
 })
+
+connection.on('error', (error: Error) => {
+  console.error(error)
+})
+
+export default connection
