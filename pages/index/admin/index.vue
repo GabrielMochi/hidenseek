@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <v-container>
     <v-navigation-drawer fixed clipped="false" app class="z-index-1">
       <v-list>
@@ -15,6 +16,8 @@
     </v-navigation-drawer>
     <nuxt-child />
   </v-container>
+=======
+>>>>>>> admin-area
 </template>
 
 <script lang="ts">

@@ -7,18 +7,21 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+import { Component, Vue } from 'nuxt-property-decorator'
 
-  export default Vue.extend({
-    created () {
-      this.$vuetify.theme.primary = "#90caf9";
-      this.$vuetify.theme.secondary = "#5d99c6";
-      this.$vuetify.theme.accent = "#c3fdff";
-      this.$vuetify.theme.borderInputColor = "#ffffff";
-    }
-  })
+@Component
+export default class extends Vue {
+
+  created () {
+    this.$vuetify.theme.primary = "#90caf9";
+    this.$vuetify.theme.secondary = "#5d99c6";
+    this.$vuetify.theme.accent = "#c3fdff";
+    this.$vuetify.theme.borderInputColor = "#ffffff";
+    this.$vuetify.theme.backgroundLogin = "#919ea5";
+  }
+
+}
 </script>
-
 
 
 <style>
@@ -79,9 +82,17 @@
     padding: 0;
   }
 
-    .side-nav {
-      z-index: 6;
-    }
+  .side-nav {
+    z-index: 6;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .xg-icon-size {
+    font-size: 192px;
+  }
 
   @media screen and (min-width: 1264px) {
     .side-nav {
