@@ -18,6 +18,7 @@
                         </v-card-actions>
                     </v-form>
                 </v-flex>
+                <v-spacer width="150"></v-spacer>
                 <v-flex xs6 text-xs-center style="align-self: space-around">
                     <div class="align-message">
                         <img src="~/assets/img/ghost.png" alt="logo">
@@ -31,21 +32,34 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-    
-})
+import Vue from "vue";
+export default class extends Vue {
+    private windowWidth: Number = null;
+    private isMobile: boolean = false;
+
+    responseItems(width: Number) {
+        this.isMobile = width < 1025;
+    }
+
+    private async created() {
+        this.windowWidth = window.innerWidth;
+        this.responseItems(this.windowWidth);
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth;
+            this.responseItems(this.windowWidth);
+        };
+  }
+}
 </script>
 
 <style scoped>
-
-.text-shadow{
-    text-shadow: 2px 2px #444141;
+.text-shadow {
+  text-shadow: 2px 2px #444141;
 }
 
-.align-message{
-    padding-top: 70px;
-    padding-left: 16px;
+.align-message {
+  padding-top: 70px;
+  padding-left: 16px;
 }
 
 img {
@@ -53,8 +67,8 @@ img {
   height: 148px;
 }
 
-.white-text-color{
-    color: white;
+.white-text-color {
+  color: white;
 }
 
 .border-radius-8px {
