@@ -1,7 +1,7 @@
 <template>
-    <v-container fluid fill-height justify-center>
+    <v-container fluid fill-height justify-center pa-0>
         <v-card width="600">
-            <v-container>
+            <v-container pa-0>
                 <v-card-title>
                     <div class="display-1 fill-width text-xs-center">Configurações</div>
                 </v-card-title>

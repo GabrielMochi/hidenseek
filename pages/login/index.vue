@@ -5,7 +5,7 @@
           <img src="~/assets/img/ghost.png" alt="logo">
         </div>
       </div>
-      <v-container>
+      <v-container mt-3>
         <v-form class="text-xs-center">
           <v-text-field class="white-label" label="Usuário" color="white" required></v-text-field>
           <v-text-field type="password" class="white-label" label="Senha" color="white" required></v-text-field>

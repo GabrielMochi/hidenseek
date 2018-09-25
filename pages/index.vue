@@ -2,12 +2,13 @@
   <v-container fluid>
     <v-toolbar app fixed clipped-left>
       <v-layout align-center>
-        <v-flex offset-xs1 offset-sm4 xs5 sm4 class="text-xs-left text-sm-center">
+        <v-btn v-if="false" flat icon large @click="change()"><v-icon>menu</v-icon></v-btn>
+        <v-flex offset-xs1 offset-sm4 xs5 sm4 class="text-xs-right text-sm-center">
           <router-link to="/">
             <img :style="`cursor: ${$route.path === '/' ? 'default' : 'pointer'}`" class="no-select mt-1" src="~/assets/img/ghost.png" alt="ghost" width="48px">
           </router-link>
         </v-flex>
-        <v-flex xs6 sm4 class="text-xs-right mr-3">
+        <v-flex xs6 sm4 class="text-xs-right">
           <v-btn icon>
             <v-icon>notifications</v-icon>
           </v-btn>
@@ -22,3 +23,14 @@
     <nuxt-child/>
   </v-container>
 </template>
+
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+
+@Component
+export default class extends Vue {
+
+
+
+}
+</script>

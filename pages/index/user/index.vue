@@ -29,17 +29,18 @@
         </v-layout>
       </v-container>
     </v-navigation-drawer>
-        <v-container>
+    
+        <v-container pa-0>
           <v-layout row wrap>
             <v-flex xs12 row>
               <v-card>
                 <v-layout align-center>
                   <v-flex>
-                    <v-card-text class="title">Filtar por:</v-card-text>
+                    <v-card-text class="title">Filtrar por:</v-card-text>
                   </v-flex>
                   <v-flex>
                     <v-radio-group hide-details v-model="radios" row :mandatory="false">
-                      <v-layout pa-3 justify-space-around align-content-center>
+                      <v-layout pa-3 justify-space-around :column="isMobile" align-content-center>
                         <v-radio label="Aprovado" color="success" value="radio-1"></v-radio>
                         <v-radio label="Reprovado" color="error" value="radio-2"></v-radio>
                         <v-radio label="Andamento" color="warning" value="radio-3"></v-radio>
@@ -86,9 +87,9 @@ import User, { UserPermission } from "~/model/User";
 
 @Component
 export default class extends Vue {
-  private teste(){
-    confirm('teste')
-  }
+
+  private isMobile: boolean = false;
+  private windowWidth: Number = null;
 
   user: User = new User(
     1,
@@ -193,6 +194,19 @@ export default class extends Vue {
     if (status === "check") return "green";
     else if (status === "clear") return "red";
     return "yellow accent-4";
+  }
+
+  responseItems(width: Number) {
+    this.isMobile = width < 550;
+  }
+
+  private async created() {
+    this.windowWidth = window.innerWidth;
+    this.responseItems(this.windowWidth);
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+      this.responseItems(this.windowWidth);
+    };
   }
 }
 </script>
