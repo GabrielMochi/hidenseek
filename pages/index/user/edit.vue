@@ -6,13 +6,13 @@
                 <v-flex xs12 text-xs-center>
                     <div class="mt-5 headline">Editar Perfil</div>
                 </v-flex>
-                <v-flex class="mb-5" xs12 text-xs-center>
-                    <div style="position: relative;">
+                <v-flex class="mb-5" xs12 text-xs-center style="position: relative;">
+                    <v-layout row wrap justify-center>
                         <v-avatar size="256" class="mx-3">
                             <img :src="user.thumbnail" :alt="user.name">
+                            <v-btn color="primary" small absolute bottom icon right fab><v-icon>edit</v-icon></v-btn>
                         </v-avatar>
-                        <v-btn color="primary" small absolute bottom center fab><v-icon>edit</v-icon></v-btn>
-                    </div>
+                    </v-layout>
                 </v-flex>
             </v-layout>
             <v-layout row wrap justify-center>

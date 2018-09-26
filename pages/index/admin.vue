@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-navigation-drawer fixed clipped="false" app class="z-index-1">
+    <v-navigation-drawer fixed :clipped="isClipped" app class="side-nav">
       <v-list>
         <v-list-tile v-for="item in menuItems"
         :key="item.title" :to="item.location">
@@ -48,6 +48,23 @@ export default class extends Vue {
     icon:'group',
     location: '/admin/employees'
   }]
+
+  private windowWidth: Number = null;
+  private isClipped: boolean = true;
+
+    responseItems(width: Number) {
+    this.isClipped = width > 1263;
+  }
+
+  private async created() {
+    this.windowWidth = window.innerWidth;
+    this.responseItems(this.windowWidth);
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+      this.responseItems(this.windowWidth);
+    };
+  }
+
 }
 
 </script>

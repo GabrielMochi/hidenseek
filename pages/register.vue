@@ -1,15 +1,16 @@
 <template>
   <v-container id="register-container" fluid fill-height align-center justify-center class="pa-0">
     <div id="progress" ref="progress"></div>
-    <v-card width="40vw" v-if="(stepper >= 0 && stepper <= 5) || (stepper === 6 && isLoading)">
+    <div class="step white-text display-1" v-if="stepper !== 6">{{stepper}}/5 </div>
+    <v-card class="min-size" width="40vw" v-if="(stepper >= 0 && stepper <= 5) || (stepper === 6 && isLoading)">
       <v-container fluid class="py-1">
         <v-layout wrap align-center>
-          <v-flex xs12 lg1>
+          <v-flex xs6 lg1 order-xs2 order-lg1>
             <v-btn v-if="stepper <= 5" color="secondary" flat icon @click="stepper--">
               <v-icon large>navigate_before</v-icon>
             </v-btn>
           </v-flex>
-          <v-flex xs12 lg10 text-xs-center>
+          <v-flex xs12 lg10 order-xs1 order-lg2 text-xs-center>
               <v-text-field
                 v-if="stepper === 0"
                 v-model="descriptionModel"
@@ -94,7 +95,7 @@
               <v-progress-circular indeterminate color="secondary" size="150" width="2"></v-progress-circular>
             </v-container>
           </v-flex>
-          <v-flex xs12 lg1 text-xs-center>
+          <v-flex xs6 lg1 text-xs-right order-xs3>
             <v-btn v-if="stepper <= 5" color="secondary" flat icon @click="stepper++">
               <v-icon large>navigate_next</v-icon>
             </v-btn>
@@ -143,6 +144,17 @@ export default class extends Vue {
 </script>
 
 <style scoped>
+  .step {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .min-size{
+    min-width: 300px;
+  }
+
   #register-container {
     background-color: #90caf9;
   }
