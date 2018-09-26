@@ -1,16 +1,20 @@
 import Item from './Item'
-import MultiIdentifiable from './MultiIdentifiable'
 import User from './User'
 
-export class Claim extends MultiIdentifiable {
+export default class Claim {
 
+  public id: string
   public argument: string
-  public datetime: Date
+  public user: User
+  public item: Item
+  public date: Date
 
-  constructor (user: User, item: Item, argument: string, datetime = new Date(Date.now())) {
-    super(user, item)
+  constructor (id: string, argument: string, user: User, item: Item, date: Date = new Date()) {
+    this.id = id
     this.argument = argument
-    this.datetime = datetime
+    this.user = user
+    this.item = item
+    this.date = date
   }
 
 }

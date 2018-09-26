@@ -79,7 +79,7 @@ import { Action, State } from "vuex-class";
 import Category from "~/domain/Category";
 import Item from "~/domain/Item";
 import Local from "~/domain/Local";
-import User, { UserPermission } from "~/domain/User";
+import User, { Permission } from "~/domain/User";
 
 @Component
 export default class extends Vue {

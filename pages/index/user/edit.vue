@@ -51,17 +51,17 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import User, { UserPermission } from "~/model/User";
+import User, { Permission } from "~/domain/User";
 
 @Component
 export default class extends Vue {
   user: User = new User(
-    1,
+    '1',
     "222",
     "gmochi56@outlook.com",
     "Gabriel Mochi Ribeiro",
     "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-    UserPermission.TOTAL
+    Permission.TOTAL
   );
 
   private oldPassword : string = "";
