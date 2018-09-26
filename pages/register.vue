@@ -1,20 +1,31 @@
 <template>
   <v-container id="register-container" fluid fill-height align-center justify-center class="pa-0">
     <div id="progress" ref="progress"></div>
-    <v-card width="40vw" v-if="(stepper >= 0 && stepper <= 4) || (stepper === 5 && isLoading)">
+    <v-card width="40vw" v-if="(stepper >= 0 && stepper <= 5) || (stepper === 6 && isLoading)">
       <v-container fluid class="py-1">
         <v-layout wrap align-center>
           <v-flex xs12 lg1>
-            <v-btn v-if="stepper <= 4" color="secondary" flat icon @click="stepper--">
+            <v-btn v-if="stepper <= 5" color="secondary" flat icon @click="stepper--">
               <v-icon large>navigate_before</v-icon>
             </v-btn>
           </v-flex>
           <v-flex xs12 lg10 text-xs-center>
+              <v-text-field
+                v-if="stepper === 0"
+                v-model="descriptionModel"
+                label="Título do item..."
+                hint="Faça uma breve descrição do item. Seja objetivo e não descreva muitos detalhes."
+                persistent-hint
+                prepend-icon="text_fields"
+                color="secondary"
+                class="title"
+                @keypress.enter="stepper++"
+            ></v-text-field>
             <v-text-field
-              v-if="stepper === 0"
+              v-if="stepper === 1"
               v-model="descriptionModel"
               label="Descrição do item..."
-              hint="Faça uma breve descrição do item. Seja objetivo e não descreva muitos detalhes."
+              hint="Faça uma descrição detalhada do item. Dê o máximo de detalhes possíveis."
               persistent-hint
               prepend-icon="text_fields"
               color="secondary"
@@ -22,7 +33,7 @@
               @keypress.enter="stepper++"
             ></v-text-field>
             <v-text-field
-              v-else-if="stepper === 1"
+              v-else-if="stepper === 2"
               v-model="categoryModel"
               label="Qual a categoria do item?"
               hint="Quanto mais específica a categoria, mais fácil fica para identificar o item."
@@ -33,7 +44,7 @@
               @keypress.enter="stepper++"
             ></v-text-field>
             <v-text-field
-              v-else-if="stepper === 2"
+              v-else-if="stepper === 3"
               v-model="localModel"
               label="Onde o item foi encontrado?"
               hint="Recomendamos que você conheça bem o local em que trabalha para fazer uma boa escolha."
@@ -44,7 +55,7 @@
               @keypress.enter="stepper++"
             ></v-text-field>
             <v-menu
-              v-else-if="stepper === 3"
+              v-else-if="stepper === 4"
               ref="menuDateModel"
               :close-on-content-click="false"
               v-model="menuDateModel"
@@ -71,7 +82,7 @@
               <v-date-picker v-model="dateModel" @input="$refs.menuDateModel.save(dateModel)"></v-date-picker>
             </v-menu>
             <v-text-field
-              v-else-if="stepper === 4"
+              v-else-if="stepper === 5"
               label="Escolha uma foto do item"
               hint="É recomendável que a foto tenha um fundo branco para destacar o item."
               persistent-hint
@@ -84,7 +95,7 @@
             </v-container>
           </v-flex>
           <v-flex xs12 lg1 text-xs-center>
-            <v-btn v-if="stepper <= 4" color="secondary" flat icon @click="stepper++">
+            <v-btn v-if="stepper <= 5" color="secondary" flat icon @click="stepper++">
               <v-icon large>navigate_next</v-icon>
             </v-btn>
           </v-flex>
@@ -116,10 +127,10 @@ export default class extends Vue {
 
   @Watch('stepper')
   private onStepperChange (newValue: number, oldValue: number) {
-    if (newValue >= 0 && newValue <= 5) {
+    if (newValue >= 0 && newValue <= 6) {
       this.$refs.progress.style.width = `${newValue * 20}vw`
 
-      if (newValue === 5) {
+      if (newValue === 6) {
         this.isLoading = true
         setTimeout(() => { this.isLoading = false }, 2000)
       }

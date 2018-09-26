@@ -1,7 +1,7 @@
 <template>
  <!-- <no-ssr>-->
     <v-container fluid grid-list-xl>
-      <v-navigation-drawer fixed :clipped="isClipped" app class="side-nav">
+      <v-navigation-drawer v-model="drawer" fixed :clipped="isClipped" app class="side-nav">
         <v-toolbar flat class="transparent">
           <v-icon>filter_list</v-icon>
           <v-toolbar-title>Filtro</v-toolbar-title>
@@ -138,6 +138,7 @@ export default class extends Vue {
       this.responseItems(this.windowWidth);
     };
   }
+
 }
 </script>
 

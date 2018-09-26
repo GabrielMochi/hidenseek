@@ -9,7 +9,7 @@
                   </v-flex>
                   <v-flex>
                     <v-radio-group hide-details v-model="radios" row :mandatory="false">
-                      <v-layout pa-3 justify-space-around align-content-center>
+                      <v-layout pa-3 justify-space-around align-content-center :column="isMobile">
                         <v-radio label="Aprovado" color="success" value="radio-1"></v-radio>
                         <v-radio label="Reprovado" color="error" value="radio-2"></v-radio>
                         <v-radio label="Andamento" color="warning" value="radio-3"></v-radio>
@@ -91,6 +91,10 @@ import User, { UserPermission } from "~/model/User";
 
 @Component
 export default class extends Vue {
+  
+  private isMobile: boolean = false;
+  private windowWidth: Number = null;
+  
   user: User = new User(
     1,
     "222",
@@ -99,7 +103,7 @@ export default class extends Vue {
     "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
     UserPermission.TOTAL
   );
-
+  
   private search: string = "";
   private headers: any[] = [
     {
@@ -236,6 +240,19 @@ export default class extends Vue {
   private save(){
     Object.assign(this.tableItems[this.editedIndex], this.editedItem)
     this.close()
+  }
+
+  responseItems(width: Number) {
+    this.isMobile = width < 550;
+  }
+  
+  private async created() {
+    this.windowWidth = window.innerWidth;
+    this.responseItems(this.windowWidth);
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+      this.responseItems(this.windowWidth);
+    };
   }
 }
 </script>
