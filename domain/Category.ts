@@ -1,15 +1,11 @@
-import Item from './Item'
-
 export default class Category {
 
-  public id: number
+  public id: string
   public name: string
-  public items: Item[]
 
-  constructor (id: number, name: string, items: Item[] = []) {
+  constructor (id: string, name: string) {
     this.id = id
     this.name = name
-    this.items = items
   }
 
 }

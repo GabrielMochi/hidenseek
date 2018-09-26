@@ -1,35 +1,34 @@
-import Identifiable from './Identifiable'
-import Item from './Item'
+import Claim from './Claim'
 import User from './User'
 
-export default class Evaluation extends Identifiable {
+export default class Evaluation {
 
-  public status: EvaluationStatus
-  public datetime: Date
-  public claimUser: User
-  public claimItem: Item
-  public admUser: User
+  public id: string
+  public employee: User
+  public claim: Claim
+  public status: Status
+  public date: Date
 
   constructor (
-    id: number,
-    claimUser: User,
-    claimItem: Item,
-    admUser: User,
-    status: EvaluationStatus = EvaluationStatus.NOT_EVALUATED,
-    datetime: Date = new Date(Date.now())
+    id: string,
+    employee: User,
+    claim: Claim,
+    status: Status = Status.NOT_EVALUATED,
+    date: Date = new Date()
   ) {
-    super(id)
+    this.id = id
+    this.employee = employee
+    this.claim = claim
     this.status = status
-    this.datetime = datetime
-    this.claimUser = claimUser
-    this.claimItem = claimItem
-    this.admUser = admUser
+    this.date = date
   }
 
 }
 
-export enum EvaluationStatus {
+export enum Status {
+
   APPROVED = 'APPROVED',
   NOT_APPROVED = 'NOT_APPROVED',
   NOT_EVALUATED = 'NOT_EVALUATED'
+
 }

@@ -1,22 +1,21 @@
-import Identifiable from './Identifiable'
+export default class User {
 
-export default class User extends Identifiable {
-
+  public id: string
   public distinctId: string
   public email: string
   public name: string
   public thumbnail: string
-  public permission: UserPermission
+  public permission: Permission
 
   constructor (
-    id: number,
+    id: string,
     distinctId: string,
     email: string,
     name: string,
     thumbnail: string,
-    permission: UserPermission = UserPermission.LOW
+    permission: Permission = Permission.LOW
   ) {
-    super(id)
+    this.id = id
     this.distinctId = distinctId
     this.email = email
     this.name = name
@@ -26,8 +25,10 @@ export default class User extends Identifiable {
 
 }
 
-export enum UserPermission {
+export enum Permission {
+
   LOW = 'LOW',
   HIGH = 'HIGH',
   TOTAL = 'TOTAL'
+
 }

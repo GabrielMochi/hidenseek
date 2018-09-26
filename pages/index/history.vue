@@ -17,7 +17,7 @@
                     </v-radio-group>
                   </v-flex>
                 </v-layout>
-              </v-card> 
+              </v-card>
             </v-flex>
           <v-flex xs12>
             <v-card>
@@ -37,12 +37,12 @@
                         <td class="text-xs-center">{{props.item.idItem}}</td>
                         <td class="text-xs-center"><v-icon :color="changeIconColor(props.item.status)">{{props.item.status}}</v-icon></td>
                     </tr>
-                    <v-dialog v-model="dialog" max-width="500px"> 
+                    <v-dialog v-model="dialog" max-width="500px">
                         <v-card>
                             <v-card-title>
                                 <span class="headline">Reinvindicação</span>
                             </v-card-title>
-                                            
+
                             <v-card-text>
                                 <v-container grid-list-md>
                                     <v-layout column wrap>
@@ -63,14 +63,14 @@
                                     </v-layout>
                                 </v-container>
                             </v-card-text>
-                                            
+
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" flat @click.native="close">Cancelar</v-btn>
                                 <v-btn color="blue darken-1" flat @click.native="save">Salvar</v-btn>
                             </v-card-actions>
                         </v-card>
-                </v-dialog>                       
+                </v-dialog>
                 </template>
                 <v-alert slot="no-results" :value="true" color="error" icon="warning">
                   Sua busca por "{{search}}" não encontrou resultados.
@@ -87,7 +87,7 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
-import User, { UserPermission } from "~/model/User";
+import User, { Permission } from "~/domain/User";
 
 @Component
 export default class extends Vue {
@@ -96,12 +96,12 @@ export default class extends Vue {
   private windowWidth: Number = null;
   
   user: User = new User(
-    1,
+    '1',
     "222",
     "gmochi56@outlook.com",
     "Gabriel Mochi Ribeiro",
     "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-    UserPermission.TOTAL
+    Permission.TOTAL
   );
   
   private search: string = "";

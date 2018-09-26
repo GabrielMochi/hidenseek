@@ -1,6 +1,9 @@
 import bodyParser from 'body-parser'
 import { Router } from 'express'
 import session from 'express-session'
+import category from './category'
+import item from './item'
+import local from './local'
 import login from './login'
 import logout from './logout'
 import user from './user'
@@ -16,8 +19,11 @@ router.use(session({
   cookie: { maxAge: 60000 }
 }))
 
-router.use('/user', user)
+router.use('/category', category)
+router.use('/item', item)
+router.use('/local', local)
 router.use('/login', login)
 router.use('/logout', logout)
+router.use('/user', user)
 
 export default router

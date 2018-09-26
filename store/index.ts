@@ -1,9 +1,9 @@
-import Credential from 'model/Credential'
+import Credential from 'domain/Login'
 import { ActionContext, ActionTree, MutationTree } from 'vuex'
-import Category from '~/model/Category'
-import Item from '~/model/Item'
-import Local from '~/model/Local'
-import User from '~/model/User'
+import Category from '~/domain/Category'
+import Item from '~/domain/Item'
+import Local from '~/domain/Local'
+import User from '~/domain/User'
 import { fetch } from '~/plugins/axios'
 
 interface State {
