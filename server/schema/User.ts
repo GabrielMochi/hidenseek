@@ -6,6 +6,8 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   thumbnail: { type: String, required: true },
   permission: { type: String, required: true, enum: ['LOW', 'HIGH', 'TOTAL'] }
+}, {
+  timestamps: true
 })
 
 export default mongoose.model('User', UserSchema)

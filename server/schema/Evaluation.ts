@@ -7,9 +7,10 @@ const EvaluationSchema = new mongoose.Schema({
     default: 'NOT_EVALUATED',
     required: true
   },
-  date: { type: Date, default: Date.now, required: true },
   employee: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   claim: { type: mongoose.Schema.Types.ObjectId, ref: 'Claim', required: true }
+}, {
+  timestamps: true
 })
 
 export default mongoose.model('Evaluation', EvaluationSchema)

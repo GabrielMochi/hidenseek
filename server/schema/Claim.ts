@@ -5,6 +5,8 @@ const ClaimSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   item: { type: mongoose.Schema.Types.ObjectId, ref: 'Local', required: true }
+}, {
+  timestamps: true
 })
 
 export default mongoose.model('Claim', ClaimSchema)
