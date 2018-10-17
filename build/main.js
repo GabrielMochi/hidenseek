@@ -258,6 +258,17 @@ router.get('/', function (req, res) {
         res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
     });
 });
+router.post('/', function (req, res) {
+    var category = new __WEBPACK_IMPORTED_MODULE_2__schema_Category__["a" /* default */](req.body);
+    category.save()
+        .then(function () {
+        res.send(category.id);
+    })
+        .catch(function (err) {
+        console.error(err);
+        res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
+    });
+});
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 
@@ -270,8 +281,8 @@ router.get('/', function (req, res) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 
 var CategorySchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema({
-    name: { type: String, required: true }
-});
+    name: { type: String, required: true, unique: true }
+}, { versionKey: false });
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Category', CategorySchema));
 
 
@@ -290,12 +301,27 @@ var CategorySchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema
 
 var router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 router.get('/', function (req, res) {
-    __WEBPACK_IMPORTED_MODULE_2__schema_Item__["a" /* default */].find({}).exec()
+    __WEBPACK_IMPORTED_MODULE_2__schema_Item__["a" /* default */].find({})
+        .populate('employee')
+        .populate('local')
+        .populate('categories')
+        .exec()
         .then(function (items) {
         res.send(items);
     })
         .catch(function (error) {
         console.error(error);
+        res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
+    });
+});
+router.post('/', function (req, res) {
+    var item = new __WEBPACK_IMPORTED_MODULE_2__schema_Item__["a" /* default */](req.body);
+    item.save()
+        .then(function () {
+        res.send(item.id);
+    })
+        .catch(function (err) {
+        console.error(err);
         res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
     });
 });
@@ -314,11 +340,11 @@ var ItemSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     thumbnail: { type: String, required: true },
-    found_date: { type: Date, required: true, default: Date.now },
+    foundDate: { type: Date, required: true, default: Date.now },
     employee: { type: __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema.Types.ObjectId, ref: 'User', required: true },
     local: { type: __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema.Types.ObjectId, ref: 'Local', required: true },
     categories: [{ type: __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema.Types.ObjectId, ref: 'Category', required: true }]
-});
+}, { versionKey: false });
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Item', ItemSchema));
 
 
@@ -346,6 +372,17 @@ router.get('/', function (req, res) {
         res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
     });
 });
+router.post('/', function (req, res) {
+    var local = new __WEBPACK_IMPORTED_MODULE_2__schema_Local__["a" /* default */](req.body);
+    local.save()
+        .then(function () {
+        res.send(local.id);
+    })
+        .catch(function (err) {
+        console.error(err);
+        res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
+    });
+});
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 
@@ -358,8 +395,8 @@ router.get('/', function (req, res) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
 
 var LocalSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema({
-    name: { type: String, required: true }
-});
+    name: { type: String, required: true, unique: true }
+}, { versionKey: false });
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('Local', LocalSchema));
 
 
@@ -426,6 +463,17 @@ router.get('/', function (req, res) {
         res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
     });
 });
+router.post('/', function (req, res) {
+    var user = new __WEBPACK_IMPORTED_MODULE_2__schema_User__["a" /* default */](req.body);
+    user.save()
+        .then(function () {
+        res.send(user.id);
+    })
+        .catch(function (err) {
+        console.error(err);
+        res.status(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]).end(Object(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["getStatusText"])(__WEBPACK_IMPORTED_MODULE_1_http_status_codes__["INTERNAL_SERVER_ERROR"]));
+    });
+});
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 
@@ -441,9 +489,9 @@ var UserSchema = new __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Schema({
     distinctId: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
-    thumbnail: { type: String, required: true },
+    thumbnail: { type: String },
     permission: { type: String, required: true, enum: ['LOW', 'HIGH', 'TOTAL'] }
-});
+}, { versionKey: false });
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('User', UserSchema));
 
 

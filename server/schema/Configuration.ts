@@ -5,6 +5,6 @@ const ConfigurationSchema = new mongoose.Schema({
   guests: { type: Boolean, default: false, required: true },
   contract: { Type: String },
   distinctIdPattern: { type: RegExp }
-})
+}, { versionKey: false })
 
 export default mongoose.model('Configuration', ConfigurationSchema)

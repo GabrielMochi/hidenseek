@@ -15,4 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+  const category = new Category(req.body)
+
+  category.save()
+    .then(() => {
+      res.send(category.id)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
+    })
+})
+
 export default router

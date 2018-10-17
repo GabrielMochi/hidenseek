@@ -15,4 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+  const local = new Local(req.body)
+
+  local.save()
+    .then(() => {
+      res.send(local.id)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
+    })
+})
+
 export default router

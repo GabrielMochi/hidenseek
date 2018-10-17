@@ -15,4 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+  const user = new User(req.body)
+
+  user.save()
+    .then(() => {
+      res.send(user.id)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
+    })
+})
+
 export default router

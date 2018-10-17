@@ -5,12 +5,29 @@ import Item from './../schema/Item'
 const router = Router()
 
 router.get('/', (req, res) => {
-  Item.find({}).exec()
-    .then((items) => {
-      res.send(items)
+  Item.find({})
+    .populate('employee')
+    .populate('local')
+    .populate('categories')
+    .exec()
+      .then((items) => {
+        res.send(items)
+      })
+      .catch((error) => {
+        console.error(error)
+        res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
+      })
+})
+
+router.post('/', (req, res) => {
+  const item = new Item(req.body)
+
+  item.save()
+    .then(() => {
+      res.send(item.id)
     })
-    .catch((error) => {
-      console.error(error)
+    .catch((err) => {
+      console.error(err)
       res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
     })
 })

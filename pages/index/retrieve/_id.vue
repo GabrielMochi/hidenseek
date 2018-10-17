@@ -75,7 +75,7 @@ export default class extends Vue {
 
   private created () {
     this.selectedItem = this.items.find(
-      (item: Item) => item.id === this.$route.params.id
+      (item: Item) => item._id === this.$route.params.id
     )
   }
 }
