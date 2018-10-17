@@ -3,7 +3,7 @@
         <v-layout>
             <div class="content-no-padding fill-width">
         <v-toolbar flat color="white">
-      <v-toolbar-title>Usuários</v-toolbar-title>
+      <v-toolbar-title class="hidden-xs-only">Usuários</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"

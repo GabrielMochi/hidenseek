@@ -94,6 +94,10 @@ export default class extends Vue {
     font-size: 192px;
   }
 
+  .white-text{
+    color: white;
+  }
+
   @media screen and (min-width: 1264px) {
     .side-nav {
       z-index: 1;

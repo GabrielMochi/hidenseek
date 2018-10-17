@@ -29,8 +29,9 @@
                             <v-layout mt-4 row wrap justify-center>
                                 <v-flex xs8>
                                         <div class="v-toolbar__content-no-padding">
+                                        <v-toolbar-title class="hidden-sm-and-up">Locais</v-toolbar-title>
                                         <v-toolbar flat color="white">
-                                            <v-toolbar-title>Locais</v-toolbar-title>
+                                            <v-toolbar-title class="hidden-xs-only">Locais</v-toolbar-title>
                                             <v-spacer></v-spacer>
                                             <v-text-field
                                                 v-model="searchLocal"
@@ -92,15 +93,13 @@
                                             </v-layout>
                                         </div>
                                 </v-flex>
-                            </v-layout>
 
                             <!-- Categorias -->
-
-                            <v-layout mt-4 row wrap justify-center>
                                 <v-flex xs8>
                                         <div class="v-toolbar__content-no-padding">
+                                        <v-toolbar-title class="hidden-sm-and-up">Categorias</v-toolbar-title>
                                         <v-toolbar flat color="white">
-                                            <v-toolbar-title>Categorias</v-toolbar-title>
+                                            <v-toolbar-title class="hidden-xs-only">Categorias</v-toolbar-title>
                                             <v-spacer></v-spacer>
                                             <v-text-field
                                                     v-model="searchCategory"
