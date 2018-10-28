@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
 import { check, validationResult } from 'express-validator/check'
 import { getStatusText, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } from 'http-status-codes'
-import Category from './../schema/Category'
+import Category from '../schema/CategorySchema'
 
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
   Category.find({}).exec()
     .then((categories) => {
       res.send(categories)
@@ -16,27 +16,23 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', [check('name').isLength({ min: 1, max: 64 })], (req: Request, res: Response) => {
-  const errors = validationResult(req)
-
-  if (!errors.isEmpty()) {
+router.post('/', [ check('name').isLength({ min: 1, max: 64 }) ], (req: Request, res: Response) => {
+  if (!validationResult(req).isEmpty()) {
     return res.status(UNPROCESSABLE_ENTITY).end(getStatusText(UNPROCESSABLE_ENTITY))
   }
 
   (new Category(req.body)).save()
-      .then(() => {
-        res.end()
-      })
-      .catch((error) => {
-        res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
-        throw error
-      })
+    .then(() => {
+      res.end()
+    })
+    .catch((error) => {
+      res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
+      throw error
+    })
 })
 
-router.put('/:id', [check('name').isLength({ min: 1, max: 64 })], (req: Request, res: Response) => {
-  const erros = validationResult(req)
-
-  if (!erros.isEmpty()) {
+router.put('/:id', [ check('name').isLength({ min: 1, max: 64 }) ], (req: Request, res: Response) => {
+  if (!validationResult(req).isEmpty()) {
     return res.status(UNPROCESSABLE_ENTITY).end(getStatusText(UNPROCESSABLE_ENTITY))
   }
 
@@ -55,6 +51,7 @@ router.delete('/:id', (req: Request, res: Response) => {
       res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
       throw err
     }
+
     res.end()
   })
 })

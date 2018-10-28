@@ -1,10 +1,10 @@
-import { Router } from 'express'
+import { Request, Response, Router } from 'express'
 import { getStatusText, INTERNAL_SERVER_ERROR } from 'http-status-codes'
-import Item from './../schema/Item'
+import Item from '../schema/ItemSchema'
 
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
   Item.find({})
     .populate('employee')
     .populate('local')
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
       })
 })
 
-router.post('/', (req, res) => {
+router.post('/', (req: Request, res: Response) => {
   const item = new Item(req.body)
 
   item.save()

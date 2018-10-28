@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { getStatusText, INTERNAL_SERVER_ERROR } from 'http-status-codes'
-import User from './../schema/User'
+import User from '../schema/UserSchema'
 
 const router = Router()
 

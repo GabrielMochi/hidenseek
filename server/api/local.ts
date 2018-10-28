@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { getStatusText, INTERNAL_SERVER_ERROR } from 'http-status-codes'
-import Local from './../schema/Local'
+import Local from '../schema/LocalSchema'
 
 const router = Router()
 
