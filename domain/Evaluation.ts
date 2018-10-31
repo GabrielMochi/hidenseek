@@ -3,20 +3,20 @@ import User from './User'
 
 export default class Evaluation {
 
-  public _id: string
+  public id: string
   public employee: User
   public claim: Claim
   public status: Status
   public date: Date
 
   constructor (
-    _id: string,
+    id: string,
     employee: User,
     claim: Claim,
     status: Status = Status.NOT_EVALUATED,
     date: Date = new Date()
   ) {
-    this._id = _id
+    this.id = id
     this.employee = employee
     this.claim = claim
     this.status = status

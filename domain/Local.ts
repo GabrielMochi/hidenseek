@@ -1,10 +1,10 @@
 export default class Local {
 
-  public _id: string
+  public id: string
   public name: string
 
-  constructor (_id: string, name: string) {
-    this._id = _id
+  constructor (id: string, name: string) {
+    this.id = id
     this.name = name
   }
 
