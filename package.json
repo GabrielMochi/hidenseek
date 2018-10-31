@@ -7,6 +7,7 @@
     "@types/express-session": "^1.15.10",
     "@types/mongoose": "^5.2.7",
     "@types/mysql": "^2.15.5",
+    "@types/validator": "^9.4.2",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
@@ -19,9 +20,11 @@
     "nuxt": "^1.4.0",
     "nuxt-class-component": "^1.2.0",
     "nuxt-property-decorator": "^1.2.0",
+    "password-validator": "^4.1.1",
     "qs": "^6.5.1",
     "rxjs": "^5.5.6",
     "typegoose": "^5.4.1",
+    "validator": "^10.8.0",
     "vue-class-component": "^6.2.0",
     "vue-property-decorator": "^6.0.0",
     "vue-rx": "^5.0.0",
@@ -30,9 +33,9 @@
     "vuex-class": "^0.3.0"
   },
   "scripts": {
-    "dev": "backpack dev",
+    "dev": "backpack dev cross-env NODE_ENV=development NODE_PATH=./",
     "build": "nuxt build && backpack build",
-    "start": "cross-env NODE_ENV=production node build/main.js",
+    "start": "cross-env NODE_ENV=production NODE_PATH=./ node build/main.js",
     "test": "jest --no-cache",
     "generate": "nuxt generate",
     "server": "npm run build && npm run start"

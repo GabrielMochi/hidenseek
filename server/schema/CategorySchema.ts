@@ -1,12 +1,14 @@
-import { prop, Typegoose } from 'typegoose'
+import { ModelType, prop, Typegoose } from 'typegoose'
+import { createDefaultSchemaOption } from '.'
 
-// name: { type: String, required: true, unique: true }
-
-class CategorySchema extends Typegoose {
+export class CategorySchema extends Typegoose {
 
   @prop({ required: true, unique: true, minlength: 1, maxlength: 64 })
   public name: string
 
 }
 
-// (new CategorySchema().getModelForClass(CategorySchema)).set
+export const CategoryModel: ModelType<CategorySchema> = new CategorySchema()
+  .getModelForClass(CategorySchema, {
+    schemaOptions: createDefaultSchemaOption<CategorySchema>()
+  })

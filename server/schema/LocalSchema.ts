@@ -1,9 +1,14 @@
-import mongoose from 'mongoose'
+import { ModelType, prop, Typegoose } from 'typegoose'
+import { createDefaultSchemaOption } from '.'
 
-const LocalSchema = new mongoose.Schema({
-  name: { type: String, required: true }
-}, {
-  timestamps: true
-})
+export class LocalSchema extends Typegoose {
 
-export default mongoose.model('Local', LocalSchema)
+  @prop({ required: true, minlength: 1, maxlength: 64 })
+  public name: string
+
+}
+
+export const LocalModel: ModelType<LocalSchema> = new LocalSchema()
+  .getModelForClass(LocalSchema, {
+    schemaOptions: createDefaultSchemaOption<LocalSchema>()
+  })

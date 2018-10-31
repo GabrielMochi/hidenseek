@@ -1,13 +1,28 @@
-import mongoose from 'mongoose'
+import { Permission } from 'domain/User'
+import { ModelType, prop, Typegoose } from 'typegoose'
+import { isEmail } from 'validator'
+import { createDefaultSchemaOption } from '.'
 
-const UserSchema = new mongoose.Schema({
-  distinctId: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  thumbnail: { type: String },
-  permission: { type: String, required: true, enum: ['LOW', 'HIGH', 'TOTAL'] }
-}, {
-  timestamps: true
-})
+export class UserSchema extends Typegoose {
 
-export default mongoose.model('User', UserSchema)
+  @prop({ required: true, unique: true, minlength: 1, maxlength: 64 })
+  public distinctId: string
+
+  @prop({ required: true, unique: true, minlength: 1, maxlength: 256 })
+  public email: string
+
+  @prop({ required: true, minlength: 1, maxlength: 256, validate: (value) => isEmail(value) })
+  public name: string
+
+  @prop()
+  public thumbnail?: Buffer
+
+  @prop({ enum: Permission, default: Permission.LOW as Permission })
+  public permission?: Permission
+
+}
+
+export const UserModel: ModelType<UserSchema> = new UserSchema()
+  .getModelForClass(UserSchema, {
+    schemaOptions: createDefaultSchemaOption<UserSchema>()
+  })

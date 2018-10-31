@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express'
 import { check, validationResult } from 'express-validator/check'
 import { getStatusText, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } from 'http-status-codes'
+import { Document } from 'mongoose'
 import Category from '../schema/CategorySchema'
 
 const router = Router()

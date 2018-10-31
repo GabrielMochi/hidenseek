@@ -7,3 +7,4 @@ declare module '*.vue' {
 declare module 'nuxt-class-component'
 declare module 'vuex-loading'
 declare module 'nuxt'
+declare module 'password-validator'

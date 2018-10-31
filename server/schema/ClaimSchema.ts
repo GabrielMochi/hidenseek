@@ -1,12 +1,22 @@
-import mongoose from 'mongoose'
+import { ModelType, prop, Ref, Typegoose } from 'typegoose'
+import { createDefaultSchemaOption } from '.'
+import { ItemSchema } from './ItemSchema'
+import { UserSchema } from './UserSchema'
 
-const ClaimSchema = new mongoose.Schema({
-  argument: { type: String, required: true },
-  date: { type: Date, default: Date.now, required: true },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  item: { type: mongoose.Schema.Types.ObjectId, ref: 'Local', required: true }
-}, {
-  timestamps: true
-})
+export class ClaimSchema extends Typegoose {
 
-export default mongoose.model('Claim', ClaimSchema)
+  @prop({ required: true, minlength: 1, maxlength: 1024 })
+  public argument: string
+
+  @prop({ required: true, ref: UserSchema })
+  public user: Ref<UserSchema>
+
+  @prop({ required: true, ref: ItemSchema })
+  public item: Ref<ItemSchema>
+
+}
+
+export const ClaimModel: ModelType<ClaimSchema> = new ClaimSchema()
+  .getModelForClass(ClaimSchema, {
+    schemaOptions: createDefaultSchemaOption()
+  })

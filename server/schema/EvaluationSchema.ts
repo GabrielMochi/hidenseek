@@ -1,16 +1,23 @@
-import mongoose from 'mongoose'
+import { Status } from 'domain/Evaluation'
+import { ModelType, prop, Ref, Typegoose } from 'typegoose'
+import { createDefaultSchemaOption } from '.'
+import { ClaimSchema } from './ClaimSchema'
+import { UserSchema } from './UserSchema'
 
-const EvaluationSchema = new mongoose.Schema({
-  status: {
-    type: String,
-    enum: ['APPROVED', 'NOT_APPROVED', 'NOT_EVALUATED'],
-    default: 'NOT_EVALUATED',
-    required: true
-  },
-  employee: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  claim: { type: mongoose.Schema.Types.ObjectId, ref: 'Claim', required: true }
-}, {
-  timestamps: true
-})
+export class EvaluationSchema extends Typegoose {
 
-export default mongoose.model('Evaluation', EvaluationSchema)
+  @prop({ enum: Status })
+  public status?: Status
+
+  @prop({ required: true, ref: UserSchema })
+  public employee: Ref<UserSchema>
+
+  @prop({ required: true, ref: ClaimSchema })
+  public claim: Ref<ClaimSchema>
+
+}
+
+export const EvaluationModel: ModelType<EvaluationSchema> = new EvaluationSchema()
+  .getModelForClass(EvaluationSchema, {
+    schemaOptions: createDefaultSchemaOption<EvaluationSchema>()
+  })

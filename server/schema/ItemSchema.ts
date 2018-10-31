@@ -1,15 +1,32 @@
-import mongoose from 'mongoose'
+import { arrayProp, ModelType, prop, Ref, Typegoose } from 'typegoose'
+import { createDefaultSchemaOption } from '.'
+import { CategorySchema } from './CategorySchema'
+import { LocalSchema } from './LocalSchema'
+import { UserSchema } from './UserSchema'
 
-const ItemSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  thumbnail: { type: String, required: true },
-  foundDate: { type: Date, required: true },
-  employee: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  local: { type: mongoose.Schema.Types.ObjectId, ref: 'Local', required: true },
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true }]
-}, {
-  timestamps: true
-})
+export class ItemSchema extends Typegoose {
 
-export default mongoose.model('Item', ItemSchema)
+  @prop({ required: true, minlength: 1, maxlength: 144 })
+  public description: string
+
+  @prop({ required: true })
+  public thumbnail: Buffer
+
+  @prop({ default: Date.now, validate: (value) => value <= new Date() })
+  public foundDate?: Date
+
+  @prop({ required: true, ref: LocalSchema })
+  public local: Ref<LocalSchema>
+
+  @prop({ required: true, ref: UserSchema })
+  public employee: Ref<UserSchema>
+
+  @arrayProp({ required: true, itemsRef: CategorySchema })
+  public categories: Array<Ref<CategorySchema>>
+
+}
+
+export const ItemModel: ModelType<ItemSchema> = new ItemSchema()
+  .getModelForClass(ItemSchema, {
+    schemaOptions: createDefaultSchemaOption<ItemSchema>()
+  })
