@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { ModelType, prop, Typegoose } from 'typegoose'
-import { createDefaultSchemaOption } from '.'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 
 const contractFile = fs.readFileSync(path.join(__dirname, '..', 'assets', 'contrato_template.rtf'))
 

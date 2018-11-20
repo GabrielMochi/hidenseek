@@ -1,7 +1,7 @@
-import { Permission } from 'domain/User'
 import { ModelType, prop, Typegoose } from 'typegoose'
 import { isEmail } from 'validator'
-import { createDefaultSchemaOption } from '.'
+import { Permission } from './../../domain/User'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 
 export class UserSchema extends Typegoose {
 

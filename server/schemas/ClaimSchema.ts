@@ -1,5 +1,5 @@
 import { ModelType, prop, Ref, Typegoose } from 'typegoose'
-import { createDefaultSchemaOption } from '.'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 import { ItemSchema } from './ItemSchema'
 import { UserSchema } from './UserSchema'
 

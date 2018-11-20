@@ -9,8 +9,6 @@ import * as config from './../nuxt.config'
 // routes
 import api from './api'
 
-config.dev = process.env.NODE_ENV !== 'production'
-
 const nuxt = new Nuxt(config)
 const app = express()
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -26,7 +24,7 @@ mongoose.connect('mongodb://localhost:27017/hidenseek', { useNewUrlParser: true 
 app.set('port', port)
 app.use('/api', api)
 
-if (config.dev) {
+if (process.env.NODE_ENV !== 'production') {
   new Builder(nuxt).build()
 }
 
@@ -34,4 +32,9 @@ app.use(nuxt.render)
 
 app.listen(port, () => {
   console.info(`The server is running on port: ${port}`)
+})
+
+// Generic error handler
+process.on('uncaughtException', (error: any) => {
+  console.error(error)
 })

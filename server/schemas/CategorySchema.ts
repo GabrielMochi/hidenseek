@@ -1,5 +1,5 @@
 import { ModelType, prop, Typegoose } from 'typegoose'
-import { createDefaultSchemaOption } from '.'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 
 export class CategorySchema extends Typegoose {
 

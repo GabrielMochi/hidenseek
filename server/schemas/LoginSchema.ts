@@ -1,6 +1,6 @@
 import PasswordValidator from 'password-validator'
 import { ModelType, prop, Typegoose } from 'typegoose'
-import { createDefaultSchemaOption } from '.'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 
 const passwordValidator = new PasswordValidator()
 

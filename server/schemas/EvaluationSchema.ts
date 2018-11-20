@@ -1,6 +1,6 @@
 import { Status } from 'domain/Evaluation'
 import { ModelType, prop, Ref, Typegoose } from 'typegoose'
-import { createDefaultSchemaOption } from '.'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 import { ClaimSchema } from './ClaimSchema'
 import { UserSchema } from './UserSchema'
 

@@ -1,5 +1,5 @@
 import { arrayProp, ModelType, prop, Ref, Typegoose } from 'typegoose'
-import { createDefaultSchemaOption } from '.'
+import { createDefaultSchemaOption } from './../util/typegooseTools'
 import { CategorySchema } from './CategorySchema'
 import { LocalSchema } from './LocalSchema'
 import { UserSchema } from './UserSchema'

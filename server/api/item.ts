@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
 import { getStatusText, INTERNAL_SERVER_ERROR } from 'http-status-codes'
-import Item from '../schema/ItemSchema'
+import { ItemModel } from '../schemas/ItemSchema'
 
 const router = Router()
 
 router.get('/', (req: Request, res: Response) => {
-  Item.find({})
+  ItemModel.find({})
     .populate('employee')
     .populate('local')
     .populate('categories')
@@ -20,7 +20,7 @@ router.get('/', (req: Request, res: Response) => {
 })
 
 router.post('/', (req: Request, res: Response) => {
-  const item = new Item(req.body)
+  const item = new ItemModel(req.body)
 
   item.save()
     .then(() => {
@@ -31,5 +31,9 @@ router.post('/', (req: Request, res: Response) => {
       res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
     })
 })
+
+// router.put('/:id', (req: Request, res: Response) => {
+//   ItemModel.findOneAndUpdate({ _id:   })
+// })
 
 export default router
