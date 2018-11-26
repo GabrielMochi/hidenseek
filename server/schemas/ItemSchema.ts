@@ -10,7 +10,7 @@ export class ItemSchema extends Typegoose {
   public description: string
 
   @prop({ required: true })
-  public thumbnail: Buffer
+  public thumbnail: string
 
   @prop({ default: Date.now, validate: (value) => value <= new Date() })
   public foundDate?: Date

@@ -4,7 +4,7 @@ import User from './User'
 
 export default class Item {
 
-  public _id: string
+  public id: string
   public title: string
   public description: string
   public thumbnail: string
@@ -14,7 +14,7 @@ export default class Item {
   public foundDate: Date
 
   constructor (
-    _id: string,
+    id: string,
     title: string,
     description: string,
     thumbnail: string,
@@ -23,7 +23,7 @@ export default class Item {
     categories: Category[] = [],
     foundDate: Date = new Date()
   ) {
-    this._id = _id
+    this.id = id
     this.title = title
     this.description = description
     this.thumbnail = thumbnail

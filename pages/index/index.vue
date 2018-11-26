@@ -12,7 +12,7 @@
             <v-text-field v-model="descriptionText" color="primary" label="Descrição" prepend-icon="description" hide-no-data clearable></v-text-field>
           </v-flex>
           <v-flex xs12>
-            <v-autocomplete v-model="selectedCategory" :items="categorysNames" color="primary" label="Categorias" prepend-icon="category" hide-no-data clearable></v-autocomplete>
+            <v-autocomplete v-model="selectedCategory" :items="categoriesNames" color="primary" label="Categorias" prepend-icon="category" hide-no-data clearable></v-autocomplete>
           </v-flex>
           <v-flex xs12>
             <v-autocomplete v-model="selectedLocal" :items="localsNames" color="primary" label="Locais" prepend-icon="place" hide-no-data clearable></v-autocomplete>
@@ -82,12 +82,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "nuxt-property-decorator";
-import { Action, State } from "vuex-class";
-import Category from "~/domain/Category";
-import Item from "~/domain/Item";
-import Local from "~/domain/Local";
-import User, { Permission } from "~/domain/User";
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Action, State } from 'vuex-class'
+import Category from '~/domain/Category'
+import Item from '~/domain/Item'
+import Local from '~/domain/Local'
+import User, { Permission } from '~/domain/User'
 
 @Component
 export default class extends Vue {
@@ -293,59 +293,62 @@ export default class extends Vue {
         new Category('2', 'algodão 100% natural')
       ]
     )
-  ];
+  ]
 
-  private descriptionText: string = null;
-  private selectedCategory: string = null;
-  private selectedLocal: string = null;
-  private selectedDate: string = null;
-  private dateMenu: any = null;
-  private windowWidth: Number = null;
-  private isMobile: boolean = false;
-  private isClipped: boolean = true;
+  private descriptionText: string = null
+  private selectedCategory: string = null
+  private selectedLocal: string = null
+  private selectedDate: string = null
+  private dateMenu: any = null
+  private windowWidth: Number = null
+  private isMobile: boolean = false
+  private isClipped: boolean = true
 
-  @State("categorys") private categorys: Category[];
+  @State('categories') private categories: Category[]
+  @State('locals') private locals: Local[]
 
-  @State("locals") private locals: Local[];
+  @Action('loadCategories') private loadCategories: () => void
+  @Action('loadLocals') private loadLocals: () => void
 
-  @Action("loadCategorys") private loadCategorys: () => void;
-
-  private get categorysNames(): string[] {
-    return this.categorys.map(category => category.name);
+  private get categoriesNames(): string[] {
+    return this.categories.map(category => category.name)
   }
 
   private get localsNames(): string[] {
-    return this.locals.map(local => local.name);
+    return this.locals.map(local => local.name)
   }
 
-  @Watch("selectedCategory")
+  @Watch('selectedCategory')
   private onSelectedCategoryChange(newVal: string) {
-    alert(newVal);
+    alert(newVal)
   }
 
-  @Watch("selectedLocal")
+  @Watch('selectedLocal')
   private onSelectedLocalChange(newVal: string) {
-    alert(newVal);
+    alert(newVal)
   }
 
-  @Watch("selectedDate")
+  @Watch('selectedDate')
   private onSelectedDate(newVal: string) {
-    alert(newVal);
+    alert(newVal)
   }
 
   responseItems(width: Number) {
-    this.isMobile = width < 1025;
-    this.isClipped = width > 1263;
+    this.isMobile = width < 1025
+    this.isClipped = width > 1263
   }
 
   private async created() {
-    await this.loadCategorys();
-    this.windowWidth = window.innerWidth;
-    this.responseItems(this.windowWidth);
+    await this.loadCategories()
+    await this.loadLocals()
+
+    this.windowWidth = window.innerWidth
+    this.responseItems(this.windowWidth)
+
     window.onresize = () => {
-      this.windowWidth = window.innerWidth;
-      this.responseItems(this.windowWidth);
-    };
+      this.windowWidth = window.innerWidth
+      this.responseItems(this.windowWidth)
+    }
   }
 
 }

@@ -3,7 +3,7 @@ import { createDefaultSchemaOption } from './../util/typegooseTools'
 
 export class LocalSchema extends Typegoose {
 
-  @prop({ required: true, minlength: 1, maxlength: 64 })
+  @prop({ required: true, unique: true, minlength: 1, maxlength: 64 })
   public name: string
 
 }

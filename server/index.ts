@@ -11,15 +11,19 @@ import api from './api'
 
 const nuxt = new Nuxt(config)
 const app = express()
-const port = parseInt(process.env.PORT, 10) || 3000
+const port = process.env.PORT || 3000
+
+mongoose.connect('mongodb://localhost:27017', {
+  dbName: 'hidenseek',
+  useNewUrlParser: true
+}).then(() =>
+  console.log('The system was successfully connected to the database.')
+).catch((error) => {
+  console.error(error)
+  process.exit(1)
+})
 
 mongoose.set('useCreateIndex', true)
-mongoose.connect('mongodb://localhost:27017/hidenseek', { useNewUrlParser: true })
-  .then(() => console.log('The system was successfully connected to the database.'))
-  .catch((error) => {
-    console.error(error)
-    process.exit(1)
-  })
 
 app.set('port', port)
 app.use('/api', api)

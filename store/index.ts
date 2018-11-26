@@ -1,46 +1,42 @@
 import Credential from 'domain/Login'
 import { ActionContext, ActionTree, MutationTree } from 'vuex'
 import Category from '~/domain/Category'
-import Item from '~/domain/Item'
 import Local from '~/domain/Local'
 import User from '~/domain/User'
 import { fetch } from '~/plugins/axios'
 
 interface State {
-  categorys: Category[],
-  items: Item[],
+  categories: Category[],
   locals: Local[],
   user: User
 }
 
 interface Mutation<S> extends MutationTree<S> {
-  setCategorys (state: S, categorys: Category[]): void,
-  setItems (state: S, items: Item[]): void,
+  setCategories (state: S, categories: Category[]): void,
   setLocals (state: S, locals: Local[]): void,
   setUser (state: S, user: User): void
 }
 
 interface Action<S, R> extends ActionTree<S, R> {
-  loadCategorys (context: ActionContext<S, R>): void,
-  loadItems (context: ActionContext<S, R>): void,
-  loadLocals (context: ActionContext<S, R>): void,
+  loadCategory (context: ActionContext<S, R>): (id: string) => Promise<Category>
+  loadCategories (context: ActionContext<S, R>): Promise<Category[]>,
+  insertCategory (context: ActionContext<S, R>): (category: Category) => Promise<Category>
+  insertCategories (context: ActionContext<S, R>): (categories: Category[]) => Promise<Category[]>
+  updateCategory (context: ActionContext<S, R>): (category: Category, id: string) => Promise<Category>
+  deleteCategory (context: ActionContext<S, R>): (id: string) => Promise<void>
   login (context: ActionContext<S, R>, credential: Credential): void,
   nuxtServerInit (context: ActionContext<S, R>, params: any): void
 }
 
 export const state = (): State => ({
-  categorys: [],
-  items: [],
+  categories: [],
   locals: [],
   user: null
 })
 
 export const mutations: Mutation<State> = {
-  setCategorys (_state, categorys: Category[]) {
-    _state.categorys = categorys
-  },
-  setItems (_state, items: Item[]) {
-    _state.items = items
+  setCategories (_state, categories: Category[]) {
+    _state.categories = categories
   },
   setLocals (_state, locals: Local[]) {
     _state.locals = locals
@@ -51,28 +47,42 @@ export const mutations: Mutation<State> = {
 }
 
 export const actions: Action<State, State> = {
-  async loadCategorys ({ commit }) {
-    try {
-      const { data } = await fetch.get<Category[]>('/api/category')
-      commit('setCategorys', data)
-    } catch (err) {
-      console.error(err)
+  loadCategory () {
+    return async (id: string) => {
+      const { data } = await fetch.get<Category>(`/api/category/${id}`)
+      return data
     }
   },
-  async loadItems ({ commit }) {
-    try {
-      const { data } = await fetch.get<Category[]>('/api/items')
-      commit('setItems', data)
-    } catch (err) {
-      console.error(err)
+  async loadCategories ({ commit }) {
+    const { data } = await fetch.get<Category[]>('/api/category')
+    await commit('setCategories', data)
+    return data
+  },
+  insertCategory ({ dispatch }) {
+    return async (category: Category) => {
+      const { data } = await fetch.post<Category>('/api/category', category)
+      await dispatch('loadCategories')
+      return data
     }
   },
-  async loadLocals ({ commit }) {
-    try {
-      const { data } = await fetch.get<Category[]>('/api/locals')
-      commit('setLocals', data)
-    } catch (err) {
-      console.error(err)
+  insertCategories ({ dispatch }) {
+    return async (categories: Category[]) => {
+      const { data } = await fetch.post<Category[]>('/api/category/saveAll', categories)
+      await dispatch('loadCategories')
+      return data
+    }
+  },
+  updateCategory ({ dispatch }) {
+    return async (category: Category, id: string) => {
+      const { data } = await fetch.put<Category>(`/api/category/${id}`, category)
+      await dispatch('loadCategories')
+      return data
+    }
+  },
+  deleteCategory ({ dispatch }) {
+    return async (id: string) => {
+      await fetch.delete(`/api/category/${id}`)
+      await dispatch('loadCategories')
     }
   },
   async login ({ commit }, credential) {

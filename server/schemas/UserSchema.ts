@@ -15,7 +15,7 @@ export class UserSchema extends Typegoose {
   public name: string
 
   @prop()
-  public thumbnail?: Buffer
+  public thumbnail?: string
 
   @prop({ enum: Permission, default: Permission.LOW as Permission })
   public permission?: Permission

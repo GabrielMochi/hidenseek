@@ -34,7 +34,7 @@
     "vuex-class": "^0.3.0"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development NODE_PATH=./ backpack dev",
+    "dev": "backpack dev",
     "build": "nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production NODE_PATH=./ node build/main.js",
     "test": "jest --no-cache",

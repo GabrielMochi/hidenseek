@@ -36,7 +36,10 @@ router.post('/saveAll', async (req: Request, res: Response) => {
 
 router.put('/:id', async (req: Request, res: Response) => {
   try {
-    const modifiedCategory = await CategoryModel.findOneAndUpdate({ _id: req.params.id }, req.body).exec()
+    const modifiedCategory = await CategoryModel
+      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      .exec()
+
     res.json(modifiedCategory)
   } catch (error) {
     res.status(INTERNAL_SERVER_ERROR).end(getStatusText(INTERNAL_SERVER_ERROR))
