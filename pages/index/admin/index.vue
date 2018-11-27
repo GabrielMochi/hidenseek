@@ -19,6 +19,8 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import { Action } from 'vuex-class'
+
 
 @Component
 export default class extends Vue {
@@ -44,6 +46,8 @@ export default class extends Vue {
     icon:'group',
     location: '/admin/employees'
   }]
+
+
 }
 
 </script>

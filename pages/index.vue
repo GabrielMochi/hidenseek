@@ -32,9 +32,17 @@ import { Action } from 'vuex-class'
 export default class extends Vue {
 
   @Action('loadCategories') private loadCategories: () => void
+  @Action('loadLocals') private loadLocals: () => void
+  @Action('loadEmployees') private loadEmployees: () => void
+  @Action('loadUsers') private loadUsers: () => void 
 
+  
   private async created () {
     await this.loadCategories()
+    await this.loadLocals()
+    await this.loadEmployees()
+    await this.loadUsers()
+
   }
 
 }

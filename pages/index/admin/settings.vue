@@ -23,9 +23,7 @@
                                 </v-flex>
                             </v-layout>
                         </v-flex>
-
                             <!-- Locais -->
-
                             <v-layout mt-4 row wrap justify-center>
                                 <v-flex xs8>
                                         <div class="v-toolbar__content-no-padding">
@@ -43,7 +41,7 @@
                                         </v-toolbar>
                                         <v-data-table :search="searchLocal" :headers="headersLocals" :items="locals" hide-actions class="elevation-1">
                                             <template slot="items" slot-scope="props">
-                                            <td>{{ props.item.localName }}</td>
+                                            <td>{{ props.item.name }}</td>
                                             <td class="text-xs-right"></td>
                                             <td class="justify-center layout px-0">
                                                 <v-icon
@@ -77,7 +75,7 @@
                                                         <v-container grid-list-md>
                                                             <v-layout wrap>
                                                             <v-flex xs12 sm6 md4>
-                                                                <v-text-field v-model="editedItemLocals.localName" label="Local"></v-text-field>
+                                                                <v-text-field v-model="editedItemLocals.name" label="Local"></v-text-field>
                                                             </v-flex>
                                                             </v-layout>
                                                         </v-container>
@@ -224,19 +222,19 @@ export default class extends Vue {
     @Action('insertCategory') private insertCategory: (category: Category) => Category
     @Action('updateCategory') private updateCategory: (category: Category) => Category
     @Action('deleteCategory') private deleteCategory: (index: string) => void
+    @Action('insertLocal') private insertLocal: (local: Local) => Local
+    @Action('updateLocal') private updateLocal: (local: Local) => Local
+    @Action('deleteLocal') private deleteLocal: (id: string ) => void
 
-
-
-    private testeCategoria: Category = null
     private editedIndexLocals: number = -1
     private editedIndexCategorys: number = -1
     private editedItemLocals: any = {
-        localName: ''
+        name: ''
     }
     private defaultItemLocals: any = {
-        localName: ''
+        name: ''
     }
-        private editedItemCategorys: any = {
+    private editedItemCategorys: any = {
         name: ''
     }
     private defaultItemCategorys: any = {
@@ -261,8 +259,6 @@ export default class extends Vue {
         val || this.closeCategorys()
     }
 
-    private created() {}
-
     private editItemLocals(item : any){
         this.editedIndexLocals = this.locals.indexOf(item)
         this.editedItemLocals = Object.assign({}, item)
@@ -276,8 +272,7 @@ export default class extends Vue {
     }
 
     private deleteItemLocals(item : any) {
-        const index : any = this.locals.indexOf(item)
-        confirm('Você tem certeza que deseja deletar este item?') && this.locals.splice(index, 1)
+        confirm('Você tem certeza que deseja deletar este item?') && this.deleteLocal(item.id)
     }
 
     private deleteItemCategorys(item : any) {
@@ -302,9 +297,9 @@ export default class extends Vue {
 
     private saveLocals() {
     if (this.editedIndexLocals > -1) {
-        Object.assign(this.locals[this.editedIndexLocals], this.editedItemLocals)
-      } else {
-        this.locals.push(this.editedItemLocals)
+        this.updateLocal(this.editedItemLocals)
+    } else {
+        this.insertLocal(new Local(this.editedItemLocals.name))
       }
       this.closeLocals()
     }
@@ -313,7 +308,7 @@ export default class extends Vue {
      if (this.editedIndexCategorys > -1) {
         this.updateCategory(this.editedItemCategorys)
     } else {
-        this.testeCategoria = this.insertCategory(new Category(this.editedItemCategorys.name))
+        this.insertCategory(new Category(this.editedItemCategorys.name))
     }
       this.closeCategorys()
     }

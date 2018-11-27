@@ -71,9 +71,6 @@
           </v-icon>
         </td>
       </template>
-      <template slot="no-data">
-        <v-btn color="primary" @click="initialize">Resetar</v-btn>
-      </template>
         <template slot="pageText" slot-scope="props">
             Linha {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
@@ -85,6 +82,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { Action, State } from 'vuex-class'
+import User, { Permission } from '~/domain/User'
 
 @Component
 export default class extends Vue {
@@ -108,7 +107,6 @@ export default class extends Vue {
       align: "center"
     }
   ];
-  private users: any = [];
   private editedIndex: number = -1;
   private search: string = "";
   private editedItem: any = {
@@ -126,33 +124,14 @@ export default class extends Vue {
     return this.editedIndex === -1 ? "Novo Usuário" : "Editar Usuário";
   }
 
+  @State('users') private users : User[]
+  @Action('insertUser') private insertUser: (user: User) => User
+  @Action('updateUser') private updateUser: (user: User) => User
+  @Action('deleteUser') private deleteUser: (id: string) => void 
+
   @Watch("dialog")
   private watchDialog(val: any) {
     val || this.close();
-  }
-
-  private created() {
-    this.initialize();
-  }
-
-  private initialize() {
-    this.users = [
-      {
-        name: "Antonio Gonçalves",
-        distinctId: "sp1654378",
-        email: "antonio@gmail.com"
-      },
-      {
-        name: "Vitor Gabriel Maia",
-        distinctId: "sp7654312",
-        email: "vgb@gmail.com"
-      },
-      {
-        name: "Letícia Camillo",
-        distinctId: "sp6544321",
-        email: "leticia@gmail.com"
-      }
-    ];
   }
 
   private editItem(item: any) {
@@ -164,7 +143,7 @@ export default class extends Vue {
   private deleteItem(item: any) {
     const index = this.users.indexOf(item);
     confirm("Tem certeza que deseja excluir esse usuário?") &&
-      this.users.splice(index, 1);
+    this.deleteUser(item.id)
   }
 
   private close() {
@@ -177,9 +156,9 @@ export default class extends Vue {
 
   private save() {
     if (this.editedIndex > -1) {
-      Object.assign(this.users[this.editedIndex], this.editedItem);
+      this.updateUser(this.editedItem)
     } else {
-      this.users.push(this.editedItem);
+      this.insertUser(new User(this.editedItem.distinctId, this.editedItem.email, this.editedItem.name, 'teste.png', Permission.LOW));
     }
     this.close();
   }
