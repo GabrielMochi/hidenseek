@@ -109,7 +109,7 @@
                                                     hide-details
                                             ></v-text-field>
                                         </v-toolbar>
-                                        <v-data-table :search="searchCategory" :headers="headersCategorys" :items="categorys" hide-actions class="elevation-1">
+                                        <v-data-table :search="searchCategory" :headers="headersCategorys" :items="categories" hide-actions class="elevation-1">
                                             <template slot="items" slot-scope="props">
                                             <td>{{ props.item.name}}</td>
                                             <td class="text-xs-right"></td>
@@ -221,7 +221,13 @@ export default class extends Vue {
 
     @State('categories') private categories: Category[]
     @State('locals') private locals: Local[]
+    @Action('insertCategory') private insertCategory: (category: Category) => Category
+    @Action('updateCategory') private updateCategory: (category: Category) => Category
+    @Action('deleteCategory') private deleteCategory: (index: string) => void
 
+
+
+    private testeCategoria: Category = null
     private editedIndexLocals: number = -1
     private editedIndexCategorys: number = -1
     private editedItemLocals: any = {
@@ -255,8 +261,6 @@ export default class extends Vue {
         val || this.closeCategorys()
     }
 
-    @Action('insertCategory') private insertCategory: () => Category
-
     private created() {}
 
     private editItemLocals(item : any){
@@ -266,7 +270,7 @@ export default class extends Vue {
     }
 
     private editItemCategorys(item : any){
-        // this.editedIndexCategorys = this.categorys.indexOf(item)
+        this.editedIndexCategorys = this.categories.indexOf(item)
         this.editedItemCategorys = Object.assign({}, item)
         this.dialogCategorys = true
     }
@@ -277,8 +281,7 @@ export default class extends Vue {
     }
 
     private deleteItemCategorys(item : any) {
-        // const index : any = this.categorys.indexOf(item)
-        // confirm('Você tem certeza que deseja deletar este item?') && this.categorys.splice(index, 1)
+        confirm('Você tem certeza que deseja deletar este item?') && this.deleteCategory(item.id)
     }
 
     private closeLocals() {
@@ -307,12 +310,11 @@ export default class extends Vue {
     }
 
     private saveCategorys() {
-    if (this.editedIndexCategorys > -1) {
-        // Object.assign(this.categorys[this.editedIndexCategorys], this.editedItemCategorys)
-      } else {
-        console.log(this.editedItemCategorys)
-        // this.categorys.push(this.editedItemCategorys)
-      }
+     if (this.editedIndexCategorys > -1) {
+        this.updateCategory(this.editedItemCategorys)
+    } else {
+        this.testeCategoria = this.insertCategory(new Category(this.editedItemCategorys.name))
+    }
       this.closeCategorys()
     }
 

@@ -24,6 +24,8 @@ interface Action<S, R> extends ActionTree<S, R> {
   insertCategories (context: ActionContext<S, R>, categories: Category[]): Promise<Category[]>
   updateCategory (context: ActionContext<S, R>, category: Category): Promise<Category>
   deleteCategory (context: ActionContext<S, R>, id: string): Promise<void>
+  loadLocals(context: ActionContext<S, R>): Promise<Local[]>
+  insertLocal (context: ActionContext<S, R>, local: Local) : Promise<Local>
   login (context: ActionContext<S, R>, credential: Credential): void,
   nuxtServerInit (context: ActionContext<S, R>, params: any): void
 }
@@ -75,6 +77,17 @@ export const actions: Action<State, State> = {
     await fetch.delete(`/api/category/${id}`)
     await dispatch('loadCategories')
   },
+  async loadLocals({commit}){
+    const { data } = await fetch.get<Category[]>('/api/local')
+    await commit('setLocals', data)
+    return data
+  },
+  async insertLocal({dispatch}, local){
+    const {data} = await fetch.post<Local>('/api/local', local)
+    await dispatch('loadLocals')
+    return data
+  }
+  ,
   async login ({ commit }, credential) {
     try {
       const { data } = await fetch.post<User>('/api/login', credential)
