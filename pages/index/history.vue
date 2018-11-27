@@ -91,19 +91,19 @@ import User, { Permission } from "~/domain/User";
 
 @Component
 export default class extends Vue {
-  
+
   private isMobile: boolean = false;
   private windowWidth: Number = null;
-  
+
   user: User = new User(
-    '1',
     "222",
     "gmochi56@outlook.com",
     "Gabriel Mochi Ribeiro",
     "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-    Permission.TOTAL
+    Permission.TOTAL,
+    '1'
   );
-  
+
   private search: string = "";
   private headers: any[] = [
     {
@@ -245,7 +245,7 @@ export default class extends Vue {
   responseItems(width: Number) {
     this.isMobile = width < 550;
   }
-  
+
   private async created() {
     this.windowWidth = window.innerWidth;
     this.responseItems(this.windowWidth);

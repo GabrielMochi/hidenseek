@@ -3,9 +3,9 @@ export default class Category {
   public id: string
   public name: string
 
-  constructor (id: string, name: string) {
-    this.id = id
+  constructor (name: string, id?: string) {
     this.name = name
+    this.id = id
   }
 
 }

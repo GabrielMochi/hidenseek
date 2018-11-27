@@ -1,6 +1,6 @@
 export default class User {
 
-  public _id: string
+  public id: string
   public distinctId: string
   public email: string
   public name: string
@@ -8,14 +8,14 @@ export default class User {
   public permission: Permission
 
   constructor (
-    _id: string,
     distinctId: string,
     email: string,
     name: string,
     thumbnail: string,
-    permission: Permission = Permission.LOW
+    permission: Permission = Permission.LOW,
+    id?: string
   ) {
-    this._id = _id
+    this.id = id
     this.distinctId = distinctId
     this.email = email
     this.name = name

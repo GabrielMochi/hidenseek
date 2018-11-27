@@ -94,19 +94,19 @@ export default class extends Vue {
 
   private items: Item[] = [
     new Item(
-      '1',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
+      '123',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -114,19 +114,19 @@ export default class extends Vue {
       ]
     ),
     new Item(
+      'Ola',
+      'Um estojo',
+      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      new User(
+        "222",
+        "gmochi56@outlook.com",
+        "Gabriel Mochi Ribeiro",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
+        Permission.TOTAL,
+        '1'
+      ),
+      new Local('1', 'Sala 304'),
       '2',
-      'Ola',
-      'Um estojo',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
-      new User(
-        '1',
-        "222",
-        "gmochi56@outlook.com",
-        "Gabriel Mochi Ribeiro",
-        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
-      ),
-      new Local('1', 'Sala 304'),
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -134,19 +134,38 @@ export default class extends Vue {
       ]
     ),
     new Item(
-      '12',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
+      '2',
+      [
+        new Category('0', 'estojo'),
+        new Category('1', 'material escolar'),
+        new Category('2', 'algodão 100% natural')
+      ]
+    ),new Item(
+      'Ola',
+      'Um estojo',
+      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
+      new User(
+        "222",
+        "gmochi56@outlook.com",
+        "Gabriel Mochi Ribeiro",
+        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
+        Permission.TOTAL,
+        '1'
+      ),
+      new Local('1', 'Sala 304'),
+      '2',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -154,19 +173,19 @@ export default class extends Vue {
       ]
     ),
     new Item(
-      '3',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
+      '2',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -174,19 +193,19 @@ export default class extends Vue {
       ]
     ),
     new Item(
-      '4',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
+      '2',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -194,19 +213,19 @@ export default class extends Vue {
       ]
     ),
     new Item(
-      '5',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
+      '2',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -214,19 +233,19 @@ export default class extends Vue {
       ]
     ),
     new Item(
-      '6',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
+      '2',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -234,59 +253,19 @@ export default class extends Vue {
       ]
     ),
     new Item(
-      '7',
       'Ola',
       'Um estojo',
       'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
       new User(
-        '1',
         "222",
         "gmochi56@outlook.com",
         "Gabriel Mochi Ribeiro",
         "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
+        Permission.TOTAL,
+        '1'
       ),
       new Local('1', 'Sala 304'),
-      [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
-      ]
-    ),
-    new Item(
-      '8',
-      'Ola',
-      'Um estojo',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
-      new User(
-        '1',
-        "222",
-        "gmochi56@outlook.com",
-        "Gabriel Mochi Ribeiro",
-        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
-      ),
-      new Local('1', 'Sala 304'),
-      [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
-      ]
-    ),
-    new Item(
-      '9',
-      'Ola',
-      'Um estojo',
-      'http://www.alfa81.com.br/wp-content/uploads/2017/04/estoj-liso-med-az.10080007.jpg',
-      new User(
-        '1',
-        "222",
-        "gmochi56@outlook.com",
-        "Gabriel Mochi Ribeiro",
-        "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-        Permission.TOTAL
-      ),
-      new Local('1', 'Sala 304'),
+      '2',
       [
         new Category('0', 'estojo'),
         new Category('1', 'material escolar'),
@@ -306,9 +285,6 @@ export default class extends Vue {
 
   @State('categories') private categories: Category[]
   @State('locals') private locals: Local[]
-
-  @Action('loadCategories') private loadCategories: () => void
-  @Action('loadLocals') private loadLocals: () => void
 
   private get categoriesNames(): string[] {
     return this.categories.map(category => category.name)
@@ -339,9 +315,6 @@ export default class extends Vue {
   }
 
   private async created() {
-    await this.loadCategories()
-    await this.loadLocals()
-
     this.windowWidth = window.innerWidth
     this.responseItems(this.windowWidth)
 

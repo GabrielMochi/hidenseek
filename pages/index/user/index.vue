@@ -29,7 +29,7 @@
         </v-layout>
       </v-container>
     </v-navigation-drawer>
-    
+
         <v-container pa-0>
           <v-layout row wrap>
             <v-flex xs12 row>
@@ -92,12 +92,12 @@ export default class extends Vue {
   private windowWidth: Number = null;
 
   user = new User(
-    '1',
     "222",
     "gmochi56@outlook.com",
     "Gabriel Mochi Ribeiro",
     "https://avatars3.githubusercontent.com/u/20032634?s=460&v=4",
-    Permission.TOTAL
+    Permission.TOTAL,
+    '1'
   );
 
   private search: string = "";

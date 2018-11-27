@@ -10,17 +10,17 @@ export default class Evaluation {
   public date: Date
 
   constructor (
-    id: string,
     employee: User,
     claim: Claim,
     status: Status = Status.NOT_EVALUATED,
-    date: Date = new Date()
+    date: Date = new Date(),
+    id?: string
   ) {
-    this.id = id
     this.employee = employee
     this.claim = claim
     this.status = status
     this.date = date
+    this.id = id
   }
 
 }

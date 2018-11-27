@@ -18,12 +18,12 @@ interface Mutation<S> extends MutationTree<S> {
 }
 
 interface Action<S, R> extends ActionTree<S, R> {
-  loadCategory (context: ActionContext<S, R>): (id: string) => Promise<Category>
+  loadCategory (context: ActionContext<S, R>, id: string): Promise<Category>
   loadCategories (context: ActionContext<S, R>): Promise<Category[]>,
-  insertCategory (context: ActionContext<S, R>): (category: Category) => Promise<Category>
-  insertCategories (context: ActionContext<S, R>): (categories: Category[]) => Promise<Category[]>
-  updateCategory (context: ActionContext<S, R>): (category: Category, id: string) => Promise<Category>
-  deleteCategory (context: ActionContext<S, R>): (id: string) => Promise<void>
+  insertCategory (context: ActionContext<S, R>, category: Category): Promise<Category>
+  insertCategories (context: ActionContext<S, R>, categories: Category[]): Promise<Category[]>
+  updateCategory (context: ActionContext<S, R>, category: Category): Promise<Category>
+  deleteCategory (context: ActionContext<S, R>, id: string): Promise<void>
   login (context: ActionContext<S, R>, credential: Credential): void,
   nuxtServerInit (context: ActionContext<S, R>, params: any): void
 }
@@ -47,43 +47,33 @@ export const mutations: Mutation<State> = {
 }
 
 export const actions: Action<State, State> = {
-  loadCategory () {
-    return async (id: string) => {
-      const { data } = await fetch.get<Category>(`/api/category/${id}`)
-      return data
-    }
+  async loadCategory ({}, id: string) {
+    const { data } = await fetch.get<Category>(`/api/category/${id}`)
+    return data
   },
   async loadCategories ({ commit }) {
     const { data } = await fetch.get<Category[]>('/api/category')
     await commit('setCategories', data)
     return data
   },
-  insertCategory ({ dispatch }) {
-    return async (category: Category) => {
-      const { data } = await fetch.post<Category>('/api/category', category)
-      await dispatch('loadCategories')
-      return data
-    }
+  async insertCategory ({ dispatch }, category) {
+    const { data } = await fetch.post<Category>('/api/category', category)
+    await dispatch('loadCategories')
+    return data
   },
-  insertCategories ({ dispatch }) {
-    return async (categories: Category[]) => {
-      const { data } = await fetch.post<Category[]>('/api/category/saveAll', categories)
-      await dispatch('loadCategories')
-      return data
-    }
+  async insertCategories ({ dispatch }, categories: Category[]) {
+    const { data } = await fetch.post<Category[]>('/api/category/saveAll', categories)
+    await dispatch('loadCategories')
+    return data
   },
-  updateCategory ({ dispatch }) {
-    return async (category: Category, id: string) => {
-      const { data } = await fetch.put<Category>(`/api/category/${id}`, category)
-      await dispatch('loadCategories')
-      return data
-    }
+  async updateCategory ({ dispatch }, category: Category) {
+    const { data } = await fetch.put<Category>(`/api/category/${category.id}`, category)
+    await dispatch('loadCategories')
+    return data
   },
-  deleteCategory ({ dispatch }) {
-    return async (id: string) => {
-      await fetch.delete(`/api/category/${id}`)
-      await dispatch('loadCategories')
-    }
+  async deleteCategory ({ dispatch }, id: string) {
+    await fetch.delete(`/api/category/${id}`)
+    await dispatch('loadCategories')
   },
   async login ({ commit }, credential) {
     try {

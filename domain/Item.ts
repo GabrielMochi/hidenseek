@@ -14,12 +14,12 @@ export default class Item {
   public foundDate: Date
 
   constructor (
-    id: string,
     title: string,
     description: string,
     thumbnail: string,
     employee: User,
     local: Local,
+    id?: string,
     categories: Category[] = [],
     foundDate: Date = new Date()
   ) {
