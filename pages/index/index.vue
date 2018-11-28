@@ -27,7 +27,7 @@
       </v-container>
     </v-navigation-drawer>
     <v-layout wrap>
-      <v-flex v-for="item in items" :key="item.id" xs12 sm6 md4 lg3 xl2>
+      <v-flex v-for="item in filteredItems" :key="item.id" xs12 sm6 md4 lg3 xl2>
         <v-card class="item-card">
           <v-card-media class="container-overlay" contain @click.native="$router.push(`retrieve/${item.id}`)">
             <img class="card-image" :src="item.thumbnail" alt="">
@@ -105,12 +105,13 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '123',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural'),
+        new Category('pencilcase')
       ]
     ),
     new Item(
@@ -125,12 +126,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 320'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),
     new Item(
@@ -145,12 +146,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),new Item(
       'Ola',
@@ -164,12 +165,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),
     new Item(
@@ -184,12 +185,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),
     new Item(
@@ -204,12 +205,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),
     new Item(
@@ -224,12 +225,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),
     new Item(
@@ -244,12 +245,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     ),
     new Item(
@@ -264,12 +265,12 @@ export default class extends Vue {
         Permission.TOTAL,
         '1'
       ),
-      new Local('1', 'Sala 304'),
+      new Local('Sala 304'),
       '2',
       [
-        new Category('0', 'estojo'),
-        new Category('1', 'material escolar'),
-        new Category('2', 'algodão 100% natural')
+        new Category('estojo'),
+        new Category('material escolar'),
+        new Category('algodão 100% natural')
       ]
     )
   ]
@@ -286,6 +287,23 @@ export default class extends Vue {
   @State('categories') private categories: Category[]
   @State('locals') private locals: Local[]
 
+  private get filteredItems(): Item[] {
+    return this.items
+      .filter(({ categories }) =>
+        this.selectedCategory === null ||
+        !!categories.find(({ name }) => name === this.selectedCategory))
+      .filter(({ local }) =>
+        this.selectedLocal === null ||
+        this.calcMochiSimilarity(local.name, this.selectedLocal) > 0.9)
+      .filter(({ foundDate }) => {
+        if (this.selectedDate === null) return true
+        const [year, month, date] = this.selectedDate.split('-')
+        return foundDate.getFullYear() === Number(year) &&
+          foundDate.getMonth() + 1 === Number(month) &&
+          foundDate.getDate() === Number(date)
+      })
+  }
+
   private get categoriesNames(): string[] {
     return this.categories.map(category => category.name)
   }
@@ -294,22 +312,31 @@ export default class extends Vue {
     return this.locals.map(local => local.name)
   }
 
-  @Watch('selectedCategory')
-  private onSelectedCategoryChange(newVal: string) {
-    alert(newVal)
-  }
-
-  @Watch('selectedLocal')
-  private onSelectedLocalChange(newVal: string) {
-    alert(newVal)
-  }
-
   @Watch('selectedDate')
   private onSelectedDate(newVal: string) {
     alert(newVal)
   }
 
-  responseItems(width: Number) {
+  private calcMochiSimilarity (...words: string[]): number {
+    var intersectionCardinality = 0
+
+    const totalCardinality = words.reduce((length: number, word: string) => {
+      length += word.length
+      return length
+    }, 0)
+
+    for (let i = 0; i < words.length - 1; i++) {
+      for (let j = i + 1; j < words.length; j++) {
+        intersectionCardinality += words[i].split('')
+          .filter((letter: string) => words[j].split('').indexOf(letter) !== -1)
+          .length
+      }
+    }
+
+    return (2 * intersectionCardinality) / ((words.length - 1) * totalCardinality)
+  }
+
+  private responseItems (width: Number) {
     this.isMobile = width < 1025
     this.isClipped = width > 1263
   }
